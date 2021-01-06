@@ -1,4 +1,4 @@
-package com.sgai.pox.engine.log.util;
+package com.sgai.pox.engine.common.log.util;
 
 
 import com.sgai.pox.engine.common.core.base.LogInfo;

@@ -1,4 +1,4 @@
-package com.sgai.pox.engine.log.annotation;
+package com.sgai.pox.engine.common.log.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

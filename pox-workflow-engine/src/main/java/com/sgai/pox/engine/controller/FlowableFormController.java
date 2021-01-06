@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import javax.validation.Valid;
 
-import com.sgai.pox.engine.log.annotation.Log;
+import com.sgai.pox.engine.common.log.annotation.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

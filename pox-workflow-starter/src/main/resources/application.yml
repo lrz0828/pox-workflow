@@ -60,7 +60,7 @@ zjmzxfzhl:
   resource:
     config:
       addFilterBeforeUsernamePasswordAuthenticationFilter:
-        - com.zjmzxfzhl.common.security.component.authorization.kaptcha.filter.CaptchaFilter
+        - com.sgai.pox.admin.security.component.authorization.kaptcha.filter.CaptchaFilter
       ignoreUrls:
         - /
         - /oauth/token

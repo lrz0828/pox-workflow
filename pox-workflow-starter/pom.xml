@@ -16,9 +16,15 @@
     <packaging>jar</packaging>
 
     <dependencies>
+<!--        <dependency>-->
+<!--            <groupId>com.sgai</groupId>-->
+<!--            <artifactId>pox-workflow-engine</artifactId>-->
+<!--            <version>${project.parent.version}</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>com.sgai</groupId>
-            <artifactId>pox-workflow-engine</artifactId>
+            <artifactId>pox-workflow-admin</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>

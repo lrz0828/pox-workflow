@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.sgai.pox.admin.security.component.authorization.kaptcha.KaptchaConfig,\
+  com.sgai.pox.admin.security.component.ZjmzxfzhlAuthenticationEntryPointImpl
