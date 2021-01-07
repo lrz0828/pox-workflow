@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import javax.sql.DataSource;
 
 /**
- * @author 庄金明
+ * @author pox
  */
 public class RedisClientDetailsService extends JdbcClientDetailsService {
 

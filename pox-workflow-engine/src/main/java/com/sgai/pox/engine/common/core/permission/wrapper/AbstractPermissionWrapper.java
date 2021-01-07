@@ -24,7 +24,7 @@ import static java.util.stream.Collectors.toList;
 /**
  * @param <R>
  * @param <Children>
- * @author 庄金明
+ * @author pox
  */
 @SuppressWarnings("unchecked")
 public abstract class AbstractPermissionWrapper<R, Children extends AbstractPermissionWrapper<R, Children>> implements ISqlSegment {

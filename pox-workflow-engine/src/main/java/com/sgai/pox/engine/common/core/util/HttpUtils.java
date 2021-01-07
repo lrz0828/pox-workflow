@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月22日
  */
 public class HttpUtils {
@@ -298,19 +298,19 @@ public class HttpUtils {
     }
 
     public static void main(String[] args) throws Exception {
-        // String url = "http://localhost:8081/zjmzxfzhl/demo/redlock/redlock1";
-        // String url = "http://localhost:8081/zjmzxfzhl/demo/redlock/redlock2";
-        // String url = "http://localhost:8081/zjmzxfzhl/demo/redlock/redlock3?someId=1";
-        // String url = "http://localhost:8081/zjmzxfzhl/demo/redlock/redlock4?someId=1&someInt=2";
-        // String url = "http://localhost:8081/zjmzxfzhl/demo/redlock/redlock5";
-        // String url = "http://localhost:8081/zjmzxfzhl/demo/redlock/redlock6";
-        // String url = "http://localhost:8081/zjmzxfzhl/app/demo/repeatRequest1";
+        // String url = "http://localhost:8081/pox/demo/redlock/redlock1";
+        // String url = "http://localhost:8081/pox/demo/redlock/redlock2";
+        // String url = "http://localhost:8081/pox/demo/redlock/redlock3?someId=1";
+        // String url = "http://localhost:8081/pox/demo/redlock/redlock4?someId=1&someInt=2";
+        // String url = "http://localhost:8081/pox/demo/redlock/redlock5";
+        // String url = "http://localhost:8081/pox/demo/redlock/redlock6";
+        // String url = "http://localhost:8081/pox/app/demo/repeatRequest1";
         // String url =
-        // "http://localhost:8081/zjmzxfzhl/app/demo/repeatRequest2?deviceSN=someDeviceSN&deviceIMEI=someDeviceIMEI";
-        // String url = "http://localhost:8081/zjmzxfzhl/app/demo/repeatRequest3?param=someParam";
-        // String url2 = "http://localhost:8081/zjmzxfzhl/app/demo/repeatRequest3?param=someParam2";
-        // String url = "http://localhost:8081/zjmzxfzhl/app/demo/repeatRequest4?transId=t0001";
-        // String url2 = "http://localhost:8081/zjmzxfzhl/app/demo/repeatRequest4?transId=t0002";
+        // "http://localhost:8081/pox/app/demo/repeatRequest2?deviceSN=someDeviceSN&deviceIMEI=someDeviceIMEI";
+        // String url = "http://localhost:8081/pox/app/demo/repeatRequest3?param=someParam";
+        // String url2 = "http://localhost:8081/pox/app/demo/repeatRequest3?param=someParam2";
+        // String url = "http://localhost:8081/pox/app/demo/repeatRequest4?transId=t0001";
+        // String url2 = "http://localhost:8081/pox/app/demo/repeatRequest4?transId=t0002";
         // Map<String, String> headers = new HashMap<String, String>(16);
         // headers.put("Authorization", "Bearer " + "eb89008f-3872-4d8a-a2e3-c40982d25864");
         // CyclicBarrier cyclicBarrier = new CyclicBarrier(10);

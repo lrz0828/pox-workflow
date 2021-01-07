@@ -10,7 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.invoke.MethodHandles;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 public class LengthForUtf8Validator implements ConstraintValidator<LengthForUtf8, String> {

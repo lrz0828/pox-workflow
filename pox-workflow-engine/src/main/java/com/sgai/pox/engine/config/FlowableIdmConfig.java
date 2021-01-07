@@ -10,7 +10,7 @@ import com.sgai.pox.engine.identity.CustomGroupEntityManager;
 import com.sgai.pox.engine.identity.CustomUserEntityManager;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 @Configuration

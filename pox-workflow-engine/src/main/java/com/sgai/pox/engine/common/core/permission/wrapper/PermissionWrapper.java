@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * @author 庄金明
+ * @author pox
  */
 public class PermissionWrapper extends AbstractPermissionWrapper<String, PermissionWrapper> {
 

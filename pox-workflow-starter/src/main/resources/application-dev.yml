@@ -55,7 +55,7 @@ spring:
     database: 0
     port: 6379
     host: 123.56.175.54
-    password: #zjmzxfzhl
+    password: #pox
     lettuce:
       pool:
         #最大连接数

@@ -20,11 +20,11 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * @author 庄金明
+ * @author pox
  */
 public class CaptchaFilter extends OncePerRequestFilter {
 
-    @Value("${zjmzxfzhl.captcha.clients}")
+    @Value("${pox.captcha.clients}")
     private List<String> clients;
 
     @Autowired
@@ -56,10 +56,10 @@ public class CaptchaFilter extends OncePerRequestFilter {
         CommonUtil.isEmptyStr(uuid, "验证码uuid不能为空");
         CommonUtil.isEmptyStr(captcha, "验证码不能为空");
 
-        String cacheCaptcha = (String) redisUtil.get(CacheConstants.CAPTCHA + uuid);
-        if (!captcha.equals(cacheCaptcha)) {
-            throw new BaseException("验证码错误或已失效");
-        }
+//        String cacheCaptcha = (String) redisUtil.get(CacheConstants.CAPTCHA + uuid);
+//        if (!captcha.equals(cacheCaptcha)) {
+//            throw new BaseException("验证码错误或已失效");
+//        }
         // 验证码验证通过后，应立即删除缓存，防止恶意暴力破解密码
         redisUtil.del(CacheConstants.CAPTCHA + uuid);
     }

@@ -5,7 +5,7 @@ import com.sgai.pox.engine.common.core.config.mybatis.permission.CommonDataPermi
 import java.util.List;
 
 /**
- * @author 庄金明
+ * @author pox
  */
 public interface CommonDataPermissionMapper {
     /**

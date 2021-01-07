@@ -37,7 +37,7 @@ spring:
         connection-properties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
       datasource:
         master:
-          url: jdbc:mysql://localhost:3306/zjmzxfzhl?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+          url: jdbc:mysql://localhost:3306/pox?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
           username: root
           password: root
           driver-class-name: com.mysql.jdbc.Driver
@@ -54,7 +54,7 @@ spring:
     database: 0
     #port: 6379
     #host: localhost
-    password: zjmzxfzhl
+    password: pox
     lettuce:
       pool:
         #最大连接数

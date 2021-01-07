@@ -6,7 +6,7 @@ import org.springframework.security.authentication.event.AuthenticationSuccessEv
 /**
  * 鉴权成功监听器
  *
- * @author 庄金明
+ * @author pox
  */
 public class AuthenticationSuccessEventListener implements ApplicationListener<AuthenticationSuccessEvent> {
 

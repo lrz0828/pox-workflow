@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author 庄金明
+ * @author pox
  */
 @Data
 public class LogInfo implements Serializable {

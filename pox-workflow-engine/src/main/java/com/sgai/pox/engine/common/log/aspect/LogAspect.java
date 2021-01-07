@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 操作日志
  *
- * @author 庄金明
+ * @author pox
  */
 @Aspect
 @Component

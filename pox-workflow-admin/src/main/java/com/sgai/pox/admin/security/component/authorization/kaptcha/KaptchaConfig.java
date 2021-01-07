@@ -12,10 +12,10 @@ import java.util.Properties;
 /**
  * 生成验证码配置
  *
- * @author 庄金明
+ * @author pox
  */
 @Configuration
-@ConditionalOnProperty(name = "zjmzxfzhl.captcha.enabled", havingValue = "true")
+@ConditionalOnProperty(name = "pox.captcha.enabled", havingValue = "true")
 public class KaptchaConfig {
 
     @Bean

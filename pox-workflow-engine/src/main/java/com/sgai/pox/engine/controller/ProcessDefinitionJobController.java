@@ -15,7 +15,7 @@ import com.sgai.pox.engine.common.log.annotation.Log;
 import com.sgai.pox.engine.common.BaseFlowableController;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 @RestController

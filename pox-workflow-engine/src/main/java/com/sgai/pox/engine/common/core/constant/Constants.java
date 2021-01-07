@@ -3,7 +3,7 @@ package com.sgai.pox.engine.common.core.constant;
 /**
  * 常量文件类
  *
- * @author 庄金明
+ * @author pox
  */
 public class Constants {
     public static final String ADMIN = "admin";

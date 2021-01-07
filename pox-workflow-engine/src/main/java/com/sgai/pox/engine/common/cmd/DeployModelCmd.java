@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * 部署模型
  *
- * @author 庄金明
+ * @author pox
  * @date 2020/08/30
  */
 public class DeployModelCmd implements Command<Deployment>, Serializable {

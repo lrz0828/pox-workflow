@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 /**
- * @author 庄金明
+ * @author pox
  */
 public class TokenController extends MarkController{
     @Autowired

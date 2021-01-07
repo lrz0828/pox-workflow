@@ -7,7 +7,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月23日
  */
 public class IpUtils {

@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 流程公共查询Mapper，用于解耦系统sys模块
  *
- * @author 庄金明
+ * @author pox
  */
 public interface FlowableCommonMapper {
     /**

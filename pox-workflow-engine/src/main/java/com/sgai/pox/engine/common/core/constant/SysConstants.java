@@ -3,7 +3,7 @@ package com.sgai.pox.engine.common.core.constant;
 /**
  * 系统管理常量
  *
- * @author 庄金明
+ * @author pox
  */
 public class SysConstants {
     public static final String USER_STATUS_1 = "1";

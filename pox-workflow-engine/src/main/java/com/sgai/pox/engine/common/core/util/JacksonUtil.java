@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * Jackson工具类
  *
- * @author 庄金明
+ * @author pox
  */
 public class JacksonUtil {
     private static ObjectMapper objectMapper = new ObjectMapper();

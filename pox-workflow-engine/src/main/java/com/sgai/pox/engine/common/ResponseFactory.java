@@ -34,7 +34,7 @@ import com.sgai.pox.engine.common.core.util.CommonUtil;
 import com.sgai.pox.engine.constant.FlowableConstant;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 @Component

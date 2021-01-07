@@ -10,7 +10,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 /**
  * 线程上下文信息复制
  *
- * @author 庄金明
+ * @author pox
  */
 public class ContextCopyDecorator implements TaskDecorator {
     @Override

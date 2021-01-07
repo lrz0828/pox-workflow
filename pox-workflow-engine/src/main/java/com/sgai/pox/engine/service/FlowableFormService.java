@@ -7,7 +7,7 @@ import com.sgai.pox.engine.entity.FlowableForm;
 /**
  * 流程表单Service
  *
- * @author 庄金明
+ * @author pox
  */
 public interface FlowableFormService extends BaseService<FlowableForm> {
     /**

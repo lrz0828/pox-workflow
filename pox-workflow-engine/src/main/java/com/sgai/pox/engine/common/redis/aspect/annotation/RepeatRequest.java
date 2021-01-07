@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * <p>
  * 使用例子：
  *
- * @author 庄金明
+ * @author pox
  * @RepeatRequest 锁整个方法
  * @RepeatRequest(lockIndexs = 0) 锁第一个参数
  * @RepeatRequest(lockIndexs = {0,1}) 锁第一个参数和第二个参数组合

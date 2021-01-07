@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Data;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 @Data

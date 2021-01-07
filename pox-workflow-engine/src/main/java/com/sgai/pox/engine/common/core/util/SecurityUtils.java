@@ -5,7 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * @author 庄金明
+ * @author pox
  */
 public class SecurityUtils {
     /**

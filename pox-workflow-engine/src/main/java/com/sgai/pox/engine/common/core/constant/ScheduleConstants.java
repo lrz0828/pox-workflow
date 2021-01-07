@@ -3,7 +3,7 @@ package com.sgai.pox.engine.common.core.constant;
 /**
  * 任务调度常量
  *
- * @author 庄金明
+ * @author pox
  */
 public class ScheduleConstants {
     public static final String TASK_CLASS_NAME = "TASK_CLASS_NAME";

@@ -11,7 +11,7 @@ import com.sgai.pox.engine.entity.FlowableForm;
 /**
  * 流程表单Mapper
  *
- * @author 庄金明
+ * @author pox
  */
 public interface FlowableFormMapper extends BaseMapper<FlowableForm> {
     /**

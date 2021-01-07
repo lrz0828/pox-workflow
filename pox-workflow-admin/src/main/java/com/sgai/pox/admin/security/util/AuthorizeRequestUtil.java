@@ -42,7 +42,7 @@ public class AuthorizeRequestUtil {
                     } else if (SecurityConstants.AUTHENTICATED.equals(method)) {
                         registry.antMatchers(httpMethod, antMatchers).authenticated();
                     } else {
-                        throw new BaseException("[zjmzxfzhl.resource.config]配置错误");
+                        throw new BaseException("[pox.resource.config]配置错误");
                     }
                 } else if (SecurityConstants.ANY_REQUEST.equals(authorizeRequest.getType())) {
                     String method = authorizeRequest.getMethod();
@@ -69,10 +69,10 @@ public class AuthorizeRequestUtil {
                     } else if (SecurityConstants.AUTHENTICATED.equals(method)) {
                         registry.anyRequest().authenticated();
                     } else {
-                        throw new BaseException("[zjmzxfzhl.resource.config]配置错误");
+                        throw new BaseException("[pox.resource.config]配置错误");
                     }
                 } else {
-                    throw new BaseException("[zjmzxfzhl.resource.config]配置错误");
+                    throw new BaseException("[pox.resource.config]配置错误");
                 }
             }
         } else {

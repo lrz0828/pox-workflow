@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 /**
  * 系统日志注解
  *
- * @author 庄金明
+ * @author pox
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

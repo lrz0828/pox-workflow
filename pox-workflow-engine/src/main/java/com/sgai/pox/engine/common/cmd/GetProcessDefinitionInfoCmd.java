@@ -15,7 +15,7 @@ import org.flowable.engine.repository.ProcessDefinition;
 import com.sgai.pox.engine.common.core.util.CommonUtil;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 public class GetProcessDefinitionInfoCmd implements Command<ProcessDefinition>, Serializable {

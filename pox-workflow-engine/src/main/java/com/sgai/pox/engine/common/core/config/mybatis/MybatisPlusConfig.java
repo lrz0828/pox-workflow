@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Collections;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 @Configuration
@@ -21,7 +21,7 @@ import java.util.Collections;
 public class MybatisPlusConfig {
 
     @Bean
-    @ConditionalOnProperty(name = "zjmzxfzhl.data-permission.enabled", havingValue = "true")
+    @ConditionalOnProperty(name = "pox.data-permission.enabled", havingValue = "true")
     public PermissionParser permissionParser() {
         return new PermissionParser();
     }

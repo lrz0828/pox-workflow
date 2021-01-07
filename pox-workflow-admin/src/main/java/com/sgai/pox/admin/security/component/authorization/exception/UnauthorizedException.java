@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.http.HttpStatus;
 
 /**
- * @author 庄金明
+ * @author pox
  */
-@JsonSerialize(using = ZjmzxfzhlAuth2ExceptionSerializer.class)
-public class UnauthorizedException extends ZjmzxfzhlAuth2Exception {
+@JsonSerialize(using = PoxAuth2ExceptionSerializer.class)
+public class UnauthorizedException extends PoxAuth2Exception {
     private static final long serialVersionUID = 1L;
 
     public UnauthorizedException(String msg, Throwable t) {

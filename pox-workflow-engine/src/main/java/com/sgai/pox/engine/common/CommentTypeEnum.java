@@ -1,7 +1,7 @@
 package com.sgai.pox.engine.common;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月23日
  */
 public enum CommentTypeEnum {

@@ -36,7 +36,7 @@ import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年5月16日
  */
 public class PermissionParser implements ISqlParser, InitializingBean {
@@ -71,7 +71,7 @@ public class PermissionParser implements ISqlParser, InitializingBean {
         SQLKEYWORD_OPERATORS.put(SqlKeyword.BETWEEN.getSqlSegment(), SqlKeyword.BETWEEN);
     }
 
-    @Value("${zjmzxfzhl.data-permission.table-name:T_SYS_DATA_PERMISSION}")
+    @Value("${pox.data-permission.table-name:T_SYS_DATA_PERMISSION}")
     private String dataPermissionTableName;
 
     @SuppressWarnings("unchecked")

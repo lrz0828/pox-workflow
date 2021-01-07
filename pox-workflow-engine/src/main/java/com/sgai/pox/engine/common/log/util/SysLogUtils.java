@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 /**
- * @author 庄金明
+ * @author pox
  */
 public class SysLogUtils {
     public static LogInfo getLogInfo() {

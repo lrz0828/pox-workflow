@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 // @Component

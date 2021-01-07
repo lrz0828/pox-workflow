@@ -14,7 +14,7 @@ import com.sgai.pox.engine.vo.TaskResponse;
 import com.sgai.pox.engine.vo.TaskUpdateRequest;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月23日
  */
 public interface FlowableTaskService {

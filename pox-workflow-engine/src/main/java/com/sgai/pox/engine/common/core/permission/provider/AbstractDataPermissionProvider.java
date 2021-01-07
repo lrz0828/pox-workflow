@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * 数据规则数据源策略为系统提供时，应自定义实现类实现AbstractDataPermissionProvider的wrap方法
  *
- * @author 庄金明
+ * @author pox
  */
 @Slf4j
 public abstract class AbstractDataPermissionProvider {

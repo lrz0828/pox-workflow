@@ -3,7 +3,7 @@ package com.sgai.pox.engine.util;
 import com.google.common.collect.Sets;
 import com.sgai.pox.engine.common.core.security.SecurityUser;
 import com.sgai.pox.engine.common.core.util.SecurityUtils;
-import com.sgai.pox.engine.common.model.ZjmzxfzhlUserTask;
+import com.sgai.pox.engine.common.model.PoxUserTask;
 import com.sgai.pox.engine.constant.FlowableConstant;
 import org.flowable.bpmn.model.Process;
 import org.flowable.bpmn.model.*;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 public class FlowableUtils {
@@ -423,11 +423,11 @@ public class FlowableUtils {
         return element.getExtensionElements().get(name);
     }
 
-    public static ZjmzxfzhlUserTask getZjmzxfzhlUserTask(UserTask userTask) {
-        ZjmzxfzhlUserTask zjmzxfzhlUserTask = new ZjmzxfzhlUserTask();
-        BeanUtils.copyProperties(userTask, zjmzxfzhlUserTask, FlowableConstant.BUTTONS);
-        zjmzxfzhlUserTask.setButtons(getFlowableAttributeValue(userTask, FlowableConstant.BUTTONS));
-        return zjmzxfzhlUserTask;
+    public static PoxUserTask getPoxUserTask(UserTask userTask) {
+        PoxUserTask poxUserTask = new PoxUserTask();
+        BeanUtils.copyProperties(userTask, poxUserTask, FlowableConstant.BUTTONS);
+        poxUserTask.setButtons(getFlowableAttributeValue(userTask, FlowableConstant.BUTTONS));
+        return poxUserTask;
     }
 
     public static FlowElement getFlowElement(RepositoryService repositoryService, String processDefinitionId,

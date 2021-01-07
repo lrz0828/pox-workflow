@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 public class RedisUtil {

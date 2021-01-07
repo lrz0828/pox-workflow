@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * @author 庄金明
+ * @author pox
  */
 @Data
 public class UserInfo implements Serializable {

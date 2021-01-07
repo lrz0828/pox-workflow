@@ -7,7 +7,7 @@ import java.awt.geom.RoundRectangle2D;
 import org.flowable.image.impl.DefaultProcessDiagramCanvas;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 public class CustomProcessDiagramCanvas extends DefaultProcessDiagramCanvas {

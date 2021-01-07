@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {

@@ -4,10 +4,10 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * @author 庄金明
+ * @author pox
  */
 @Data
-@ConfigurationProperties(prefix = "zjmzxfzhl.async-thread-executor")
+@ConfigurationProperties(prefix = "pox.async-thread-executor")
 public class AsyncThreadExecutorProperties {
     /**
      * 是否开启线程池

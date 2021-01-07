@@ -5,7 +5,7 @@ import com.sgai.pox.engine.common.core.permission.wrapper.PermissionWrapper;
 /**
  * 空的DataPermissionProvider，可以用于测试
  *
- * @author 庄金明
+ * @author pox
  */
 public class NullDataPermissionProvider extends AbstractDataPermissionProvider {
     @Override

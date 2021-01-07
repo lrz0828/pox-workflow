@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author 庄金明
+ * @author pox
  */
 @Slf4j
 public class RepeatRequestComponent {

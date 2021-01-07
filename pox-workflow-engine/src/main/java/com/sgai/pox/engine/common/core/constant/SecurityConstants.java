@@ -3,7 +3,7 @@ package com.sgai.pox.engine.common.core.constant;
 /**
  * 安全相关常量
  *
- * @author 庄金明
+ * @author pox
  */
 public class SecurityConstants {
     public static final String CLIENT_ID = "client_id";
@@ -22,7 +22,7 @@ public class SecurityConstants {
     /**
      * 令牌类型
      */
-    public static final String X_ZJMZXFZHL_INNER_APP_TOKEN_TYPE = "X-ZJMZXFZHL-INNER-APP ";
+    public static final String X_ZJMZXFZHL_INNER_APP_TOKEN_TYPE = "X-POX-INNER-APP ";
     /**
      * 授权token url
      */

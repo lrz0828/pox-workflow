@@ -17,7 +17,7 @@ import org.springframework.util.StringUtils;
 import java.io.Serializable;
 
 /**
- * @author 庄金明
+ * @author pox
  */
 public class AddCcIdentityLinkCmd implements Command<Void>, Serializable {
     private static final long serialVersionUID = 1L;

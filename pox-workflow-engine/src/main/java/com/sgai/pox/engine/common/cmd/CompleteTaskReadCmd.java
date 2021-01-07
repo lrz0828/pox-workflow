@@ -11,7 +11,7 @@ import org.flowable.engine.impl.util.TaskHelper;
 import org.flowable.task.service.impl.persistence.entity.TaskEntity;
 
 /**
- * @author 庄金明
+ * @author pox
  */
 public class CompleteTaskReadCmd extends NeedsActiveTaskCmd<Void> {
 

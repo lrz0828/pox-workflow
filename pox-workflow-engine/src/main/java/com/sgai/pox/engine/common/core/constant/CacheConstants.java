@@ -3,7 +3,7 @@ package com.sgai.pox.engine.common.core.constant;
 /**
  * 缓存常量
  *
- * @author 庄金明
+ * @author pox
  */
 public class CacheConstants {
     public static final String CAPTCHA = "captcha:";

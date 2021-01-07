@@ -40,7 +40,7 @@ import com.sgai.pox.engine.vo.IdentityRequest;
 import com.sgai.pox.engine.vo.ProcessDefinitionRequest;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 @Service

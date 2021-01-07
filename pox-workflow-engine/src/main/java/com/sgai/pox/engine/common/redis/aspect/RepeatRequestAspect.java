@@ -13,7 +13,7 @@ import org.springframework.core.annotation.Order;
 /**
  * 登录用户请求防重发处理,Order=0优先于RedissonLockAspect
  *
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 @Aspect

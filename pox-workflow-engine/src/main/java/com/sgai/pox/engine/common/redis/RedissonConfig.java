@@ -12,14 +12,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 @Configuration
-@ConditionalOnProperty(name = "zjmzxfzhl.redisson.enabled", havingValue = "true")
+@ConditionalOnProperty(name = "pox.redisson.enabled", havingValue = "true")
 public class RedissonConfig {
 
-    @Value("${zjmzxfzhl.redisson.config}")
+    @Value("${pox.redisson.config}")
     private String redissonConfig;
 
     @Bean

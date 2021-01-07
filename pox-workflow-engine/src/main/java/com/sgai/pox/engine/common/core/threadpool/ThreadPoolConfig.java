@@ -14,13 +14,13 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * 线程池配置
  *
- * @author 庄金明
+ * @author pox
  **/
 @EnableScheduling
 @EnableAsync
 @Configuration
 @EnableConfigurationProperties(AsyncThreadExecutorProperties.class)
-@ConditionalOnProperty(name = "zjmzxfzhl.async-thread-executor.enabled", havingValue = "true")
+@ConditionalOnProperty(name = "pox.async-thread-executor.enabled", havingValue = "true")
 public class ThreadPoolConfig {
     public final static String ASYNC_SERVICE_EXECUTOR = "asyncServiceExecutor";
 

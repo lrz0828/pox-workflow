@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author 庄金明
+ * @author pox
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

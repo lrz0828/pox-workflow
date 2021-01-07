@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.sgai.pox.engine.common.ResponseFactory;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月22日
  */
 @Component

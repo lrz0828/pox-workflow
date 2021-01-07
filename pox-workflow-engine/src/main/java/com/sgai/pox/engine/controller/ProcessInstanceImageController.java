@@ -28,7 +28,7 @@ import com.sgai.pox.engine.common.BaseFlowableController;
 import com.sgai.pox.engine.config.CustomProcessDiagramGenerator;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月23日
  */
 @RestController

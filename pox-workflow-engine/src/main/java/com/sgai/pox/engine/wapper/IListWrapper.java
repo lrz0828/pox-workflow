@@ -3,7 +3,7 @@ package com.sgai.pox.engine.wapper;
 import java.util.List;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 public interface IListWrapper {

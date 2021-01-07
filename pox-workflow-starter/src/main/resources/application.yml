@@ -1,7 +1,7 @@
 server:
   port: 8082
   servlet:
-    context-path: /api
+    context-path: /pox
     compression:
       enabled: true
       mime-types: application/javascript,application/json,application/xml,text/html,text/xml,text/plain,text/css,image/*
@@ -15,9 +15,9 @@ spring:
     #static-locations: classpath:/static/,classpath:/public/
 #mybatis plus 设置
 mybatis-plus:
-  mapper-locations: classpath*:com/**/mapper/xml/*.xml
+  mapper-locations: classpath*:com/**/mapper/xml/*.xml,classpath*:com/**/mapper/**/xml/*.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.zjmzxfzhl.modules.*.entity
+  typeAliasesPackage: com.sgai.pox.engine.*.entity
   #configuration: #打印sql
   #  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl 
 #springboot监控actuator
@@ -34,7 +34,7 @@ info:
   version: 1.0
 flowable:
   async-executor-activate: false
-zjmzxfzhl:
+pox:
   # redis分布式锁
   redisson:
     enabled: true
@@ -56,7 +56,7 @@ zjmzxfzhl:
   # 需要验证码的客户端
   captcha:
     enabled: true
-    clients: zjmzxfzhl
+    clients: pox
   resource:
     config:
       addFilterBeforeUsernamePasswordAuthenticationFilter:

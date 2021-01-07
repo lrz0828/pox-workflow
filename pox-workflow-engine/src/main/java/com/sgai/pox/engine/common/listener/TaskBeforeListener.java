@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * 任务节点前置监听处理类
  *
- * @author: 庄金明
+ * @author: pox
  **/
 @Component
 public class TaskBeforeListener implements FlowableEventListener {

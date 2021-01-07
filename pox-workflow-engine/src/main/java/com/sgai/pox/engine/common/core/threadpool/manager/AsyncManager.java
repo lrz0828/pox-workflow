@@ -11,7 +11,7 @@ import java.util.concurrent.Future;
 /**
  * 异步任务管理器
  *
- * @author 庄金明
+ * @author pox
  */
 public class AsyncManager {
     /**

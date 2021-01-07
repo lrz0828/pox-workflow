@@ -18,12 +18,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 @Configuration
 public class FlowableEngineConfig implements EngineConfigurationConfigurer<SpringProcessEngineConfiguration> {
-    @Value("${zjmzxfzhl.flowable.font-name}")
+    @Value("${pox.flowable.font-name}")
     private String flowableFontName;
 
     @Autowired

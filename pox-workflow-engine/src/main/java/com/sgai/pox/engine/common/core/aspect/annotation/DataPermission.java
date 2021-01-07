@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 /**
  * 数据权限注解
  *
- * @author 庄金明
+ * @author pox
  * @date 2020年3月23日
  */
 @Target({ElementType.METHOD})

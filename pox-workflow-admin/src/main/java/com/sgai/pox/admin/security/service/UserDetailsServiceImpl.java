@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * 用户验证处理
  *
- * @author 庄金明
+ * @author pox
  */
 public class UserDetailsServiceImpl implements UserDetailsService {
 

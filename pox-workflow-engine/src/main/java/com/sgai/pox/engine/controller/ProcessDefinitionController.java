@@ -46,7 +46,7 @@ import com.sgai.pox.engine.wapper.ProcDefListWrapper;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 @RestController

@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * 扩展用户信息
  *
- * @author 庄金明
+ * @author pox
  */
 public class SecurityUser extends User {
     private static final long serialVersionUID = 1L;

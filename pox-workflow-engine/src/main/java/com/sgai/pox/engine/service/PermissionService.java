@@ -12,7 +12,7 @@ import org.flowable.task.api.TaskInfo;
 import org.flowable.task.api.history.HistoricTaskInstance;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 public interface PermissionService {

@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * 保存模型，同时生成图片
  *
- * @author 庄金明
+ * @author pox
  * @date 2020年8月30日
  */
 public class SaveModelEditorCmd implements Command<Void>, Serializable {

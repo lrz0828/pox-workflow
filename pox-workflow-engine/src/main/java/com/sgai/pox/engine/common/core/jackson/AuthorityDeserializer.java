@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @author 庄金明
+ * @author pox
  */
 public class AuthorityDeserializer extends JsonDeserializer {
 

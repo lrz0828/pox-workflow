@@ -3,7 +3,7 @@ package com.sgai.pox.engine.vo;
 import lombok.Data;
 
 /**
- * @author 庄金明
+ * @author pox
  */
 @Data
 public class CcToVo {

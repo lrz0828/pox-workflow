@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * SQL过滤
  *
- * @author 庄金明
+ * @author pox
  */
 @Slf4j
 public class SqlFilter {

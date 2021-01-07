@@ -3,7 +3,7 @@ package com.sgai.pox.engine.common.exception;
 import org.flowable.common.engine.api.FlowableException;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月24日
  */
 public class FlowableNoPermissionException extends FlowableException {

@@ -28,7 +28,7 @@ import com.sgai.pox.engine.constant.FlowableConstant;
 import com.sgai.pox.engine.util.FlowableUtils;
 
 /**
- * @author 庄金明
+ * @author pox
  * @date 2020年3月23日
  */
 public class BackUserTaskCmd implements Command<String>, Serializable {

@@ -3,10 +3,10 @@ package com.sgai.pox.admin.security.component.authorization.exception;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
- * @author 庄金明
+ * @author pox
  */
-@JsonSerialize(using = ZjmzxfzhlAuth2ExceptionSerializer.class)
-public class InvalidException extends ZjmzxfzhlAuth2Exception {
+@JsonSerialize(using = PoxAuth2ExceptionSerializer.class)
+public class InvalidException extends PoxAuth2Exception {
     private static final long serialVersionUID = 1L;
 
     public InvalidException(String msg, Throwable t) {

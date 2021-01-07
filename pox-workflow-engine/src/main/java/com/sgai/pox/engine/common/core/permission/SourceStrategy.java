@@ -3,7 +3,7 @@ package com.sgai.pox.engine.common.core.permission;
 /**
  * 数据规则数据源策略
  *
- * @author 庄金明
+ * @author pox
  */
 public enum SourceStrategy {
     /**
