@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * order设置的小一点，若注解用于service类，让该切面优先于Transactional注解
  *
  * @author pox
- * @date 2020年3月23日
+ * @date 2021年01月04日
  */
 @Aspect
 @ConditionalOnBean(RedissonDistributedLocker.class)

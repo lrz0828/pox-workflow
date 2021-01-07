@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 
 /**
  * @author pox
- * @date 2020年6月23日
+ * @date 2021年01月04日
  */
 public class PoxResourceServerAutoConfiguration {
 

@@ -5,7 +5,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 /**
  * @author pox
- * @date 2020年3月23日
+ * @date 2021年01月04日
  */
 public class PoxServletInitializer extends SpringBootServletInitializer {
     @Override

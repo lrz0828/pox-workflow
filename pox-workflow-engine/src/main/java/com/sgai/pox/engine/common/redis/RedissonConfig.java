@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author pox
- * @date 2020年3月24日
+ * @date 2021年01月04日
  */
 @Configuration
 @ConditionalOnProperty(name = "pox.redisson.enabled", havingValue = "true")

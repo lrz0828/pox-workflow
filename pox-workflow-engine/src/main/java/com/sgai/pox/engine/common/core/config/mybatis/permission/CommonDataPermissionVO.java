@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * @author pox
- * @date
+ * @date 2021年01月04日
  */
 @Data
 public class CommonDataPermissionVO implements Serializable {

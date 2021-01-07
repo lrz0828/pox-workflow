@@ -11,7 +11,7 @@ import com.sgai.pox.engine.identity.CustomUserEntityManager;
 
 /**
  * @author pox
- * @date 2020年3月24日
+ * @date 2021年01月04日
  */
 @Configuration
 public class FlowableIdmConfig implements EngineConfigurationConfigurer<SpringIdmEngineConfiguration> {

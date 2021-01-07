@@ -11,7 +11,7 @@ import java.lang.invoke.MethodHandles;
 
 /**
  * @author pox
- * @date 2020年3月24日
+ * @date 2021年01月04日
  */
 public class LengthForGbkValidator implements ConstraintValidator<LengthForGbk, String> {
 

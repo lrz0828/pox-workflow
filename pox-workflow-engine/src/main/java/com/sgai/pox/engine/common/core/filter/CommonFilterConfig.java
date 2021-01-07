@@ -13,7 +13,7 @@ import javax.servlet.DispatcherType;
  * pox.common-filter.enabled=true 或者 未配置 都会注入
  *
  * @author pox
- * @date 2020年3月24日
+ * @date 2021年01月04日
  */
 @Configuration
 @ConditionalOnProperty(name = "pox.common-filter.enabled", havingValue = "true", matchIfMissing = true)

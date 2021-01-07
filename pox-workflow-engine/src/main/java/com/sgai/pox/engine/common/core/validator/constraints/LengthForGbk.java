@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * @author pox
- * @date 2020年3月23日
+ * @date 2021年01月04日
  */
 @Documented
 @Constraint(validatedBy = {LengthForGbkValidator.class})

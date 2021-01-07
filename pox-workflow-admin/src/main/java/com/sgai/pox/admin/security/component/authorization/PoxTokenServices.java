@@ -53,10 +53,7 @@ import java.util.UUID;
  * Persistence is delegated to a {@code TokenStore} implementation and customization of the access token to a
  * {@link TokenEnhancer}.
  *
- * @author Ryan Heaton
- * @author Luke Taylor
- * @author Dave Syer
- * @author pox 修改了 createAccessToken refreshAccessToken 方法 (only update createAccessToken refreshAccessToken method)
+ * @author pox
  * 修改后实现：
  * 1 每次登录都刷新了 accessToken，并且加满了过期时间，原 accessToken n 秒内仍有效
  * 2 用 refreshToken 刷新 accessToken，原 accessToken n 秒内仍有效

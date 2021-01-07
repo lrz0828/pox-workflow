@@ -16,7 +16,7 @@ import com.sgai.pox.engine.common.core.util.CommonUtil;
 
 /**
  * @author pox
- * @date 2020年3月24日
+ * @date 2021年01月04日
  */
 public class GetProcessDefinitionInfoCmd implements Command<ProcessDefinition>, Serializable {
 

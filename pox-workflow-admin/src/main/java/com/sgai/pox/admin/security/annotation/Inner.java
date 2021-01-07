@@ -25,8 +25,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author lengleng && pox
- * @date 2018/11/26
+ * @author pox
+ * @date 2021年01月04日
  * <p>
  * 服务间调用注解
  */

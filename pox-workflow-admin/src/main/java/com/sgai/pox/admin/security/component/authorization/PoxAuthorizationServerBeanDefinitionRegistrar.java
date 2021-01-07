@@ -8,7 +8,7 @@ import org.springframework.core.type.AnnotationMetadata;
 
 /**
  * @author pox
- * @date 2020年7月18日
+ * @date 2021年01月04日
  */
 @Slf4j
 public class PoxAuthorizationServerBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar {

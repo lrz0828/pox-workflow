@@ -32,7 +32,7 @@ import java.util.Set;
 
 /**
  * @author pox
- * @date
+ * @date 2021年01月04日
  */
 @Slf4j
 public class PoxResourceServerConfigurerAdapter extends ResourceServerConfigurerAdapter {

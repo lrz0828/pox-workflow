@@ -9,7 +9,7 @@ import java.lang.annotation.*;
  * 数据权限注解
  *
  * @author pox
- * @date 2020年3月23日
+ * @date 2021年01月04日
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
