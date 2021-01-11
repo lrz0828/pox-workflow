@@ -8,9 +8,9 @@ import com.sgai.pox.engine.common.core.constant.SecurityConstants;
 import com.sgai.pox.engine.common.core.threadpool.AsyncThreadExecutorProperties;
 import com.sgai.pox.engine.common.core.threadpool.manager.AsyncManager;
 import com.sgai.pox.engine.common.core.util.JacksonUtil;
-import com.sgai.pox.engine.common.core.util.SpringContextUtils;
 import com.sgai.pox.engine.common.log.annotation.Log;
-import com.sgai.pox.engine.common.log.util.SysLogUtils;
+import com.sgai.pox.engine.common.core.util.SysEngineLogUtils;
+import com.sgai.pox.engine.common.core.util.SpringContextUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -32,7 +32,7 @@ public class LogAspect {
     public Object around(ProceedingJoinPoint point, Log log) throws Throwable {
         String className = point.getTarget().getClass().getName();
         String methodName = point.getSignature().getName();
-        LogInfo logInfo = SysLogUtils.getLogInfo();
+        LogInfo logInfo = SysEngineLogUtils.getLogInfo();
         logInfo.setLogContent(log.value());
         logInfo.setLogType("2");
         logInfo.setMethod(className + "." + methodName + "()");

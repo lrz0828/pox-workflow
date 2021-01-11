@@ -11,6 +11,6 @@ public class PoxServletInitializer extends SpringBootServletInitializer {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 //        return application.sources(EngineStarterApplication.class);
-        return application.sources(AdminStarterApplication.class);
+        return application.sources(StarterApplication.class);
     }
 }

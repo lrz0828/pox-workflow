@@ -1,7 +1,6 @@
 package com.sgai.pox.engine.common.core.validator.constraints;
 
 import com.sgai.pox.engine.common.core.validator.LengthForGbkValidator;
-import com.sgai.pox.engine.common.core.validator.constraints.LengthForGbk.List;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

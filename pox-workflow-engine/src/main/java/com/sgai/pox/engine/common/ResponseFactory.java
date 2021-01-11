@@ -10,6 +10,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sgai.pox.engine.common.core.util.CommonUtil;
 import com.sgai.pox.engine.vo.*;
 import org.flowable.engine.FormService;
 import org.flowable.engine.HistoryService;
@@ -30,7 +31,6 @@ import org.flowable.task.api.TaskInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.sgai.pox.engine.common.core.util.CommonUtil;
 import com.sgai.pox.engine.constant.FlowableConstant;
 
 /**

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sgai.pox.engine.common.core.base.BaseServiceImpl;
 import com.sgai.pox.engine.common.core.constant.CacheConstants;
 import com.sgai.pox.engine.common.core.exception.SysException;
-import com.sgai.pox.engine.common.core.util.PasswordUtil;
+import com.sgai.pox.admin.core.util.PasswordUtil;
 import com.sgai.pox.admin.sys.entity.SysOauthClientDetails;
 import com.sgai.pox.admin.sys.mapper.SysOauthClientDetailsMapper;
 import com.sgai.pox.admin.sys.service.SysOauthClientDetailsService;

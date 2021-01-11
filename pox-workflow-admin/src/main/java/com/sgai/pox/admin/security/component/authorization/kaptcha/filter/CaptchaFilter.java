@@ -2,9 +2,8 @@ package com.sgai.pox.admin.security.component.authorization.kaptcha.filter;
 
 import com.sgai.pox.engine.common.core.constant.CacheConstants;
 import com.sgai.pox.engine.common.core.constant.SecurityConstants;
-import com.sgai.pox.engine.common.core.exception.BaseException;
 import com.sgai.pox.engine.common.core.util.CommonUtil;
-import com.sgai.pox.engine.common.core.util.SecurityUtils;
+import com.sgai.pox.admin.core.util.SecurityUtils;
 import com.sgai.pox.engine.common.redis.util.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

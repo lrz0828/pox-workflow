@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.sgai.pox.engine.common.core.util.CommonUtil;
+import com.sgai.pox.engine.common.core.util.ObjectUtils;
+import com.sgai.pox.engine.common.core.util.SecurityEngineUtils;
 import com.sgai.pox.engine.vo.query.ProcessDefinitionQueryVo;
 import org.apache.commons.io.IOUtils;
 import org.flowable.common.engine.api.FlowableException;
@@ -32,9 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.ImmutableMap;
 import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.core.util.ObjectUtils;
 import com.sgai.pox.engine.common.log.annotation.Log;
-import com.sgai.pox.engine.common.core.util.SecurityUtils;
 import com.sgai.pox.engine.common.BaseFlowableController;
 import com.sgai.pox.engine.common.FlowablePage;
 import com.sgai.pox.engine.constant.FlowableConstant;
@@ -119,7 +119,7 @@ public class ProcessDefinitionController extends BaseFlowableController {
         if (ObjectUtils.isNotEmpty(processDefinitionQueryVo.getProcessDefinitionName())) {
             processDefinitionQuery.processDefinitionNameLike(ObjectUtils.convertToLike(processDefinitionQueryVo.getProcessDefinitionName()));
         }
-        processDefinitionQuery.latestVersion().active().startableByUser(SecurityUtils.getUserId());
+        processDefinitionQuery.latestVersion().active().startableByUser(SecurityEngineUtils.getUserId());
         FlowablePage page = this.pageList(processDefinitionQueryVo, processDefinitionQuery, ProcDefListWrapper.class,
                 ALLOWED_SORT_PROPERTIES);
         return Result.ok(page);
@@ -127,7 +127,7 @@ public class ProcessDefinitionController extends BaseFlowableController {
 
     @GetMapping(value = "/queryById")
     public Result queryById(@RequestParam String processDefinitionId) {
-        permissionService.validateReadPermissionOnProcessDefinition(SecurityUtils.getUserId(), processDefinitionId);
+        permissionService.validateReadPermissionOnProcessDefinition(SecurityEngineUtils.getUserId(), processDefinitionId);
         ProcessDefinition processDefinition = processDefinitionService.getProcessDefinitionById(processDefinitionId);
         String formKey = null;
         if (processDefinition.hasStartFormKey()) {
@@ -140,7 +140,7 @@ public class ProcessDefinitionController extends BaseFlowableController {
 
     @GetMapping(value = "/renderedStartForm")
     public Result renderedStartForm(@RequestParam String processDefinitionId) {
-        permissionService.validateReadPermissionOnProcessDefinition(SecurityUtils.getUserId(), processDefinitionId);
+        permissionService.validateReadPermissionOnProcessDefinition(SecurityEngineUtils.getUserId(), processDefinitionId);
         Object renderedStartForm = formService.getRenderedStartForm(processDefinitionId);
         boolean showBusinessKey = this.isShowBusinessKey(processDefinitionId);
         return Result.ok(ImmutableMap.of("renderedStartForm", renderedStartForm, "showBusinessKey", showBusinessKey));
@@ -148,7 +148,7 @@ public class ProcessDefinitionController extends BaseFlowableController {
 
     @GetMapping(value = "/image")
     public ResponseEntity<byte[]> image(@RequestParam String processDefinitionId) {
-        permissionService.validateReadPermissionOnProcessDefinition(SecurityUtils.getUserId(), processDefinitionId);
+        permissionService.validateReadPermissionOnProcessDefinition(SecurityEngineUtils.getUserId(), processDefinitionId);
         ProcessDefinition processDefinition = processDefinitionService.getProcessDefinitionById(processDefinitionId);
         InputStream imageStream = repositoryService.getProcessDiagram(processDefinition.getId());
         if (imageStream == null) {
@@ -168,7 +168,7 @@ public class ProcessDefinitionController extends BaseFlowableController {
     //@PreAuthorize("@elp.single('flowable:processDefinition:xml')")
     @GetMapping(value = "/xml")
     public ResponseEntity<byte[]> xml(@RequestParam String processDefinitionId) {
-        permissionService.validateReadPermissionOnProcessDefinition(SecurityUtils.getUserId(), processDefinitionId);
+        permissionService.validateReadPermissionOnProcessDefinition(SecurityEngineUtils.getUserId(), processDefinitionId);
         ProcessDefinition processDefinition = processDefinitionService.getProcessDefinitionById(processDefinitionId);
         String deploymentId = processDefinition.getDeploymentId();
         String resourceId = processDefinition.getResourceName();

@@ -1,6 +1,6 @@
 package com.sgai.pox.admin.security.service;
 
-import com.sgai.pox.engine.common.core.util.SecurityUtils;
+import com.sgai.pox.admin.core.util.SecurityUtils;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Arrays;

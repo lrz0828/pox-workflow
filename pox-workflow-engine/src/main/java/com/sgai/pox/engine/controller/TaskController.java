@@ -3,7 +3,7 @@ package com.sgai.pox.engine.controller;
 import com.sgai.pox.engine.common.core.Result;
 import com.sgai.pox.engine.common.core.util.CommonUtil;
 import com.sgai.pox.engine.common.core.util.ObjectUtils;
-import com.sgai.pox.engine.common.core.util.SecurityUtils;
+import com.sgai.pox.engine.common.core.util.SecurityEngineUtils;
 import com.sgai.pox.engine.common.redis.aspect.annotation.RedissonLock;
 import com.sgai.pox.engine.common.log.annotation.Log;
 import com.sgai.pox.engine.common.BaseFlowableController;
@@ -11,7 +11,11 @@ import com.sgai.pox.engine.common.FlowablePage;
 import com.sgai.pox.engine.constant.FlowableConstant;
 import com.sgai.pox.engine.service.FlowableTaskService;
 import com.sgai.pox.engine.util.FlowableUtils;
-import com.sgai.pox.engine.vo.*;
+import com.sgai.pox.engine.vo.ExecuteTaskDataVo;
+import com.sgai.pox.engine.vo.FlowNodeResponse;
+import com.sgai.pox.engine.vo.TaskRequest;
+import com.sgai.pox.engine.vo.TaskResponse;
+import com.sgai.pox.engine.vo.TaskUpdateRequest;
 import com.sgai.pox.engine.vo.query.TaskQueryVo;
 import com.sgai.pox.engine.wapper.TaskListWrapper;
 import com.sgai.pox.engine.wapper.TaskTodoListWrapper;
@@ -239,7 +243,7 @@ public class TaskController extends BaseFlowableController {
     @GetMapping(value = "/listDone")
     public Result listDone(TaskQueryVo taskQueryVo) {
         HistoricTaskInstanceQuery query = createHistoricTaskInstanceQuery(taskQueryVo);
-        query.finished().or().taskAssignee(SecurityUtils.getUserId()).taskOwner(SecurityUtils.getUserId()).endOr();
+        query.finished().or().taskAssignee(SecurityEngineUtils.getUserId()).taskOwner(SecurityEngineUtils.getUserId()).endOr();
         FlowablePage page = this.pageList(taskQueryVo, query, TaskListWrapper.class, allowedSortProperties,
                 HistoricTaskInstanceQueryProperty.START);
         return Result.ok(page);
@@ -247,7 +251,7 @@ public class TaskController extends BaseFlowableController {
 
     @GetMapping(value = "/listTodo")
     public Result listTodo(TaskQueryVo taskQueryVo) {
-        String userId = SecurityUtils.getUserId();
+        String userId = SecurityEngineUtils.getUserId();
         TaskQuery query = createTaskQuery(taskQueryVo);
         query.taskCategory(FlowableConstant.CATEGORY_TODO);
         query.or().taskCandidateOrAssigned(userId).taskOwner(userId).endOr();
@@ -258,7 +262,7 @@ public class TaskController extends BaseFlowableController {
 
     @GetMapping(value = "/listToRead")
     public Result listToRead(TaskQueryVo taskQueryVo) {
-        String userId = SecurityUtils.getUserId();
+        String userId = SecurityEngineUtils.getUserId();
         TaskQuery query = createTaskQuery(taskQueryVo);
         query.taskCategory(FlowableConstant.CATEGORY_TO_READ);
         query.or().taskAssignee(userId).taskOwner(userId).endOr();
@@ -334,14 +338,14 @@ public class TaskController extends BaseFlowableController {
 
     @GetMapping(value = "/renderedTaskForm")
     public Result renderedTaskForm(@RequestParam String taskId) {
-        permissionService.validateReadPermissionOnTask2(taskId, SecurityUtils.getUserId(), true, true);
+        permissionService.validateReadPermissionOnTask2(taskId, SecurityEngineUtils.getUserId(), true, true);
         Object renderedTaskForm = formService.getRenderedTaskForm(taskId);
         return Result.ok(renderedTaskForm);
     }
 
     @GetMapping(value = "/executeTaskData")
     public Result executeTaskData(@RequestParam String taskId) {
-        Task task = permissionService.validateReadPermissionOnTask2(taskId, SecurityUtils.getUserId(), true, true);
+        Task task = permissionService.validateReadPermissionOnTask2(taskId, SecurityEngineUtils.getUserId(), true, true);
 
         Process process = repositoryService.getBpmnModel(task.getProcessDefinitionId()).getMainProcess();
         UserTask userTask = (UserTask) process.getFlowElement(task.getTaskDefinitionKey(), true);

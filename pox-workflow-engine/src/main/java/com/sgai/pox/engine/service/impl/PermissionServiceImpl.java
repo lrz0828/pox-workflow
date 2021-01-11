@@ -1,7 +1,7 @@
 package com.sgai.pox.engine.service.impl;
 
-import com.sgai.pox.engine.common.core.util.SecurityUtils;
 import com.sgai.pox.engine.common.cmd.GetProcessDefinitionInfoCmd;
+import com.sgai.pox.engine.common.core.util.SecurityEngineUtils;
 import com.sgai.pox.engine.common.enums.ButtonsEnum;
 import com.sgai.pox.engine.common.exception.FlowableNoPermissionException;
 import com.sgai.pox.engine.constant.FlowableConstant;
@@ -425,7 +425,7 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public boolean isAdmin(String userId) {
         if (userId == null || userId.length() == 0) {
-            userId = SecurityUtils.getUserId();
+            userId = SecurityEngineUtils.getUserId();
         }
         return "admin".equals(userId);
     }

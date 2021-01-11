@@ -15,9 +15,9 @@ spring:
     #static-locations: classpath:/static/,classpath:/public/
 #mybatis plus 设置
 mybatis-plus:
-  mapper-locations: classpath*:com/**/mapper/xml/*.xml,classpath*:com/**/mapper/**/xml/*.xml
+  mapper-locations: classpath*:com/**/mapper/xml/*.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.sgai.pox.engine.*.entity
+  typeAliasesPackage: com.sgai.pox.admin.syx.*.entity
   #configuration: #打印sql
   #  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl 
 #springboot监控actuator

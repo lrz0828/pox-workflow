@@ -1,7 +1,6 @@
 package com.sgai.pox.engine.common.core.validator.constraints;
 
 import com.sgai.pox.engine.common.core.validator.LengthForUtf8Validator;
-import com.sgai.pox.engine.common.core.validator.constraints.LengthForUtf8.List;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

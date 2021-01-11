@@ -6,12 +6,12 @@ import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.sgai.pox.engine.common.core.aspect.annotation.DataPermission;
+import com.sgai.pox.engine.common.annotation.DataPermission;
 import com.sgai.pox.admin.sys.entity.SysMenu;
 import com.sgai.pox.admin.sys.entity.SysRole;
 import com.sgai.pox.admin.sys.entity.SysUser;
 import com.sgai.pox.admin.sys.entity.vo.SysRolePermissionVO;
-import com.sgai.pox.engine.provider.OrgDataPermissionProvider;
+import com.sgai.pox.admin.sys.provider.OrgDataPermissionProvider;
 
 /**
  * 用户Mapper

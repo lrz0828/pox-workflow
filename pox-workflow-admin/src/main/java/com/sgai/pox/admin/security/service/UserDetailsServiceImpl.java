@@ -1,12 +1,12 @@
 package com.sgai.pox.admin.security.service;
 
 import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.core.base.UserInfo;
-import com.sgai.pox.engine.common.core.base.UserInfoService;
+import com.sgai.pox.admin.core.base.UserInfo;
+import com.sgai.pox.admin.core.base.UserInfoService;
 import com.sgai.pox.engine.common.core.constant.SecurityConstants;
-import com.sgai.pox.engine.common.core.security.SecurityUser;
+import com.sgai.pox.admin.core.security.SecurityUser;
 import com.sgai.pox.engine.common.core.util.CommonUtil;
-import com.sgai.pox.engine.common.core.util.SecurityUtils;
+import com.sgai.pox.admin.core.util.SecurityUtils;
 import com.sgai.pox.engine.common.core.util.SpringContextUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;

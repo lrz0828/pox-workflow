@@ -1,8 +1,6 @@
 package com.sgai.pox.engine.util;
 
 import com.google.common.collect.Sets;
-import com.sgai.pox.engine.common.core.security.SecurityUser;
-import com.sgai.pox.engine.common.core.util.SecurityUtils;
 import com.sgai.pox.engine.common.model.PoxUserTask;
 import com.sgai.pox.engine.constant.FlowableConstant;
 import org.flowable.bpmn.model.Process;
@@ -27,12 +25,13 @@ import java.util.stream.Stream;
 public class FlowableUtils {
 
     public static User getFlowableUser() {
-        SecurityUser securityUser = ((SecurityUser) SecurityUtils.getUserDetails());
+        // TODO: 2021/1/7 暂时注掉 
+//        SecurityUser securityUser = ((SecurityUser) SecurityEngineUtils.getUserDetails());
         User currentUser = new UserEntityImpl();
-        currentUser.setId(securityUser.getUsername());
-        currentUser.setFirstName(securityUser.getUserRealName());
-        currentUser.setLastName(securityUser.getUserRealName());
-        currentUser.setDisplayName(securityUser.getUserRealName());
+//        currentUser.setId(securityUser.getUsername());
+//        currentUser.setFirstName(securityUser.getUserRealName());
+//        currentUser.setLastName(securityUser.getUserRealName());
+//        currentUser.setDisplayName(securityUser.getUserRealName());
         return currentUser;
     }
 

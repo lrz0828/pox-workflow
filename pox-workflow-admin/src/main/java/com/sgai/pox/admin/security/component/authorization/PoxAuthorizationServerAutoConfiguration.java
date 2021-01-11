@@ -6,7 +6,7 @@ import com.sgai.pox.admin.security.service.RedisAuthorizationCodeServices;
 import com.sgai.pox.admin.security.service.RedisClientDetailsService;
 import com.sgai.pox.admin.security.service.UserDetailsServiceImpl;
 import com.sgai.pox.engine.common.core.constant.CacheConstants;
-import com.sgai.pox.engine.common.core.security.SecurityUser;
+import com.sgai.pox.admin.core.security.SecurityUser;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;

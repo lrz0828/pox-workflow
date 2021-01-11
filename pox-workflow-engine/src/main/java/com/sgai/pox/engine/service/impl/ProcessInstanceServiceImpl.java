@@ -1,12 +1,12 @@
 package com.sgai.pox.engine.service.impl;
 
-import com.sgai.pox.engine.common.core.security.SecurityUser;
-import com.sgai.pox.engine.common.core.util.CommonUtil;
-import com.sgai.pox.engine.common.core.util.ObjectUtils;
-import com.sgai.pox.engine.common.core.util.SecurityUtils;
 import com.sgai.pox.engine.common.CommentTypeEnum;
 import com.sgai.pox.engine.common.ResponseFactory;
 import com.sgai.pox.engine.common.cmd.AddCcIdentityLinkCmd;
+import com.sgai.pox.engine.common.core.base.SecurityEngineUser;
+import com.sgai.pox.engine.common.core.util.CommonUtil;
+import com.sgai.pox.engine.common.core.util.ObjectUtils;
+import com.sgai.pox.engine.common.core.util.SecurityEngineUtils;
 import com.sgai.pox.engine.constant.FlowableConstant;
 import com.sgai.pox.engine.mapper.FlowableCommonMapper;
 import com.sgai.pox.engine.service.ProcessInstanceService;
@@ -52,9 +52,9 @@ public class ProcessInstanceServiceImpl implements ProcessInstanceService {
     @Autowired
     protected HistoryService historyService;
     @Autowired
-    protected com.sgai.pox.engine.service.impl.PermissionServiceImpl permissionService;
+    protected PermissionServiceImpl permissionService;
     @Autowired
-    protected com.sgai.pox.engine.service.impl.FlowableTaskServiceImpl flowableTaskService;
+    protected FlowableTaskServiceImpl flowableTaskService;
     @Autowired
     protected TaskService taskService;
     @Resource
@@ -90,8 +90,11 @@ public class ProcessInstanceServiceImpl implements ProcessInstanceService {
         } else if (processDefinitionId.length() != 0 && processDefinitionKey.length() != 0) {
             throw new FlowableException("request param both processDefinitionId and processDefinitionKey is found");
         }
-        SecurityUser user = (SecurityUser) SecurityUtils.getUserDetails();
-        String userId = user.getUsername();
+//        SecurityEngineUser user = (SecurityEngineUser) SecurityEngineUtils.getUserDetails();
+//        String userId = user.getUsername();
+        // TODO: 2021/1/7
+
+        String userId = "user.getUsername()";
 
         ProcessDefinition definition = permissionService.validateReadPermissionOnProcessDefinition(userId,
                 processDefinitionId, processDefinitionKey, processInstanceRequest.getTenantId());
@@ -111,7 +114,8 @@ public class ProcessInstanceServiceImpl implements ProcessInstanceService {
         ProcessInstanceBuilder processInstanceBuilder = runtimeService.createProcessInstanceBuilder();
         processInstanceBuilder.processDefinitionId(definition.getId());
         // 流程实例标题
-        processInstanceBuilder.name(user.getUserRealName() + definition.getName());
+        // TODO: 2021/1/7
+        processInstanceBuilder.name("user.getUserRealName()" + definition.getName());
         // 业务key
         processInstanceBuilder.businessKey(processInstanceRequest.getBusinessKey());
         processInstanceBuilder.variables(startVariables);

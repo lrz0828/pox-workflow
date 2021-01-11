@@ -1,13 +1,13 @@
 package com.sgai.pox.engine.service.impl;
 
-import com.sgai.pox.engine.common.core.util.CommonUtil;
-import com.sgai.pox.engine.common.core.util.ObjectUtils;
-import com.sgai.pox.engine.common.core.util.SecurityUtils;
 import com.sgai.pox.engine.common.CommentTypeEnum;
 import com.sgai.pox.engine.common.ResponseFactory;
 import com.sgai.pox.engine.common.cmd.AddCcIdentityLinkCmd;
 import com.sgai.pox.engine.common.cmd.BackUserTaskCmd;
 import com.sgai.pox.engine.common.cmd.CompleteTaskReadCmd;
+import com.sgai.pox.engine.common.core.util.CommonUtil;
+import com.sgai.pox.engine.common.core.util.ObjectUtils;
+import com.sgai.pox.engine.common.core.util.SecurityEngineUtils;
 import com.sgai.pox.engine.common.enums.ButtonsEnum;
 import com.sgai.pox.engine.common.exception.FlowableNoPermissionException;
 import com.sgai.pox.engine.constant.FlowableConstant;
@@ -76,7 +76,7 @@ public class FlowableTaskServiceImpl implements FlowableTaskService {
 
     @Override
     public TaskResponse getTask(String taskId) {
-        String userId = SecurityUtils.getUserId();
+        String userId = SecurityEngineUtils.getUserId();
         HistoricTaskInstance taskHis = permissionService.validateReadPermissionOnTask(taskId, userId, true, true);
         TaskResponse rep = null;
         ProcessDefinition processDefinition = null;
@@ -116,7 +116,7 @@ public class FlowableTaskServiceImpl implements FlowableTaskService {
 
     @Override
     public List<TaskResponse> getSubTasks(String taskId) {
-        String userId = SecurityUtils.getUserId();
+        String userId = SecurityEngineUtils.getUserId();
         HistoricTaskInstance parentTask = permissionService.validateReadPermissionOnTask(taskId, userId, true, true);
         List<Task> subTasks = this.taskService.getSubTasks(taskId);
         List<TaskResponse> subTasksRepresentations = new ArrayList<>(subTasks.size());
@@ -133,7 +133,7 @@ public class FlowableTaskServiceImpl implements FlowableTaskService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public TaskResponse updateTask(TaskUpdateRequest taskUpdateRequest) {
-        String userId = SecurityUtils.getUserId();
+        String userId = SecurityEngineUtils.getUserId();
         permissionService.validateReadPermissionOnTask(taskUpdateRequest.getId(), userId, false, false);
         Task task = getTaskNotNull(taskUpdateRequest.getId());
         task.setName(taskUpdateRequest.getName());
@@ -152,7 +152,7 @@ public class FlowableTaskServiceImpl implements FlowableTaskService {
     public void assignTask(TaskRequest taskRequest) {
         String taskId = taskRequest.getTaskId();
         String assignee = taskRequest.getUserId();
-        String userId = SecurityUtils.getUserId();
+        String userId = SecurityEngineUtils.getUserId();
         Task task = permissionService.validateAssignPermissionOnTask(taskId, userId, assignee);
         this.addComment(taskId, task.getProcessInstanceId(), userId, CommentTypeEnum.ZB, taskRequest.getMessage());
         taskService.setAssignee(task.getId(), assignee);
@@ -168,7 +168,7 @@ public class FlowableTaskServiceImpl implements FlowableTaskService {
     @Transactional(rollbackFor = Exception.class)
     public void involveUser(String taskId, String involveUserId) {
         Task task = getTaskNotNull(taskId);
-        String userId = SecurityUtils.getUserId();
+        String userId = SecurityEngineUtils.getUserId();
         permissionService.validateReadPermissionOnTask(task.getId(), userId, false, false);
         if (involveUserId != null && involveUserId.length() > 0) {
             taskService.addUserIdentityLink(taskId, involveUserId, IdentityLinkType.PARTICIPANT);
@@ -181,7 +181,7 @@ public class FlowableTaskServiceImpl implements FlowableTaskService {
     @Transactional(rollbackFor = Exception.class)
     public void removeInvolvedUser(String taskId, String involveUserId) {
         Task task = getTaskNotNull(taskId);
-        String userId = SecurityUtils.getUserId();
+        String userId = SecurityEngineUtils.getUserId();
         permissionService.validateReadPermissionOnTask(task.getId(), userId, false, false);
         if (involveUserId != null && involveUserId.length() > 0) {
             taskService.deleteUserIdentityLink(taskId, involveUserId, IdentityLinkType.PARTICIPANT);
@@ -194,7 +194,7 @@ public class FlowableTaskServiceImpl implements FlowableTaskService {
     @Transactional(rollbackFor = Exception.class)
     public void claimTask(TaskRequest taskRequest) {
         String taskId = taskRequest.getTaskId();
-        String userId = SecurityUtils.getUserId();
+        String userId = SecurityEngineUtils.getUserId();
         TaskInfo task = permissionService.validateReadPermissionOnTask2(taskId, userId, false, false);
         if (task.getAssignee() != null && task.getAssignee().length() > 0) {
             throw new FlowableNoPermissionException("User does not have permission");
@@ -207,7 +207,7 @@ public class FlowableTaskServiceImpl implements FlowableTaskService {
     @Transactional(rollbackFor = Exception.class)
     public void unclaimTask(TaskRequest taskRequest) {
         String taskId = taskRequest.getTaskId();
-        String userId = SecurityUtils.getUserId();
+        String userId = SecurityEngineUtils.getUserId();
         TaskInfo task = this.getTaskNotNull(taskId);
         if (!userId.equals(task.getAssignee())) {
             throw new FlowableNoPermissionException("User does not have permission");
@@ -249,7 +249,7 @@ public class FlowableTaskServiceImpl implements FlowableTaskService {
     public void delegateTask(TaskRequest taskRequest) {
         String taskId = taskRequest.getTaskId();
         String delegater = taskRequest.getUserId();
-        String userId = SecurityUtils.getUserId();
+        String userId = SecurityEngineUtils.getUserId();
         Task task = permissionService.validateDelegatePermissionOnTask(taskId, userId, delegater);
         this.addComment(taskId, task.getProcessInstanceId(), userId, CommentTypeEnum.WP, taskRequest.getMessage());
         taskService.delegateTask(task.getId(), delegater);
@@ -265,7 +265,7 @@ public class FlowableTaskServiceImpl implements FlowableTaskService {
     @Transactional(rollbackFor = Exception.class)
     public void completeTask(TaskRequest taskRequest) {
         String taskId = taskRequest.getTaskId();
-        String currUserId = SecurityUtils.getUserId();
+        String currUserId = SecurityEngineUtils.getUserId();
         Task task = getTaskNotNull(taskId);
         if (!permissionService.isTaskOwnerOrAssignee(currUserId, task)) {
             if (StringUtils.isEmpty(task.getScopeType()) && !permissionService.validateIfUserIsInitiatorAndCanCompleteTask(currUserId, task)) {
@@ -345,7 +345,7 @@ public class FlowableTaskServiceImpl implements FlowableTaskService {
     @Transactional(rollbackFor = Exception.class)
     public void stopProcessInstance(TaskRequest taskRequest) {
         String taskId = taskRequest.getTaskId();
-        String userId = SecurityUtils.getUserId();
+        String userId = SecurityEngineUtils.getUserId();
         ProcessInstance processInstance = permissionService.validateStopProcessInstancePermissionOnTask(taskId, userId);
         BpmnModel bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
         if (bpmnModel != null) {
@@ -368,7 +368,7 @@ public class FlowableTaskServiceImpl implements FlowableTaskService {
     @Override
     public List<FlowNodeResponse> getBackNodes(String taskId) {
         TaskEntity taskEntity = (TaskEntity) permissionService.validateExcutePermissionOnTask(taskId,
-                SecurityUtils.getUserId());
+                SecurityEngineUtils.getUserId());
         permissionService.validateTaskHasButtonPermission(taskEntity, ButtonsEnum.BACK);
         String processInstanceId = taskEntity.getProcessInstanceId();
         String currActId = taskEntity.getTaskDefinitionKey();
@@ -396,7 +396,7 @@ public class FlowableTaskServiceImpl implements FlowableTaskService {
     @Transactional(rollbackFor = Exception.class)
     public void backTask(TaskRequest taskRequest) {
         String taskId = taskRequest.getTaskId();
-        String userId = SecurityUtils.getUserId();
+        String userId = SecurityEngineUtils.getUserId();
         Task task = permissionService.validateExcutePermissionOnTask(taskId, userId);
         permissionService.validateTaskHasButtonPermission(task, ButtonsEnum.BACK);
         String backSysMessage = "退回到" + taskRequest.getActivityName() + "。";
@@ -612,7 +612,7 @@ public class FlowableTaskServiceImpl implements FlowableTaskService {
         if (taskIds == null || taskIds.length == 0) {
             throw new FlowableException("taskIds is null or empty");
         }
-        String userId = SecurityUtils.getUserId();
+        String userId = SecurityEngineUtils.getUserId();
         for (String taskId : taskIds) {
             managementService.executeCommand(new CompleteTaskReadCmd(taskId, userId));
         }

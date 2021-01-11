@@ -1,6 +1,6 @@
 package com.sgai.pox.admin.security.component;
 
-import com.sgai.pox.engine.common.core.security.SecurityUser;
+import com.sgai.pox.admin.core.security.SecurityUser;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.sgai.pox.engine.common.core.util.SecurityEngineUtils;
 import org.apache.commons.io.IOUtils;
 import org.flowable.bpmn.constants.BpmnXMLConstants;
 import org.flowable.bpmn.model.BpmnModel;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sgai.pox.engine.common.core.util.SecurityUtils;
 import com.sgai.pox.engine.common.BaseFlowableController;
 import com.sgai.pox.engine.config.CustomProcessDiagramGenerator;
 
@@ -41,7 +41,7 @@ public class ProcessInstanceImageController extends BaseFlowableController {
     @GetMapping(value = "/flowable/processInstanceImage")
     public ResponseEntity<byte[]> image(@RequestParam String processInstanceId) {
         HistoricProcessInstance processInstance =
-                permissionService.validateReadPermissionOnProcessInstance(SecurityUtils.getUserId(), processInstanceId);
+                permissionService.validateReadPermissionOnProcessInstance(SecurityEngineUtils.getUserId(), processInstanceId);
         ProcessDefinition pde = repositoryService.getProcessDefinition(processInstance.getProcessDefinitionId());
         if (pde == null || !pde.hasGraphicalNotation()) {
             throw new FlowableException(messageFormat("Process instance image is not found with id {0}",

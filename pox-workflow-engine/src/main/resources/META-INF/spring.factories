@@ -2,13 +2,9 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.sgai.pox.engine.common.redis.RedisConfig,\
   com.sgai.pox.engine.common.redis.RedissonConfig,\
   com.sgai.pox.engine.common.redis.aspect.RedissonLockAspect,\
-  com.sgai.pox.engine.common.redis.aspect.RepeatRequestAspect,\
   com.sgai.pox.engine.common.redis.util.RedisUtil,\
   com.sgai.pox.engine.common.core.util.SpringContextUtils,\
-  com.sgai.pox.engine.common.core.filter.CommonFilterConfig,\
   com.sgai.pox.engine.common.core.threadpool.ThreadPoolConfig,\
-  com.sgai.pox.engine.common.log.aspect.LogAspect,\
-  com.sgai.pox.engine.common.core.config.mybatis.MybatisPlusConfig,\
-  com.sgai.pox.engine.common.core.config.mybatis.GlobalMetaObjectHandler
+  com.sgai.pox.engine.common.log.aspect.LogAspect
 
   

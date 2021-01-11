@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sgai.pox.engine.common.core.Result;
 import com.sgai.pox.engine.common.core.base.BaseController;
 import com.sgai.pox.engine.common.core.exception.SysException;
-import com.sgai.pox.engine.common.core.util.SecurityUtils;
+import com.sgai.pox.admin.core.util.SecurityUtils;
 import com.sgai.pox.engine.common.log.annotation.Log;
 import com.sgai.pox.admin.sys.entity.SysUser;
 import com.sgai.pox.admin.sys.entity.vo.SysPasswordForm;
