@@ -1,12 +1,8 @@
 package com.sgai.pox.engine.common.cmd;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
+import com.google.common.collect.Sets;
+import com.sgai.pox.engine.core.constant.FlowableConstant;
+import com.sgai.pox.engine.core.util.FlowableUtils;
 import org.flowable.bpmn.model.FlowNode;
 import org.flowable.bpmn.model.Process;
 import org.flowable.bpmn.model.UserTask;
@@ -23,9 +19,12 @@ import org.flowable.engine.impl.util.ProcessDefinitionUtil;
 import org.flowable.task.api.Task;
 import org.flowable.task.service.impl.persistence.entity.TaskEntity;
 
-import com.google.common.collect.Sets;
-import com.sgai.pox.engine.constant.FlowableConstant;
-import com.sgai.pox.engine.util.FlowableUtils;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author pox

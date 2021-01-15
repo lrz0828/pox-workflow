@@ -30,7 +30,7 @@ management:
 # 描述信息
 info:
   blog-url: http://www.test.com
-  author: zjm
+  author: pox
   version: 1.0
 flowable:
   async-executor-activate: false
@@ -59,41 +59,6 @@ pox:
     clients: pox
   resource:
     config:
-      addFilterBeforeUsernamePasswordAuthenticationFilter:
-        - com.sgai.pox.admin.security.component.authorization.kaptcha.filter.CaptchaFilter
-      ignoreUrls:
-        - /
-        - /oauth/token
-        - /oauth/token_key
-        - /oauth/error
-        - /token/**
-        - /swagger-ui.html
-        - /csrf
-        - /**/*swagger*/**
-        - /v2/**
-        - /webjars/**
-        - /druid/**
-      authorizeRequests:
-        - type: antMatchers
-          httpMethod:
-          antPatterns: /app/**
-          method: access
-          methodParams: "#oauth2.hasScope('app')"
-        - type: anyRequest
-          httpMethod:
-          antPatterns:
-          method: access
-          methodParams: "#oauth2.hasScope('admin')"
-  security:
-    config:
-      authorizeRequests:
-        - type: antMatchers
-          httpMethod:
-          antPatterns: /oauth/authorize,/oauth/confirm_access
-          method: authenticated
-          methodParams:
-        - type: anyRequest
-          httpMethod:
-          antPatterns:
-          method: permitAll
-          methodParams:
+      ignoreUrls: /,/oauth/token,/oauth/token_key,/oauth/error,/token/**,/swagger-ui.html,/csrf,/**/*swagger*/**,/v2/**,/webjars/**,/druid/**
+      suffix: .html,.jsp,.css,.png,.js,.ico
+    homeUrl: http://localhost:8888/pox

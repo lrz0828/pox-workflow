@@ -1,10 +1,9 @@
 package com.sgai.pox.engine.vo;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * @author pox

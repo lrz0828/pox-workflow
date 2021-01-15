@@ -1,16 +1,20 @@
 package com.sgai.pox.engine.controller;
 
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.sgai.pox.engine.common.core.util.CommonUtil;
-import com.sgai.pox.engine.common.core.util.ObjectUtils;
-import com.sgai.pox.engine.common.core.util.SecurityEngineUtils;
+import com.google.common.collect.ImmutableMap;
+import com.sgai.pox.engine.common.FlowablePage;
+import com.sgai.pox.engine.common.wapper.ProcDefListWrapper;
+import com.sgai.pox.engine.core.base.BaseFlowableController;
+import com.sgai.pox.engine.core.base.Result;
+import com.sgai.pox.engine.core.constant.FlowableConstant;
+import com.sgai.pox.engine.core.log.annotation.Log;
+import com.sgai.pox.engine.core.session.AssertContext;
+import com.sgai.pox.engine.core.util.CommonUtil;
+import com.sgai.pox.engine.core.util.ObjectUtils;
+import com.sgai.pox.engine.service.ProcessDefinitionService;
+import com.sgai.pox.engine.vo.ProcessDefinitionRequest;
+import com.sgai.pox.engine.vo.ProcessDefinitionResponse;
 import com.sgai.pox.engine.vo.query.ProcessDefinitionQueryVo;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.flowable.common.engine.api.FlowableException;
 import org.flowable.common.engine.api.query.QueryProperty;
@@ -32,18 +36,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.common.collect.ImmutableMap;
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.log.annotation.Log;
-import com.sgai.pox.engine.common.BaseFlowableController;
-import com.sgai.pox.engine.common.FlowablePage;
-import com.sgai.pox.engine.constant.FlowableConstant;
-import com.sgai.pox.engine.service.ProcessDefinitionService;
-import com.sgai.pox.engine.vo.ProcessDefinitionRequest;
-import com.sgai.pox.engine.vo.ProcessDefinitionResponse;
-import com.sgai.pox.engine.wapper.ProcDefListWrapper;
-
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletRequest;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author pox
@@ -69,7 +66,7 @@ public class ProcessDefinitionController extends BaseFlowableController {
                 ProcessDefinitionQueryProperty.PROCESS_DEFINITION_TENANT_ID);
     }
 
-    //@PreAuthorize("@elp.single('flowable:processDefinition:list')")
+    //@PoxPreAuthorize("@elp.single('flowable:processDefinition:list')")
     @GetMapping(value = "/list")
     public Result list(ProcessDefinitionQueryVo processDefinitionQueryVo) {
         ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
@@ -119,7 +116,7 @@ public class ProcessDefinitionController extends BaseFlowableController {
         if (ObjectUtils.isNotEmpty(processDefinitionQueryVo.getProcessDefinitionName())) {
             processDefinitionQuery.processDefinitionNameLike(ObjectUtils.convertToLike(processDefinitionQueryVo.getProcessDefinitionName()));
         }
-        processDefinitionQuery.latestVersion().active().startableByUser(SecurityEngineUtils.getUserId());
+        processDefinitionQuery.latestVersion().active().startableByUser(AssertContext.getUserId());
         FlowablePage page = this.pageList(processDefinitionQueryVo, processDefinitionQuery, ProcDefListWrapper.class,
                 ALLOWED_SORT_PROPERTIES);
         return Result.ok(page);
@@ -127,7 +124,7 @@ public class ProcessDefinitionController extends BaseFlowableController {
 
     @GetMapping(value = "/queryById")
     public Result queryById(@RequestParam String processDefinitionId) {
-        permissionService.validateReadPermissionOnProcessDefinition(SecurityEngineUtils.getUserId(), processDefinitionId);
+        permissionService.validateReadPermissionOnProcessDefinition(AssertContext.getUserId(), processDefinitionId);
         ProcessDefinition processDefinition = processDefinitionService.getProcessDefinitionById(processDefinitionId);
         String formKey = null;
         if (processDefinition.hasStartFormKey()) {
@@ -140,7 +137,7 @@ public class ProcessDefinitionController extends BaseFlowableController {
 
     @GetMapping(value = "/renderedStartForm")
     public Result renderedStartForm(@RequestParam String processDefinitionId) {
-        permissionService.validateReadPermissionOnProcessDefinition(SecurityEngineUtils.getUserId(), processDefinitionId);
+        permissionService.validateReadPermissionOnProcessDefinition(AssertContext.getUserId(), processDefinitionId);
         Object renderedStartForm = formService.getRenderedStartForm(processDefinitionId);
         boolean showBusinessKey = this.isShowBusinessKey(processDefinitionId);
         return Result.ok(ImmutableMap.of("renderedStartForm", renderedStartForm, "showBusinessKey", showBusinessKey));
@@ -148,7 +145,7 @@ public class ProcessDefinitionController extends BaseFlowableController {
 
     @GetMapping(value = "/image")
     public ResponseEntity<byte[]> image(@RequestParam String processDefinitionId) {
-        permissionService.validateReadPermissionOnProcessDefinition(SecurityEngineUtils.getUserId(), processDefinitionId);
+        permissionService.validateReadPermissionOnProcessDefinition(AssertContext.getUserId(), processDefinitionId);
         ProcessDefinition processDefinition = processDefinitionService.getProcessDefinitionById(processDefinitionId);
         InputStream imageStream = repositoryService.getProcessDiagram(processDefinition.getId());
         if (imageStream == null) {
@@ -165,10 +162,10 @@ public class ProcessDefinitionController extends BaseFlowableController {
         }
     }
 
-    //@PreAuthorize("@elp.single('flowable:processDefinition:xml')")
+    //@PoxPreAuthorize("@elp.single('flowable:processDefinition:xml')")
     @GetMapping(value = "/xml")
     public ResponseEntity<byte[]> xml(@RequestParam String processDefinitionId) {
-        permissionService.validateReadPermissionOnProcessDefinition(SecurityEngineUtils.getUserId(), processDefinitionId);
+        permissionService.validateReadPermissionOnProcessDefinition(AssertContext.getUserId(), processDefinitionId);
         ProcessDefinition processDefinition = processDefinitionService.getProcessDefinitionById(processDefinitionId);
         String deploymentId = processDefinition.getDeploymentId();
         String resourceId = processDefinition.getResourceName();
@@ -203,7 +200,7 @@ public class ProcessDefinitionController extends BaseFlowableController {
     }
 
     @Log(value = "删除流程定义")
-    //@PreAuthorize("@elp.single('flowable:processDefinition:delete')")
+    //@PoxPreAuthorize("@elp.single('flowable:processDefinition:delete')")
     @DeleteMapping(value = "/delete")
     public Result delete(@RequestParam String processDefinitionId, @RequestParam(required = false, defaultValue =
             "false") Boolean cascade) {
@@ -212,7 +209,7 @@ public class ProcessDefinitionController extends BaseFlowableController {
     }
 
     @Log(value = "激活流程定义")
-    //@PreAuthorize("@elp.single('flowable:processDefinition:suspendOrActivate')")
+    //@PoxPreAuthorize("@elp.single('flowable:processDefinition:suspendOrActivate')")
     @PutMapping(value = "/activate")
     public Result activate(@RequestBody ProcessDefinitionRequest actionRequest) {
         processDefinitionService.activate(actionRequest);
@@ -220,7 +217,7 @@ public class ProcessDefinitionController extends BaseFlowableController {
     }
 
     @Log(value = "挂起流程定义")
-    //@PreAuthorize("@elp.single('flowable:processDefinition:suspendOrActivate')")
+    //@PoxPreAuthorize("@elp.single('flowable:processDefinition:suspendOrActivate')")
     @PutMapping(value = "/suspend")
     public Result suspend(@RequestBody ProcessDefinitionRequest actionRequest) {
         processDefinitionService.suspend(actionRequest);
@@ -234,7 +231,7 @@ public class ProcessDefinitionController extends BaseFlowableController {
      * @return
      */
     @Log(value = "导入流程定义")
-    //@PreAuthorize("@elp.single('flowable:processDefinition:import')")
+    //@PoxPreAuthorize("@elp.single('flowable:processDefinition:import')")
     @PostMapping(value = "/import")
     public Result doImport(@RequestParam(required = false) String tenantId, HttpServletRequest request) {
         processDefinitionService.doImport(tenantId, request);

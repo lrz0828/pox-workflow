@@ -1,6 +1,6 @@
 package com.sgai.pox.engine.common.cmd;
 
-import com.sgai.pox.engine.constant.FlowableConstant;
+import com.sgai.pox.engine.core.constant.FlowableConstant;
 import com.sgai.pox.engine.vo.CcToVo;
 import org.flowable.common.engine.api.FlowableIllegalArgumentException;
 import org.flowable.common.engine.api.FlowableObjectNotFoundException;

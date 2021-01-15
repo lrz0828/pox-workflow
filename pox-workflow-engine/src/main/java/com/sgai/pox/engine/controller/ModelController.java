@@ -1,19 +1,19 @@
 package com.sgai.pox.engine.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.core.constant.Constants;
-import com.sgai.pox.engine.common.core.util.ObjectUtils;
-import com.sgai.pox.engine.common.log.annotation.Log;
-import com.sgai.pox.engine.common.BaseFlowableController;
 import com.sgai.pox.engine.common.FlowablePage;
 import com.sgai.pox.engine.common.ResponseFactory;
 import com.sgai.pox.engine.common.cmd.DeployModelCmd;
 import com.sgai.pox.engine.common.cmd.SaveModelEditorCmd;
+import com.sgai.pox.engine.common.wapper.ModelListWrapper;
+import com.sgai.pox.engine.core.base.BaseFlowableController;
+import com.sgai.pox.engine.core.base.Result;
+import com.sgai.pox.engine.core.constant.Constants;
+import com.sgai.pox.engine.core.log.annotation.Log;
+import com.sgai.pox.engine.core.util.ObjectUtils;
 import com.sgai.pox.engine.vo.ModelRequest;
 import com.sgai.pox.engine.vo.ModelResponse;
 import com.sgai.pox.engine.vo.query.ModelQueryVo;
-import com.sgai.pox.engine.wapper.ModelListWrapper;
 import org.flowable.common.engine.api.FlowableObjectNotFoundException;
 import org.flowable.common.engine.api.query.QueryProperty;
 import org.flowable.engine.impl.ModelQueryProperty;
@@ -21,7 +21,14 @@ import org.flowable.engine.repository.Model;
 import org.flowable.engine.repository.ModelQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -123,7 +130,7 @@ public class ModelController extends BaseFlowableController {
     }
 
     @Log(value = "新增流程模型")
-    //@PreAuthorize("@elp.single('flowable:model:save')")
+    //@PoxPreAuthorize("@elp.single('flowable:model:save')")
     @PostMapping(value = "/save")
     @Transactional(rollbackFor = Exception.class)
     public Result save(@RequestBody ModelRequest modelRequest) {
@@ -142,7 +149,7 @@ public class ModelController extends BaseFlowableController {
     }
 
     @Log(value = "修改流程模型")
-    //@PreAuthorize("@elp.single('flowable:model:update')")
+    //@PoxPreAuthorize("@elp.single('flowable:model:update')")
     @PutMapping(value = "/update")
     @Transactional(rollbackFor = Exception.class)
     public Result update(@RequestBody ModelRequest modelRequest) {
@@ -153,7 +160,7 @@ public class ModelController extends BaseFlowableController {
     }
 
     @Log(value = "删除流程模型")
-    //@PreAuthorize("@elp.single('flowable:model:delete')")
+    //@PoxPreAuthorize("@elp.single('flowable:model:delete')")
     @DeleteMapping(value = "/delete")
     @Transactional(rollbackFor = Exception.class)
     public Result delete(@RequestParam String ids, @RequestParam(required = false) boolean cascade) {
@@ -176,7 +183,7 @@ public class ModelController extends BaseFlowableController {
     }
 
     @Log(value = "保存流程设计")
-    //@PreAuthorize("@elp.single('flowable:model:saveModelEditor')")
+    //@PoxPreAuthorize("@elp.single('flowable:model:saveModelEditor')")
     @PutMapping(value = "/saveModelEditor")
     @Transactional(rollbackFor = Exception.class)
     public Result saveModelEditor(@RequestBody ModelRequest modelRequest) {
@@ -185,7 +192,7 @@ public class ModelController extends BaseFlowableController {
     }
 
     @Log(value = "部署流程模型")
-    //@PreAuthorize("@elp.single('flowable:model:deploy')")
+    //@PoxPreAuthorize("@elp.single('flowable:model:deploy')")
     @PostMapping(value = "/deploy")
     @Transactional(rollbackFor = Exception.class)
     public Result deployModel(@RequestBody ModelRequest modelRequest) {
@@ -194,7 +201,7 @@ public class ModelController extends BaseFlowableController {
     }
 
     @Log(value = "部署流程模型")
-    //@PreAuthorize("@elp.single('flowable:model:import')")
+    //@PoxPreAuthorize("@elp.single('flowable:model:import')")
     @PostMapping(value = "/import")
     @Transactional(rollbackFor = Exception.class)
     public Result doImport(@RequestParam(required = false) String tenantId, HttpServletRequest request) throws IOException {

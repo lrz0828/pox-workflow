@@ -1,8 +1,6 @@
 package com.sgai.pox.engine.common.cmd;
 
-import java.io.Serializable;
-
-import com.sgai.pox.engine.common.core.util.CommonUtil;
+import com.sgai.pox.engine.core.util.CommonUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.flowable.common.engine.api.FlowableIllegalArgumentException;
 import org.flowable.common.engine.api.FlowableObjectNotFoundException;
@@ -12,6 +10,8 @@ import org.flowable.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.flowable.engine.impl.persistence.entity.ProcessDefinitionEntityManager;
 import org.flowable.engine.impl.util.CommandContextUtil;
 import org.flowable.engine.repository.ProcessDefinition;
+
+import java.io.Serializable;
 
 
 /**

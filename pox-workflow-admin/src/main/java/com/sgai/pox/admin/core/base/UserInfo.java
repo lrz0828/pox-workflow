@@ -1,12 +1,10 @@
 package com.sgai.pox.admin.core.base;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.sgai.pox.admin.core.jackson.AuthorityDeserializer;
+import com.sgai.pox.engine.core.session.Authority;
 import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,14 +31,13 @@ public class UserInfo implements Serializable {
     /**
      * 权限标识集合
      */
-    @JsonDeserialize(using = AuthorityDeserializer.class)
-    private Collection<? extends GrantedAuthority> authorities;
+    private List<Authority> authorities;
 
     public UserInfo() {
     }
 
     public UserInfo(String userId, String userName, String password, String orgId, String roleId,
-                    Map<String, Object> additionalInformation, Collection<? extends GrantedAuthority> authorities) {
+                    Map<String, Object> additionalInformation, List<Authority> authorities) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;

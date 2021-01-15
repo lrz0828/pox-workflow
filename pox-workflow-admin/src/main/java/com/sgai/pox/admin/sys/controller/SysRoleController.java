@@ -3,16 +3,16 @@ package com.sgai.pox.admin.sys.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.core.base.BaseController;
-import com.sgai.pox.engine.common.log.annotation.Log;
+import com.sgai.pox.engine.core.base.Result;
+import com.sgai.pox.engine.core.base.BaseController;
 import com.sgai.pox.admin.sys.entity.SysRole;
 import com.sgai.pox.admin.sys.entity.SysRolePermission;
 import com.sgai.pox.admin.sys.entity.SysRoleUser;
 import com.sgai.pox.admin.sys.entity.SysUser;
 import com.sgai.pox.admin.sys.service.SysRoleService;
+import com.sgai.pox.engine.core.log.annotation.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import com.sgai.pox.engine.core.annotation.PoxPreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,14 +45,14 @@ public class SysRoleController extends BaseController {
      * @param size
      * @return
      */
-    @PreAuthorize("@elp.single('sys:role:list')")
+    @PoxPreAuthorize("@elp.single('sys:role:list')")
     @GetMapping(value = "/list")
     public Result list(SysRole sysRole, @RequestParam Integer current, @RequestParam Integer size) {
         IPage<SysRole> pageList = sysRoleService.list(new Page<SysRole>(current, size), sysRole);
         return Result.ok(pageList);
     }
 
-    @PreAuthorize("@elp.single('sys:role:list')")
+    @PoxPreAuthorize("@elp.single('sys:role:list')")
     @GetMapping(value = "/queryById")
     public Result queryById(@RequestParam String id) {
         SysRole sysRole = sysRoleService.getById(id);
@@ -65,7 +65,7 @@ public class SysRoleController extends BaseController {
      * @功能：新增
      */
     @Log(value = "新增角色")
-    @PreAuthorize("@elp.single('sys:role:save')")
+    @PoxPreAuthorize("@elp.single('sys:role:save')")
     @PostMapping(value = "/save")
     public Result save(@Valid @RequestBody SysRole sysRole) {
         sysRoleService.save(sysRole);
@@ -78,7 +78,7 @@ public class SysRoleController extends BaseController {
      * @功能：修改
      */
     @Log(value = "修改角色")
-    @PreAuthorize("@elp.single('sys:role:update')")
+    @PoxPreAuthorize("@elp.single('sys:role:update')")
     @PutMapping(value = "/update")
     public Result update(@Valid @RequestBody SysRole sysRole) {
         sysRoleService.updateById(sysRole);
@@ -91,7 +91,7 @@ public class SysRoleController extends BaseController {
      * @功能：批量删除
      */
     @Log(value = "删除角色")
-    @PreAuthorize("@elp.single('sys:role:delete')")
+    @PoxPreAuthorize("@elp.single('sys:role:delete')")
     @DeleteMapping(value = "/delete")
     public Result delete(@RequestParam String ids) {
         if (ids == null || ids.trim().length() == 0) {
@@ -107,7 +107,7 @@ public class SysRoleController extends BaseController {
      * @param roleId
      * @return
      */
-    @PreAuthorize("@elp.single('sys:role:getRolePermissions')")
+    @PoxPreAuthorize("@elp.single('sys:role:getRolePermissions')")
     @GetMapping(value = "/getRolePermissions")
     public Result getRolePermissions(String roleId) {
         Map<String, Object> data = this.sysRoleService.getRolePermissions(roleId);
@@ -123,7 +123,7 @@ public class SysRoleController extends BaseController {
      * @return
      */
     @Log(value = "保存角色权限")
-    @PreAuthorize("@elp.single('sys:role:saveRolePermissions')")
+    @PoxPreAuthorize("@elp.single('sys:role:saveRolePermissions')")
     @PostMapping(value = "/saveRolePermissions")
     public Result saveRolePermissions(@RequestBody SysRolePermission sysRolePermission) {
         this.sysRoleService.saveRolePermissions(sysRolePermission.getRoleId(), sysRolePermission.getMenuOrFuncId(),
@@ -137,7 +137,7 @@ public class SysRoleController extends BaseController {
      * @param roleId
      * @return
      */
-    @PreAuthorize("@elp.single('sys:role:getRoleUser')")
+    @PoxPreAuthorize("@elp.single('sys:role:getRoleUser')")
     @GetMapping(value = "/getRoleUser")
     public Result getRoleUser(SysRoleUser sysRoleUser, @RequestParam Integer current, @RequestParam Integer size) {
         IPage<SysUser> pageList = this.sysRoleService.getRoleUser(new Page<SysUser>(current, size), sysRoleUser);
@@ -151,7 +151,7 @@ public class SysRoleController extends BaseController {
      * @return
      */
     @Log(value = "保存角色用户")
-    @PreAuthorize("@elp.single('sys:role:saveRoleUsers')")
+    @PoxPreAuthorize("@elp.single('sys:role:saveRoleUsers')")
     @PostMapping(value = "/saveRoleUsers")
     public Result saveRoleUsers(@RequestBody SysRoleUser sysRoleUser) {
         this.sysRoleService.saveRoleUsers(sysRoleUser.getRoleId(), sysRoleUser.getUserId());
@@ -165,7 +165,7 @@ public class SysRoleController extends BaseController {
      * @return
      */
     @Log(value = "删除角色用户")
-    @PreAuthorize("@elp.single('sys:role:deleteRoleUsers')")
+    @PoxPreAuthorize("@elp.single('sys:role:deleteRoleUsers')")
     @DeleteMapping(value = "/deleteRoleUsers")
     public Result deleteRoleUsers(String roleId, String userIds) {
         this.sysRoleService.deleteRoleUsers(roleId, userIds);
@@ -177,7 +177,7 @@ public class SysRoleController extends BaseController {
      *
      * @return
      */
-    @PreAuthorize("@elp.single('sys:role:listAll')")
+    @PoxPreAuthorize("@elp.single('sys:role:listAll')")
     @GetMapping(value = "/listAll")
     public Result listAll() {
         QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();

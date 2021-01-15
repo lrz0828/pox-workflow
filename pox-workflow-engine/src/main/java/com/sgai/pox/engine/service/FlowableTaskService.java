@@ -1,17 +1,16 @@
 package com.sgai.pox.engine.service;
 
-import java.util.List;
-
-import org.flowable.engine.task.Comment;
-import org.flowable.task.api.Task;
-import org.flowable.task.api.history.HistoricTaskInstance;
-
-import com.sgai.pox.engine.common.CommentTypeEnum;
+import com.sgai.pox.engine.common.enums.CommentTypeEnum;
 import com.sgai.pox.engine.vo.FlowNodeResponse;
 import com.sgai.pox.engine.vo.IdentityRequest;
 import com.sgai.pox.engine.vo.TaskRequest;
 import com.sgai.pox.engine.vo.TaskResponse;
 import com.sgai.pox.engine.vo.TaskUpdateRequest;
+import org.flowable.engine.task.Comment;
+import org.flowable.task.api.Task;
+import org.flowable.task.api.history.HistoricTaskInstance;
+
+import java.util.List;
 
 /**
  * @author pox

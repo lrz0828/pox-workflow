@@ -3,8 +3,8 @@ package com.sgai.pox.admin.sys.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.sgai.pox.engine.common.core.base.BaseEntity;
-import com.sgai.pox.engine.common.core.validator.constraints.LengthForUtf8;
+import com.sgai.pox.engine.core.base.BaseEntity;
+import com.sgai.pox.engine.core.validator.constraints.LengthForUtf8;
 import lombok.Data;
 
 import javax.validation.constraints.Max;

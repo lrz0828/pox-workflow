@@ -1,15 +1,16 @@
 package com.sgai.pox.admin.sys.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.sgai.pox.engine.common.core.base.BaseService;
+import com.sgai.pox.engine.core.session.AcctLogin;
+import com.sgai.pox.engine.core.session.Authority;
+import com.sgai.pox.engine.core.base.BaseService;
 import com.sgai.pox.admin.sys.entity.SysRole;
 import com.sgai.pox.admin.sys.entity.SysUser;
 import com.sgai.pox.admin.sys.entity.vo.Route;
 import com.sgai.pox.admin.sys.entity.vo.SysPasswordForm;
 import com.sgai.pox.admin.sys.entity.vo.SysUserInfo;
-import org.springframework.security.core.GrantedAuthority;
+import com.sgai.pox.engine.core.session.SecurityUser;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -60,7 +61,7 @@ public interface SysUserService extends BaseService<SysUser> {
      * @param roleId
      * @return
      */
-    Collection<? extends GrantedAuthority> loadPermissions(SysUser sysUser, String roleId);
+    List<Authority> loadPermissions(SysUser sysUser, String roleId);
 
     /**
      * 加载路由信息
@@ -101,4 +102,12 @@ public interface SysUserService extends BaseService<SysUser> {
      * @return
      */
     boolean updatePassword(SysPasswordForm sysPasswordForm);
+
+    /**
+     * 修改密码
+     *
+     * @param acctLogin
+     * @return
+     */
+    SecurityUser userLogin(AcctLogin acctLogin);
 }

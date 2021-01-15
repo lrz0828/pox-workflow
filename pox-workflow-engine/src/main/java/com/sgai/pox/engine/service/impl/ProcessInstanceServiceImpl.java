@@ -1,13 +1,13 @@
 package com.sgai.pox.engine.service.impl;
 
-import com.sgai.pox.engine.common.CommentTypeEnum;
+import com.sgai.pox.engine.common.enums.CommentTypeEnum;
 import com.sgai.pox.engine.common.ResponseFactory;
 import com.sgai.pox.engine.common.cmd.AddCcIdentityLinkCmd;
-import com.sgai.pox.engine.common.core.base.SecurityEngineUser;
-import com.sgai.pox.engine.common.core.util.CommonUtil;
-import com.sgai.pox.engine.common.core.util.ObjectUtils;
-import com.sgai.pox.engine.common.core.util.SecurityEngineUtils;
-import com.sgai.pox.engine.constant.FlowableConstant;
+import com.sgai.pox.engine.core.constant.FlowableConstant;
+import com.sgai.pox.engine.core.session.AcctSession;
+import com.sgai.pox.engine.core.session.AssertContext;
+import com.sgai.pox.engine.core.util.CommonUtil;
+import com.sgai.pox.engine.core.util.ObjectUtils;
 import com.sgai.pox.engine.mapper.FlowableCommonMapper;
 import com.sgai.pox.engine.service.ProcessInstanceService;
 import com.sgai.pox.engine.vo.CategoryVo;
@@ -90,11 +90,9 @@ public class ProcessInstanceServiceImpl implements ProcessInstanceService {
         } else if (processDefinitionId.length() != 0 && processDefinitionKey.length() != 0) {
             throw new FlowableException("request param both processDefinitionId and processDefinitionKey is found");
         }
-//        SecurityEngineUser user = (SecurityEngineUser) SecurityEngineUtils.getUserDetails();
-//        String userId = user.getUsername();
-        // TODO: 2021/1/7
+        AcctSession acctSession = AssertContext.get();
 
-        String userId = "user.getUsername()";
+        String userId = acctSession.getUserId();
 
         ProcessDefinition definition = permissionService.validateReadPermissionOnProcessDefinition(userId,
                 processDefinitionId, processDefinitionKey, processInstanceRequest.getTenantId());

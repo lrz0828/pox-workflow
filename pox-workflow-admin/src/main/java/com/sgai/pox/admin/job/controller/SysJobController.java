@@ -1,14 +1,14 @@
 package com.sgai.pox.admin.job.controller;
 
-import javax.validation.Valid;
-
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sgai.pox.admin.job.service.SysJobService;
 import com.sgai.pox.admin.sys.entity.SysJob;
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.core.base.BaseController;
+import com.sgai.pox.engine.core.annotation.PoxPreAuthorize;
+import com.sgai.pox.engine.core.base.BaseController;
+import com.sgai.pox.engine.core.base.Result;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import javax.validation.Valid;
 
 /**
  * 定时任务Controller
@@ -40,14 +39,14 @@ public class SysJobController extends BaseController {
      * @param size
      * @return
      */
-    @PreAuthorize("@elp.single('sys:job:list')")
+    @PoxPreAuthorize("@elp.single('sys:job:list')")
     @GetMapping(value = "/list")
     public Result list(SysJob sysJob, @RequestParam Integer current, @RequestParam Integer size) {
         IPage<SysJob> pageList = sysJobService.list(new Page<SysJob>(current, size), sysJob);
         return Result.ok(pageList);
     }
 
-    @PreAuthorize("@elp.single('sys:job:list')")
+    @PoxPreAuthorize("@elp.single('sys:job:list')")
     @GetMapping(value = "/queryById")
     public Result queryById(@RequestParam String id) {
         SysJob sysJob = sysJobService.getById(id);
@@ -61,7 +60,7 @@ public class SysJobController extends BaseController {
      * @throws SchedulerException
      * @功能：新增
      */
-    @PreAuthorize("@elp.single('sys:job:save')")
+    @PoxPreAuthorize("@elp.single('sys:job:save')")
     @PostMapping(value = "/save")
     public Result save(@Valid @RequestBody SysJob sysJob) throws SchedulerException {
         sysJobService.saveJob(sysJob);
@@ -73,7 +72,7 @@ public class SysJobController extends BaseController {
      * @return
      * @功能：修改
      */
-    @PreAuthorize("@elp.single('sys:job:update')")
+    @PoxPreAuthorize("@elp.single('sys:job:update')")
     @PutMapping(value = "/update")
     public Result update(@Valid @RequestBody SysJob sysJob) throws SchedulerException {
         sysJobService.updateJob(sysJob);
@@ -86,21 +85,21 @@ public class SysJobController extends BaseController {
      * @throws SchedulerException
      * @功能：批量删除
      */
-    @PreAuthorize("@elp.single('sys:job:delete')")
+    @PoxPreAuthorize("@elp.single('sys:job:delete')")
     @DeleteMapping(value = "/delete")
     public Result delete(@RequestParam String ids) throws SchedulerException {
         sysJobService.delete(ids);
         return Result.ok();
     }
 
-    @PreAuthorize("@elp.single('sys:job:changeStatus')")
+    @PoxPreAuthorize("@elp.single('sys:job:changeStatus')")
     @PutMapping("/changeStatus")
     public Result changeStatus(@RequestBody SysJob sysJob) throws SchedulerException {
         sysJobService.changeStatus(sysJob.getJobId());
         return Result.ok();
     }
 
-    @PreAuthorize("@elp.single('sys:job:run')")
+    @PoxPreAuthorize("@elp.single('sys:job:run')")
     @PutMapping("/run")
     public Result run(@RequestBody SysJob sysJob) throws SchedulerException {
         sysJobService.run(sysJob.getJobId());

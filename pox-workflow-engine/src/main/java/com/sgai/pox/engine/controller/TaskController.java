@@ -1,24 +1,24 @@
 package com.sgai.pox.engine.controller;
 
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.core.util.CommonUtil;
-import com.sgai.pox.engine.common.core.util.ObjectUtils;
-import com.sgai.pox.engine.common.core.util.SecurityEngineUtils;
-import com.sgai.pox.engine.common.redis.aspect.annotation.RedissonLock;
-import com.sgai.pox.engine.common.log.annotation.Log;
-import com.sgai.pox.engine.common.BaseFlowableController;
 import com.sgai.pox.engine.common.FlowablePage;
-import com.sgai.pox.engine.constant.FlowableConstant;
+import com.sgai.pox.engine.common.wapper.TaskListWrapper;
+import com.sgai.pox.engine.common.wapper.TaskTodoListWrapper;
+import com.sgai.pox.engine.core.base.BaseFlowableController;
+import com.sgai.pox.engine.core.base.Result;
+import com.sgai.pox.engine.core.constant.FlowableConstant;
+import com.sgai.pox.engine.core.log.annotation.Log;
+import com.sgai.pox.engine.core.redis.aspect.annotation.RedissonLock;
+import com.sgai.pox.engine.core.session.AssertContext;
+import com.sgai.pox.engine.core.util.CommonUtil;
+import com.sgai.pox.engine.core.util.FlowableUtils;
+import com.sgai.pox.engine.core.util.ObjectUtils;
 import com.sgai.pox.engine.service.FlowableTaskService;
-import com.sgai.pox.engine.util.FlowableUtils;
 import com.sgai.pox.engine.vo.ExecuteTaskDataVo;
 import com.sgai.pox.engine.vo.FlowNodeResponse;
 import com.sgai.pox.engine.vo.TaskRequest;
 import com.sgai.pox.engine.vo.TaskResponse;
 import com.sgai.pox.engine.vo.TaskUpdateRequest;
 import com.sgai.pox.engine.vo.query.TaskQueryVo;
-import com.sgai.pox.engine.wapper.TaskListWrapper;
-import com.sgai.pox.engine.wapper.TaskTodoListWrapper;
 import org.flowable.bpmn.model.Process;
 import org.flowable.bpmn.model.UserTask;
 import org.flowable.common.engine.api.FlowableObjectNotFoundException;
@@ -30,7 +30,13 @@ import org.flowable.task.api.history.HistoricTaskInstanceQuery;
 import org.flowable.task.service.impl.HistoricTaskInstanceQueryProperty;
 import org.flowable.task.service.impl.TaskQueryProperty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -231,7 +237,7 @@ public class TaskController extends BaseFlowableController {
         return query;
     }
 
-    //@PreAuthorize("@elp.single('flowable:task:list')")
+    //@PoxPreAuthorize("@elp.single('flowable:task:list')")
     @GetMapping(value = "/list")
     public Result list(TaskQueryVo taskQueryVo) {
         HistoricTaskInstanceQuery query = createHistoricTaskInstanceQuery(taskQueryVo);
@@ -243,7 +249,7 @@ public class TaskController extends BaseFlowableController {
     @GetMapping(value = "/listDone")
     public Result listDone(TaskQueryVo taskQueryVo) {
         HistoricTaskInstanceQuery query = createHistoricTaskInstanceQuery(taskQueryVo);
-        query.finished().or().taskAssignee(SecurityEngineUtils.getUserId()).taskOwner(SecurityEngineUtils.getUserId()).endOr();
+        query.finished().or().taskAssignee(AssertContext.getUserId()).taskOwner(AssertContext.getUserId()).endOr();
         FlowablePage page = this.pageList(taskQueryVo, query, TaskListWrapper.class, allowedSortProperties,
                 HistoricTaskInstanceQueryProperty.START);
         return Result.ok(page);
@@ -251,7 +257,7 @@ public class TaskController extends BaseFlowableController {
 
     @GetMapping(value = "/listTodo")
     public Result listTodo(TaskQueryVo taskQueryVo) {
-        String userId = SecurityEngineUtils.getUserId();
+        String userId = AssertContext.getUserId();
         TaskQuery query = createTaskQuery(taskQueryVo);
         query.taskCategory(FlowableConstant.CATEGORY_TODO);
         query.or().taskCandidateOrAssigned(userId).taskOwner(userId).endOr();
@@ -262,7 +268,7 @@ public class TaskController extends BaseFlowableController {
 
     @GetMapping(value = "/listToRead")
     public Result listToRead(TaskQueryVo taskQueryVo) {
-        String userId = SecurityEngineUtils.getUserId();
+        String userId = AssertContext.getUserId();
         TaskQuery query = createTaskQuery(taskQueryVo);
         query.taskCategory(FlowableConstant.CATEGORY_TO_READ);
         query.or().taskAssignee(userId).taskOwner(userId).endOr();
@@ -278,7 +284,7 @@ public class TaskController extends BaseFlowableController {
     }
 
     @Log(value = "修改任务")
-    //@PreAuthorize("@elp.single('flowable:task:update')")
+    //@PoxPreAuthorize("@elp.single('flowable:task:update')")
     @PutMapping(value = "/update")
     public Result update(@RequestBody TaskUpdateRequest taskUpdateRequest) {
         TaskResponse task = flowableTaskService.updateTask(taskUpdateRequest);
@@ -286,7 +292,7 @@ public class TaskController extends BaseFlowableController {
     }
 
     @Log(value = "删除任务")
-    //@PreAuthorize("@elp.single('flowable:task:delete')")
+    //@PoxPreAuthorize("@elp.single('flowable:task:delete')")
     @DeleteMapping(value = "/delete")
     public Result delete(@RequestParam String taskId) {
         flowableTaskService.deleteTask(taskId);
@@ -338,14 +344,14 @@ public class TaskController extends BaseFlowableController {
 
     @GetMapping(value = "/renderedTaskForm")
     public Result renderedTaskForm(@RequestParam String taskId) {
-        permissionService.validateReadPermissionOnTask2(taskId, SecurityEngineUtils.getUserId(), true, true);
+        permissionService.validateReadPermissionOnTask2(taskId, AssertContext.getUserId(), true, true);
         Object renderedTaskForm = formService.getRenderedTaskForm(taskId);
         return Result.ok(renderedTaskForm);
     }
 
     @GetMapping(value = "/executeTaskData")
     public Result executeTaskData(@RequestParam String taskId) {
-        Task task = permissionService.validateReadPermissionOnTask2(taskId, SecurityEngineUtils.getUserId(), true, true);
+        Task task = permissionService.validateReadPermissionOnTask2(taskId, AssertContext.getUserId(), true, true);
 
         Process process = repositoryService.getBpmnModel(task.getProcessDefinitionId()).getMainProcess();
         UserTask userTask = (UserTask) process.getFlowElement(task.getTaskDefinitionKey(), true);

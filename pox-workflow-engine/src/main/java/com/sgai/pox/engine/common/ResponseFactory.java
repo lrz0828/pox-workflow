@@ -1,17 +1,18 @@
 package com.sgai.pox.engine.common;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sgai.pox.engine.common.core.util.CommonUtil;
-import com.sgai.pox.engine.vo.*;
+import com.sgai.pox.engine.common.enums.CommentTypeEnum;
+import com.sgai.pox.engine.core.constant.FlowableConstant;
+import com.sgai.pox.engine.core.util.CommonUtil;
+import com.sgai.pox.engine.vo.CommentResponse;
+import com.sgai.pox.engine.vo.HistoricProcessInstanceResponse;
+import com.sgai.pox.engine.vo.IdentityResponse;
+import com.sgai.pox.engine.vo.ModelResponse;
+import com.sgai.pox.engine.vo.ProcessDefinitionResponse;
+import com.sgai.pox.engine.vo.ProcessInstanceDetailResponse;
+import com.sgai.pox.engine.vo.ProcessInstanceResponse;
+import com.sgai.pox.engine.vo.TaskResponse;
 import org.flowable.engine.FormService;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.IdentityService;
@@ -31,7 +32,13 @@ import org.flowable.task.api.TaskInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.sgai.pox.engine.constant.FlowableConstant;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author pox
@@ -45,7 +52,7 @@ public class ResponseFactory {
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public ResponseFactory(IdentityService identityService, FormService formService, HistoryService historyService,ObjectMapper objectMapper) {
+    public ResponseFactory(IdentityService identityService, FormService formService, HistoryService historyService, ObjectMapper objectMapper) {
         this.identityService = identityService;
         this.formService = formService;
         this.historyService = historyService;

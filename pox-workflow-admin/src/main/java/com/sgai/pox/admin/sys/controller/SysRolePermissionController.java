@@ -2,12 +2,12 @@ package com.sgai.pox.admin.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.core.base.BaseController;
+import com.sgai.pox.engine.core.base.Result;
+import com.sgai.pox.engine.core.base.BaseController;
 import com.sgai.pox.admin.sys.entity.SysRolePermission;
 import com.sgai.pox.admin.sys.service.SysRolePermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import com.sgai.pox.engine.core.annotation.PoxPreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,7 +39,7 @@ public class SysRolePermissionController extends BaseController {
      * @param size
      * @return
      */
-    @PreAuthorize("@elp.single('sys:rolePermission:list')")
+    @PoxPreAuthorize("@elp.single('sys:rolePermission:list')")
     @GetMapping(value = "/list")
     public Result list(SysRolePermission sysRolePermission, @RequestParam Integer current, @RequestParam Integer size) {
         IPage<SysRolePermission> pageList = sysRolePermissionService.list(new Page<SysRolePermission>(current, size),
@@ -47,7 +47,7 @@ public class SysRolePermissionController extends BaseController {
         return Result.ok(pageList);
     }
 
-    @PreAuthorize("@elp.single('sys:rolePermission:list')")
+    @PoxPreAuthorize("@elp.single('sys:rolePermission:list')")
     @GetMapping(value = "/queryById")
     public Result queryById(@RequestParam String id) {
         SysRolePermission sysRolePermission = sysRolePermissionService.getById(id);
@@ -59,7 +59,7 @@ public class SysRolePermissionController extends BaseController {
      * @return
      * @功能：新增
      */
-    @PreAuthorize("@elp.single('sys:rolePermission:save')")
+    @PoxPreAuthorize("@elp.single('sys:rolePermission:save')")
     @PostMapping(value = "/save")
     public Result save(@Valid @RequestBody SysRolePermission sysRolePermission) {
         sysRolePermissionService.save(sysRolePermission);
@@ -71,7 +71,7 @@ public class SysRolePermissionController extends BaseController {
      * @return
      * @功能：修改
      */
-    @PreAuthorize("@elp.single('sys:rolePermission:update')")
+    @PoxPreAuthorize("@elp.single('sys:rolePermission:update')")
     @PutMapping(value = "/update")
     public Result update(@Valid @RequestBody SysRolePermission sysRolePermission) {
         sysRolePermissionService.updateById(sysRolePermission);
@@ -83,7 +83,7 @@ public class SysRolePermissionController extends BaseController {
      * @return
      * @功能：批量删除
      */
-    @PreAuthorize("@elp.single('sys:rolePermission:delete')")
+    @PoxPreAuthorize("@elp.single('sys:rolePermission:delete')")
     @DeleteMapping(value = "/delete")
     public Result delete(@RequestParam String ids) {
         if (ids == null || ids.trim().length() == 0) {

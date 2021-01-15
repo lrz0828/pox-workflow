@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.sgai.pox.engine.common.annotation.DataPermission;
+import com.sgai.pox.engine.core.annotation.DataPermission;
 import com.sgai.pox.admin.sys.entity.SysOrg;
 
 /**

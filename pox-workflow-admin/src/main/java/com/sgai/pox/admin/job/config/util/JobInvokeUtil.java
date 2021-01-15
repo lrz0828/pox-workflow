@@ -1,7 +1,7 @@
 package com.sgai.pox.admin.job.config.util;
 
 import com.sgai.pox.admin.sys.entity.SysJob;
-import com.sgai.pox.engine.common.core.util.SpringContextUtils;
+import com.sgai.pox.engine.core.util.SpringContextUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.InvocationTargetException;

@@ -1,10 +1,10 @@
 package com.sgai.pox.admin.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.core.base.BaseServiceImpl;
-import com.sgai.pox.engine.common.core.base.LogInfo;
-import com.sgai.pox.engine.common.core.base.LogService;
+import com.sgai.pox.engine.core.base.Result;
+import com.sgai.pox.engine.core.base.BaseServiceImpl;
+import com.sgai.pox.engine.core.base.LogInfo;
+import com.sgai.pox.engine.core.base.LogService;
 import com.sgai.pox.admin.sys.entity.SysLog;
 import com.sgai.pox.admin.sys.mapper.SysLogMapper;
 import com.sgai.pox.admin.sys.service.SysLogService;

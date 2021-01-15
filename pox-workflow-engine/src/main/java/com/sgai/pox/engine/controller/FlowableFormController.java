@@ -1,10 +1,12 @@
 package com.sgai.pox.engine.controller;
 
-import java.util.Arrays;
-
-import javax.validation.Valid;
-
-import com.sgai.pox.engine.common.log.annotation.Log;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sgai.pox.engine.core.base.BaseController;
+import com.sgai.pox.engine.core.base.Result;
+import com.sgai.pox.engine.core.log.annotation.Log;
+import com.sgai.pox.engine.entity.FlowableForm;
+import com.sgai.pox.engine.service.FlowableFormService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,12 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.core.base.BaseController;
-import com.sgai.pox.engine.entity.FlowableForm;
-import com.sgai.pox.engine.service.FlowableFormService;
+import javax.validation.Valid;
+import java.util.Arrays;
 
 /**
  * 流程Controller
@@ -41,14 +39,14 @@ public class FlowableFormController extends BaseController {
      * @param size
      * @return
      */
-    //@PreAuthorize("@elp.single('flowable:form:list')")
+    //@PoxPreAuthorize("@elp.single('flowable:form:list')")
     @GetMapping(value = "/list")
     public Result list(FlowableForm flowableForm, @RequestParam Integer current, @RequestParam Integer size) {
         IPage<FlowableForm> pageList = flowableFormService.list(new Page<FlowableForm>(current, size), flowableForm);
         return Result.ok(pageList);
     }
 
-    //@PreAuthorize("@elp.single('flowable:form:list')")
+    //@PoxPreAuthorize("@elp.single('flowable:form:list')")
     @GetMapping(value = "/queryById")
     public Result queryById(@RequestParam String id) {
         FlowableForm flowableForm = flowableFormService.getById(id);
@@ -61,7 +59,7 @@ public class FlowableFormController extends BaseController {
      * @功能：新增
      */
     @Log(value = "新增流程表单")
-    //@PreAuthorize("@elp.single('flowable:form:save')")
+    //@PoxPreAuthorize("@elp.single('flowable:form:save')")
     @PostMapping(value = "/save")
     public Result save(@Valid @RequestBody FlowableForm flowableForm) {
         flowableFormService.save(flowableForm);
@@ -74,7 +72,7 @@ public class FlowableFormController extends BaseController {
      * @功能：修改
      */
     @Log(value = "修改流程表单")
-    //@PreAuthorize("@elp.single('flowable:form:update')")
+    //@PoxPreAuthorize("@elp.single('flowable:form:update')")
     @PutMapping(value = "/update")
     public Result update(@Valid @RequestBody FlowableForm flowableForm) {
         flowableFormService.updateById(flowableForm);
@@ -87,7 +85,7 @@ public class FlowableFormController extends BaseController {
      * @功能：批量删除
      */
     @Log(value = "删除流程表单")
-    //@PreAuthorize("@elp.single('flowable:form:delete')")
+    //@PoxPreAuthorize("@elp.single('flowable:form:delete')")
     @DeleteMapping(value = "/delete")
     public Result delete(@RequestParam String ids) {
         if (ids == null || ids.trim().length() == 0) {

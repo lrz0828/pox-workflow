@@ -1,6 +1,6 @@
 package com.sgai.pox.engine.common.cmd;
 
-import com.sgai.pox.engine.common.core.util.SpringContextUtils;
+import com.sgai.pox.engine.core.util.SpringContextUtils;
 import com.sgai.pox.engine.entity.FlowableForm;
 import com.sgai.pox.engine.service.FlowableFormService;
 import org.flowable.bpmn.converter.BpmnXMLConverter;

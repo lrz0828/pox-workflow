@@ -2,7 +2,7 @@ package com.sgai.pox.admin.sys.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sgai.pox.engine.common.core.base.BaseService;
+import com.sgai.pox.engine.core.base.BaseService;
 import com.sgai.pox.admin.sys.entity.SysRole;
 import com.sgai.pox.admin.sys.entity.SysRoleUser;
 import com.sgai.pox.admin.sys.entity.SysUser;

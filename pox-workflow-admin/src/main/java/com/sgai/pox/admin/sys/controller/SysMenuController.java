@@ -2,14 +2,14 @@ package com.sgai.pox.admin.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.core.base.BaseController;
-import com.sgai.pox.engine.common.log.annotation.Log;
+import com.sgai.pox.engine.core.base.Result;
+import com.sgai.pox.engine.core.base.BaseController;
+import com.sgai.pox.engine.core.log.annotation.Log;
 import com.sgai.pox.admin.sys.entity.SysMenu;
 import com.sgai.pox.admin.sys.entity.vo.ElTree;
 import com.sgai.pox.admin.sys.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import com.sgai.pox.engine.core.annotation.PoxPreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,14 +41,14 @@ public class SysMenuController extends BaseController {
      * @param size
      * @return
      */
-    @PreAuthorize("@elp.single('sys:menu:list')")
+    @PoxPreAuthorize("@elp.single('sys:menu:list')")
     @GetMapping(value = "/list")
     public Result list(SysMenu sysMenu, @RequestParam Integer current, @RequestParam Integer size) {
         IPage<SysMenu> pageList = sysMenuService.list(new Page<SysMenu>(current, size), sysMenu);
         return Result.ok(pageList);
     }
 
-    @PreAuthorize("@elp.single('sys:menu:list')")
+    @PoxPreAuthorize("@elp.single('sys:menu:list')")
     @GetMapping(value = "/queryById")
     public Result queryById(@RequestParam String id) {
         SysMenu sysMenu = sysMenuService.getById(id);
@@ -61,7 +61,7 @@ public class SysMenuController extends BaseController {
      * @功能：新增
      */
     @Log(value = "新增功能菜单")
-    @PreAuthorize("@elp.single('sys:menu:save')")
+    @PoxPreAuthorize("@elp.single('sys:menu:save')")
     @PostMapping(value = "/save")
     public Result save(@Valid @RequestBody SysMenu sysMenu) {
         sysMenuService.saveSysMenu(sysMenu);
@@ -74,7 +74,7 @@ public class SysMenuController extends BaseController {
      * @功能：修改
      */
     @Log(value = "修改功能菜单")
-    @PreAuthorize("@elp.single('sys:menu:update')")
+    @PoxPreAuthorize("@elp.single('sys:menu:update')")
     @PutMapping(value = "/update")
     public Result update(@Valid @RequestBody SysMenu sysMenu) {
         sysMenuService.updateSysMenu(sysMenu);
@@ -87,7 +87,7 @@ public class SysMenuController extends BaseController {
      * @功能：删除
      */
     @Log(value = "删除功能菜单")
-    @PreAuthorize("@elp.single('sys:menu:delete')")
+    @PoxPreAuthorize("@elp.single('sys:menu:delete')")
     @DeleteMapping(value = "/delete")
     public Result delete(@RequestParam String id) {
         sysMenuService.delete(id);
@@ -99,7 +99,7 @@ public class SysMenuController extends BaseController {
      *
      * @return
      */
-    @PreAuthorize("@elp.single('sys:menu:getTreeData')")
+    @PoxPreAuthorize("@elp.single('sys:menu:getTreeData')")
     @GetMapping(value = "/getTreeData")
     public Result getTreeData() {
         List<ElTree> treeData = sysMenuService.getTreeData();

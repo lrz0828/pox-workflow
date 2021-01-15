@@ -3,7 +3,7 @@ package com.sgai.pox.admin.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sgai.pox.engine.common.core.base.BaseServiceImpl;
+import com.sgai.pox.engine.core.base.BaseServiceImpl;
 import com.sgai.pox.admin.sys.entity.SysPost;
 import com.sgai.pox.admin.sys.entity.SysPostUser;
 import com.sgai.pox.admin.sys.entity.SysUser;

@@ -2,12 +2,12 @@ package com.sgai.pox.admin.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.core.base.BaseController;
+import com.sgai.pox.engine.core.base.Result;
+import com.sgai.pox.engine.core.base.BaseController;
 import com.sgai.pox.admin.sys.entity.SysLog;
 import com.sgai.pox.admin.sys.service.SysLogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import com.sgai.pox.engine.core.annotation.PoxPreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,14 +39,14 @@ public class SysLogController extends BaseController {
      * @param size
      * @return
      */
-    @PreAuthorize("@elp.single('sys:log:list')")
+    @PoxPreAuthorize("@elp.single('sys:log:list')")
     @GetMapping(value = "/list")
     public Result list(SysLog sysLog, @RequestParam Integer current, @RequestParam Integer size) {
         IPage<SysLog> pageList = sysLogService.list(new Page<SysLog>(current, size), sysLog);
         return Result.ok(pageList);
     }
 
-    @PreAuthorize("@elp.single('sys:log:list')")
+    @PoxPreAuthorize("@elp.single('sys:log:list')")
     @GetMapping(value = "/queryById")
     public Result queryById(@RequestParam String id) {
         SysLog sysLog = sysLogService.getById(id);
@@ -58,7 +58,7 @@ public class SysLogController extends BaseController {
      * @return
      * @功能：新增
      */
-    @PreAuthorize("@elp.single('sys:log:save')")
+    @PoxPreAuthorize("@elp.single('sys:log:save')")
     @PostMapping(value = "/save")
     public Result save(@Valid @RequestBody SysLog sysLog) {
         sysLogService.save(sysLog);
@@ -70,7 +70,7 @@ public class SysLogController extends BaseController {
      * @return
      * @功能：修改
      */
-    @PreAuthorize("@elp.single('sys:log:update')")
+    @PoxPreAuthorize("@elp.single('sys:log:update')")
     @PutMapping(value = "/update")
     public Result update(@Valid @RequestBody SysLog sysLog) {
         sysLogService.updateById(sysLog);
@@ -82,7 +82,7 @@ public class SysLogController extends BaseController {
      * @return
      * @功能：批量删除
      */
-    @PreAuthorize("@elp.single('sys:log:delete')")
+    @PoxPreAuthorize("@elp.single('sys:log:delete')")
     @DeleteMapping(value = "/delete")
     public Result delete(@RequestParam String ids) {
         if (ids == null || ids.trim().length() == 0) {

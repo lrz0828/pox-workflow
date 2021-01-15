@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sgai.pox.engine.common.core.base.BaseEntity;
-import com.sgai.pox.engine.common.core.validator.constraints.LengthForUtf8;
+import com.sgai.pox.engine.core.base.BaseEntity;
+import com.sgai.pox.engine.core.validator.constraints.LengthForUtf8;
 import lombok.Data;
 
 import javax.validation.constraints.Max;

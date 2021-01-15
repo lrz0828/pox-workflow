@@ -1,19 +1,19 @@
 package com.sgai.pox.engine.controller;
 
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.core.util.CommonUtil;
-import com.sgai.pox.engine.common.core.util.ObjectUtils;
-import com.sgai.pox.engine.common.core.util.SecurityEngineUtils;
-import com.sgai.pox.engine.common.log.annotation.Log;
-import com.sgai.pox.engine.common.BaseFlowableController;
 import com.sgai.pox.engine.common.FlowablePage;
-import com.sgai.pox.engine.constant.FlowableConstant;
+import com.sgai.pox.engine.common.wapper.CommentListWrapper;
+import com.sgai.pox.engine.common.wapper.ProcInsListWrapper;
+import com.sgai.pox.engine.core.base.BaseFlowableController;
+import com.sgai.pox.engine.core.base.Result;
+import com.sgai.pox.engine.core.constant.FlowableConstant;
+import com.sgai.pox.engine.core.log.annotation.Log;
+import com.sgai.pox.engine.core.session.AssertContext;
+import com.sgai.pox.engine.core.util.CommonUtil;
+import com.sgai.pox.engine.core.util.ObjectUtils;
 import com.sgai.pox.engine.service.ProcessInstanceService;
 import com.sgai.pox.engine.vo.ProcessInstanceDetailResponse;
-import com.sgai.pox.engine.vo.query.ProcessInstanceQueryVo;
 import com.sgai.pox.engine.vo.ProcessInstanceRequest;
-import com.sgai.pox.engine.wapper.CommentListWrapper;
-import com.sgai.pox.engine.wapper.ProcInsListWrapper;
+import com.sgai.pox.engine.vo.query.ProcessInstanceQueryVo;
 import org.flowable.common.engine.api.query.QueryProperty;
 import org.flowable.engine.history.HistoricProcessInstance;
 import org.flowable.engine.history.HistoricProcessInstanceQuery;
@@ -23,7 +23,14 @@ import org.flowable.engine.task.Comment;
 import org.flowable.variable.api.history.HistoricVariableInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -56,7 +63,7 @@ public class ProcessInstanceController extends BaseFlowableController {
         allowedSortProperties.put(FlowableConstant.TENANT_ID, HistoricProcessInstanceQueryProperty.TENANT_ID);
     }
 
-    //@PreAuthorize("@elp.single('flowable:processInstance:list')")
+    //@PoxPreAuthorize("@elp.single('flowable:processInstance:list')")
     @GetMapping(value = "/list")
     public Result list(ProcessInstanceQueryVo processInstanceQueryVo) {
         HistoricProcessInstanceQuery query = historyService.createHistoricProcessInstanceQuery();
@@ -117,11 +124,11 @@ public class ProcessInstanceController extends BaseFlowableController {
         }
         // startByMe 覆盖 startedBy
         if (processInstanceQueryVo.getStartedByMe()) {
-            query.startedBy(SecurityEngineUtils.getUserId());
+            query.startedBy(AssertContext.getUserId());
         }
         // ccToMe 抄送我
         if (processInstanceQueryVo.getCcToMe()) {
-            query.involvedUser(SecurityEngineUtils.getUserId(), FlowableConstant.CC);
+            query.involvedUser(AssertContext.getUserId(), FlowableConstant.CC);
         }
         if (CommonUtil.isNotEmptyAfterTrim(processInstanceQueryVo.getTenantId())) {
             query.processInstanceTenantIdLike(processInstanceQueryVo.getTenantId());
@@ -134,13 +141,13 @@ public class ProcessInstanceController extends BaseFlowableController {
 
     @GetMapping(value = "/listMyInvolvedSummary")
     public Result listMyInvolvedSummary(ProcessInstanceQueryVo processInstanceQueryVo) {
-        processInstanceQueryVo.setUserId(SecurityEngineUtils.getUserId());
+        processInstanceQueryVo.setUserId(AssertContext.getUserId());
         return Result.ok(this.processInstanceService.listMyInvolvedSummary(processInstanceQueryVo));
     }
 
     @GetMapping(value = "/listMyInvolved")
     public Result listMyInvolved(ProcessInstanceQueryVo processInstanceQueryVo) {
-        processInstanceQueryVo.setInvolvedUser(SecurityEngineUtils.getUserId());
+        processInstanceQueryVo.setInvolvedUser(AssertContext.getUserId());
         return list(processInstanceQueryVo);
     }
 
@@ -158,7 +165,7 @@ public class ProcessInstanceController extends BaseFlowableController {
 
     @GetMapping(value = "/queryById")
     public Result queryById(@RequestParam String processInstanceId) {
-        permissionService.validateReadPermissionOnProcessInstance(SecurityEngineUtils.getUserId(), processInstanceId);
+        permissionService.validateReadPermissionOnProcessInstance(AssertContext.getUserId(), processInstanceId);
         ProcessInstance processInstance = null;
         HistoricProcessInstance historicProcessInstance =
                 processInstanceService.getHistoricProcessInstanceById(processInstanceId);
@@ -179,7 +186,7 @@ public class ProcessInstanceController extends BaseFlowableController {
     }
 
     @Log(value = "删除流程实例")
-    //@PreAuthorize("@elp.single('flowable:processInstance:delete')")
+    //@PoxPreAuthorize("@elp.single('flowable:processInstance:delete')")
     @DeleteMapping(value = "/delete")
     public Result delete(@RequestParam String processInstanceId, @RequestParam(required = false) boolean cascade,
                          @RequestParam(required = false) String deleteReason) {
@@ -188,7 +195,7 @@ public class ProcessInstanceController extends BaseFlowableController {
     }
 
     @Log(value = "挂起流程实例")
-    //@PreAuthorize("@elp.single('flowable:processInstance:suspendOrActivate')")
+    //@PoxPreAuthorize("@elp.single('flowable:processInstance:suspendOrActivate')")
     @PutMapping(value = "/suspend")
     public Result suspend(@RequestBody ProcessInstanceRequest processInstanceRequest) {
         processInstanceService.suspend(processInstanceRequest.getProcessInstanceId());
@@ -196,7 +203,7 @@ public class ProcessInstanceController extends BaseFlowableController {
     }
 
     @Log(value = "激活流程实例")
-    //@PreAuthorize("@elp.single('flowable:processInstance:suspendOrActivate')")
+    //@PoxPreAuthorize("@elp.single('flowable:processInstance:suspendOrActivate')")
     @PutMapping(value = "/activate")
     public Result activate(@RequestBody ProcessInstanceRequest processInstanceRequest) {
         processInstanceService.activate(processInstanceRequest.getProcessInstanceId());
@@ -205,7 +212,7 @@ public class ProcessInstanceController extends BaseFlowableController {
 
     @GetMapping(value = "/comments")
     public Result comments(@RequestParam String processInstanceId) {
-        permissionService.validateReadPermissionOnProcessInstance(SecurityEngineUtils.getUserId(), processInstanceId);
+        permissionService.validateReadPermissionOnProcessInstance(AssertContext.getUserId(), processInstanceId);
         List<Comment> datas = taskService.getProcessInstanceComments(processInstanceId);
         Collections.reverse(datas);
         return Result.ok(this.listWrapper(CommentListWrapper.class, datas));
@@ -214,7 +221,7 @@ public class ProcessInstanceController extends BaseFlowableController {
     @GetMapping(value = "/formData")
     public Result formData(@RequestParam String processInstanceId) {
         HistoricProcessInstance processInstance =
-                permissionService.validateReadPermissionOnProcessInstance(SecurityEngineUtils.getUserId(), processInstanceId);
+                permissionService.validateReadPermissionOnProcessInstance(AssertContext.getUserId(), processInstanceId);
         Object renderedStartForm = formService.getRenderedStartForm(processInstance.getProcessDefinitionId());
         Map<String, Object> variables = null;
         if (processInstance.getEndTime() == null) {

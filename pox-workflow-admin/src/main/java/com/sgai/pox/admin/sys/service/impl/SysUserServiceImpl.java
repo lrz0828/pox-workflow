@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
+import com.sgai.pox.admin.core.base.UserInfo;
+import com.sgai.pox.admin.core.base.UserInfoService;
 import com.sgai.pox.admin.sys.entity.SysMenu;
 import com.sgai.pox.admin.sys.entity.SysOrg;
 import com.sgai.pox.admin.sys.entity.SysPostUser;
@@ -16,39 +18,38 @@ import com.sgai.pox.admin.sys.service.SysPostUserService;
 import com.sgai.pox.admin.sys.service.SysRoleService;
 import com.sgai.pox.admin.sys.service.SysRoleUserService;
 import com.sgai.pox.admin.sys.service.SysUserService;
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.core.base.BaseServiceImpl;
-import com.sgai.pox.admin.core.base.UserInfo;
-import com.sgai.pox.admin.core.base.UserInfoService;
-import com.sgai.pox.engine.common.core.constant.CacheConstants;
-import com.sgai.pox.engine.common.core.constant.Constants;
-import com.sgai.pox.engine.common.core.exception.SysException;
-import com.sgai.pox.admin.core.util.PasswordUtil;
-import com.sgai.pox.engine.common.redis.util.RedisUtil;
-import com.sgai.pox.admin.core.security.SecurityUser;
-import com.sgai.pox.engine.common.core.util.CommonUtil;
-import com.sgai.pox.admin.core.util.SecurityUtils;
-import com.sgai.pox.engine.common.core.util.SpringContextUtils;
+import com.sgai.pox.engine.core.base.Result;
+import com.sgai.pox.engine.core.base.BaseServiceImpl;
+import com.sgai.pox.engine.core.constant.CacheConstants;
+import com.sgai.pox.engine.core.constant.Constants;
+import com.sgai.pox.engine.core.exception.SysException;
+import com.sgai.pox.engine.core.redis.util.RedisUtil;
+import com.sgai.pox.engine.core.session.AcctLogin;
+import com.sgai.pox.engine.core.session.AcctSession;
+import com.sgai.pox.engine.core.session.AssertContext;
+import com.sgai.pox.engine.core.session.Authority;
+import com.sgai.pox.engine.core.session.CacheKeyConstant;
+import com.sgai.pox.engine.core.session.SecurityUser;
+import com.sgai.pox.engine.core.util.CommonUtil;
+import com.sgai.pox.engine.core.util.CookieUtil;
+import com.sgai.pox.engine.core.util.JacksonUtil;
+import com.sgai.pox.engine.core.util.PasswordUtil;
+import com.sgai.pox.engine.core.util.SpringContextUtils;
 import com.sgai.pox.admin.sys.entity.vo.*;
 import com.sgai.pox.admin.sys.mapper.SysUserMapper;
+import com.sgai.pox.engine.core.util.base64.Base64Util;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * 用户Service
@@ -122,24 +123,24 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
             updateById(updateRoleIdUser);
         }
         if (roleId != null && !roleId.isEmpty()) {
-            TokenStore tokenStore = SpringContextUtils.getBean(TokenStore.class);
-            OAuth2Authentication authentication = (OAuth2Authentication) SecurityUtils.getAuthentication();
-            SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
-            SecurityUser newSecurityUser = new SecurityUser(sysRole.getRoleId(), sysUser.getOrgId(),
-                    sysUser.getUserName(), securityUser.getAdditionalInformation(), sysUser.getUserId(), "", true,
-                    true, true, true, sysUserInfo.getAuthorities());
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                    new UsernamePasswordAuthenticationToken(newSecurityUser, authentication.getCredentials(),
-                            newSecurityUser.getAuthorities());
-            usernamePasswordAuthenticationToken.setDetails(authentication.getUserAuthentication().getDetails());
-            OAuth2Authentication newAuthentication = new OAuth2Authentication(authentication.getOAuth2Request(),
-                    usernamePasswordAuthenticationToken);
-            newAuthentication.setDetails(authentication.getDetails());
-            OAuth2AccessToken token = tokenStore.getAccessToken(authentication);
-            if (CommonUtil.isNotEmptyObject(token.getAdditionalInformation())) {
-                token.getAdditionalInformation().put("roleId", roleId);
-            }
-            tokenStore.storeAccessToken(token, newAuthentication);
+//            TokenStore tokenStore = SpringContextUtils.getBean(TokenStore.class);
+//            OAuth2Authentication authentication = (OAuth2Authentication) SecurityUtils.getAuthentication();
+//            SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
+//            SecurityUser newSecurityUser = new SecurityUser(sysRole.getRoleId(), sysUser.getOrgId(),
+//                    sysUser.getUserName(), securityUser.getAdditionalInformation(), sysUser.getUserId(), "", true,
+//                    true, true, true, sysUserInfo.getAuthorities());
+//            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+//                    new UsernamePasswordAuthenticationToken(newSecurityUser, authentication.getCredentials(),
+//                            newSecurityUser.getAuthorities());
+//            usernamePasswordAuthenticationToken.setDetails(authentication.getUserAuthentication().getDetails());
+//            OAuth2Authentication newAuthentication = new OAuth2Authentication(authentication.getOAuth2Request(),
+//                    usernamePasswordAuthenticationToken);
+//            newAuthentication.setDetails(authentication.getDetails());
+//            OAuth2AccessToken token = tokenStore.getAccessToken(authentication);
+//            if (CommonUtil.isNotEmptyObject(token.getAdditionalInformation())) {
+//                token.getAdditionalInformation().put("roleId", roleId);
+//            }
+//            tokenStore.storeAccessToken(token, newAuthentication);
         }
 
         return sysUserInfo;
@@ -189,7 +190,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
             }
         }
 
-        Collection<? extends GrantedAuthority> authorities = loadPermissions(sysUser, roleId);
+        List<Authority> authorities = loadPermissions(sysUser, roleId);
         SysOrg sysOrg = this.sysOrgService.getById(sysUser.getOrgId());
         List<Route> routes = null;
         if (loadRoutes) {
@@ -204,7 +205,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
      * @return
      */
     @Override
-    public Collection<? extends GrantedAuthority> loadPermissions(SysUser sysUser, String roleId) {
+    public List<Authority> loadPermissions(SysUser sysUser, String roleId) {
         String userId = sysUser.getUserId();
         List<SysRolePermissionVO> authList = null;
         if (Constants.ADMIN.equals(userId)) {
@@ -234,7 +235,13 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
                 }
             }
         }
-        return permissions.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
+        List<Authority> authorities = new ArrayList<>(permissions.size());
+        for (String permission : permissions) {
+            Authority authority = new Authority();
+            authority.setAuthority(permission);
+            authorities.add(authority);
+        }
+        return authorities;
     }
 
     @Override
@@ -385,7 +392,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updatePassword(SysPasswordForm sysPasswordForm) {
-        String userId = SecurityUtils.getUserId();
+        String userId = AssertContext.getUserId();
         SysUser sysUser = this.getById(userId);
         if (sysUser == null) {
             throw new SysException("用户不存在");
@@ -398,5 +405,47 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         sysUser.setPassword(newPassword);
         // sysUser.setSalt(salt);
         return this.update(sysUser, new QueryWrapper<SysUser>().eq("user_id", userId));
+    }
+
+    @Override
+    public SecurityUser userLogin(AcctLogin acctLogin) {
+        SysUser sysUser = getById(acctLogin.getUserName());
+        // 判断密码是否正确
+        // TODO: 2021/1/14  
+//        if (!PasswordUtil.matchesPassword(acctLogin.getPassword(), sysUser.getPassword())) {
+//            throw new SysException("密码错误!");
+//        }
+        Result<UserInfo> result = this.info(acctLogin.getUserName(), "false");
+        UserInfo info = result.getData();
+
+        // 缓存用户信息
+        AcctSession acctSession = this.loginSuccess(info, acctLogin);
+
+        // 构造security用户
+        return new SecurityUser(info.getRoleId(), info.getOrgId(), info.getUserName(),
+                info.getAdditionalInformation(), info.getUserId(), info.getPassword(), true, true, true, true,
+                info.getAuthorities() != null ? info.getAuthorities() : Collections.emptyList(), acctSession.getSessionId());
+    }
+
+
+    private AcctSession loginSuccess(UserInfo info, AcctLogin acctLogin) {
+        //生成key
+        String suffix = acctLogin.getSessionId() + acctLogin.getClientType();
+        String sessionId = Base64Util.encode(suffix);
+        String key = CacheKeyConstant.ACCT_SESSION + suffix;
+
+        AcctSession acctSession = new AcctSession();
+        acctSession.setUserId(info.getUserId());
+        acctSession.setOrgId(info.getOrgId());
+        acctSession.setAdditionalInformation(info.getAdditionalInformation());
+        acctSession.setSessionId(acctLogin.getSessionId());
+        acctSession.setUserRealName(info.getUserName());
+        //保存到 session 中 60 分钟
+        redisUtil.set(key, JacksonUtil.objToStr(acctSession), CacheConstants.TIME_EXPIRE);
+
+        acctSession.setSessionId(sessionId);
+        AssertContext.init(acctSession);
+
+        return acctSession;
     }
 }

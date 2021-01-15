@@ -2,13 +2,13 @@ package com.sgai.pox.admin.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.core.base.BaseController;
-import com.sgai.pox.engine.common.log.annotation.Log;
+import com.sgai.pox.engine.core.base.Result;
+import com.sgai.pox.engine.core.base.BaseController;
+import com.sgai.pox.engine.core.log.annotation.Log;
 import com.sgai.pox.admin.sys.entity.SysFunc;
 import com.sgai.pox.admin.sys.service.SysFuncService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import com.sgai.pox.engine.core.annotation.PoxPreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,14 +40,14 @@ public class SysFuncController extends BaseController {
      * @param size
      * @return
      */
-    @PreAuthorize("@elp.single('sys:func:list')")
+    @PoxPreAuthorize("@elp.single('sys:func:list')")
     @GetMapping(value = "/list")
     public Result list(SysFunc sysFunc, @RequestParam Integer current, @RequestParam Integer size) {
         IPage<SysFunc> pageList = sysFuncService.list(new Page<SysFunc>(current, size), sysFunc);
         return Result.ok(pageList);
     }
 
-    @PreAuthorize("@elp.single('sys:func:list')")
+    @PoxPreAuthorize("@elp.single('sys:func:list')")
     @GetMapping(value = "/queryById")
     public Result queryById(@RequestParam String id) {
         SysFunc sysFunc = sysFuncService.getById(id);
@@ -60,7 +60,7 @@ public class SysFuncController extends BaseController {
      * @功能：新增
      */
     @Log(value = "新增功能按钮")
-    @PreAuthorize("@elp.single('sys:func:save')")
+    @PoxPreAuthorize("@elp.single('sys:func:save')")
     @PostMapping(value = "/save")
     public Result save(@Valid @RequestBody SysFunc sysFunc) {
         sysFuncService.save(sysFunc);
@@ -73,7 +73,7 @@ public class SysFuncController extends BaseController {
      * @功能：修改
      */
     @Log(value = "修改功能按钮")
-    @PreAuthorize("@elp.single('sys:func:update')")
+    @PoxPreAuthorize("@elp.single('sys:func:update')")
     @PutMapping(value = "/update")
     public Result update(@Valid @RequestBody SysFunc sysFunc) {
         sysFuncService.updateById(sysFunc);
@@ -86,7 +86,7 @@ public class SysFuncController extends BaseController {
      * @功能：批量删除
      */
     @Log(value = "删除功能按钮")
-    @PreAuthorize("@elp.single('sys:func:delete')")
+    @PoxPreAuthorize("@elp.single('sys:func:delete')")
     @DeleteMapping(value = "/delete")
     public Result delete(@RequestParam String ids) {
         if (ids == null || ids.trim().length() == 0) {

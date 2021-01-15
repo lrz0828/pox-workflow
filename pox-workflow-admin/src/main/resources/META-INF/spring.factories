@@ -1,6 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.sgai.pox.admin.security.component.authorization.kaptcha.KaptchaConfig,\
-  com.sgai.pox.admin.security.component.PoxAuthenticationEntryPointImpl,\
-  com.sgai.pox.admin.core.filter.CommonFilterConfig,\
-  com.sgai.pox.engine.common.core.mybatis.MybatisPlusConfig,\
-  com.sgai.pox.admin.core.mybatis.GlobalMetaObjectHandler
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=

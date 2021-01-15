@@ -1,7 +1,7 @@
 package com.sgai.pox.engine.common.cmd;
 
-import com.sgai.pox.engine.common.CommentTypeEnum;
-import com.sgai.pox.engine.constant.FlowableConstant;
+import com.sgai.pox.engine.common.enums.CommentTypeEnum;
+import com.sgai.pox.engine.core.constant.FlowableConstant;
 import org.flowable.common.engine.api.FlowableException;
 import org.flowable.common.engine.api.FlowableIllegalArgumentException;
 import org.flowable.common.engine.impl.interceptor.CommandContext;

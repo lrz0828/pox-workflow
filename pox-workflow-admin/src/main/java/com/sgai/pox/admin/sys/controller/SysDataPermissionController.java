@@ -2,13 +2,13 @@ package com.sgai.pox.admin.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.core.base.BaseController;
-import com.sgai.pox.engine.common.log.annotation.Log;
+import com.sgai.pox.engine.core.base.Result;
+import com.sgai.pox.engine.core.base.BaseController;
+import com.sgai.pox.engine.core.log.annotation.Log;
 import com.sgai.pox.admin.sys.entity.SysDataPermission;
 import com.sgai.pox.admin.sys.service.SysDataPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import com.sgai.pox.engine.core.annotation.PoxPreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +40,7 @@ public class SysDataPermissionController extends BaseController {
      * @param size
      * @return
      */
-    @PreAuthorize("@elp.single('sys:dataPermission:list')")
+    @PoxPreAuthorize("@elp.single('sys:dataPermission:list')")
     @GetMapping(value = "/list")
     public Result list(SysDataPermission sysDataPermission, @RequestParam Integer current, @RequestParam Integer size) {
         IPage<SysDataPermission> pageList = sysDataPermissionService.list(new Page<SysDataPermission>(current, size),
@@ -48,7 +48,7 @@ public class SysDataPermissionController extends BaseController {
         return Result.ok(pageList);
     }
 
-    @PreAuthorize("@elp.single('sys:dataPermission:list')")
+    @PoxPreAuthorize("@elp.single('sys:dataPermission:list')")
     @GetMapping(value = "/queryById")
     public Result queryById(@RequestParam String id) {
         SysDataPermission sysDataPermission = sysDataPermissionService.getById(id);
@@ -61,7 +61,7 @@ public class SysDataPermissionController extends BaseController {
      * @功能：新增
      */
     @Log(value = "新增数据权限")
-    @PreAuthorize("@elp.single('sys:dataPermission:save')")
+    @PoxPreAuthorize("@elp.single('sys:dataPermission:save')")
     @PostMapping(value = "/save")
     public Result save(@Valid @RequestBody SysDataPermission sysDataPermission) {
         sysDataPermissionService.save(sysDataPermission);
@@ -74,7 +74,7 @@ public class SysDataPermissionController extends BaseController {
      * @功能：修改
      */
     @Log(value = "修改数据权限")
-    @PreAuthorize("@elp.single('sys:dataPermission:update')")
+    @PoxPreAuthorize("@elp.single('sys:dataPermission:update')")
     @PutMapping(value = "/update")
     public Result update(@Valid @RequestBody SysDataPermission sysDataPermission) {
         sysDataPermissionService.updateById(sysDataPermission);
@@ -87,7 +87,7 @@ public class SysDataPermissionController extends BaseController {
      * @功能：批量删除
      */
     @Log(value = "删除数据权限")
-    @PreAuthorize("@elp.single('sys:dataPermission:delete')")
+    @PoxPreAuthorize("@elp.single('sys:dataPermission:delete')")
     @DeleteMapping(value = "/delete")
     public Result delete(@RequestParam String ids) {
         if (ids == null || ids.trim().length() == 0) {

@@ -8,7 +8,7 @@ import org.flowable.idm.engine.impl.GroupQueryImpl;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.sgai.pox.engine.common.annotation.DataPermission;
+import com.sgai.pox.engine.core.annotation.DataPermission;
 import com.sgai.pox.admin.sys.entity.SysPost;
 import com.sgai.pox.admin.sys.entity.SysPostUser;
 import com.sgai.pox.admin.sys.entity.SysUser;

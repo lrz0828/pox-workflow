@@ -1,12 +1,12 @@
 package com.sgai.pox.admin.sys.provider;
 
-import com.sgai.pox.engine.common.core.constant.SysConstants;
-import com.sgai.pox.engine.common.core.permission.provider.AbstractDataPermissionProvider;
-import com.sgai.pox.engine.common.core.permission.wrapper.PermissionWrapper;
-import com.sgai.pox.admin.core.security.SecurityUser;
-import com.sgai.pox.engine.common.core.util.CommonUtil;
-import com.sgai.pox.admin.core.util.SecurityUtils;
-import com.sgai.pox.engine.common.core.xss.SqlFilter;
+import com.sgai.pox.engine.core.constant.SysConstants;
+import com.sgai.pox.engine.core.permission.provider.AbstractDataPermissionProvider;
+import com.sgai.pox.engine.core.permission.wrapper.PermissionWrapper;
+import com.sgai.pox.engine.core.session.AcctSession;
+import com.sgai.pox.engine.core.session.AssertContext;
+import com.sgai.pox.engine.core.util.CommonUtil;
+import com.sgai.pox.engine.core.validator.xss.SqlFilter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -39,11 +39,11 @@ public class OrgDataPermissionProvider extends AbstractDataPermissionProvider {
 
     @Override
     public PermissionWrapper wrap(PermissionWrapper permissionWrapper) {
-        SecurityUser securityUser = (SecurityUser) SecurityUtils.getUserDetails();
-        CommonUtil.isEmptyMapWithKey(securityUser.getAdditionalInformation(), SysConstants.ORG_LEVEL_CODE,
+        AcctSession acctSession = AssertContext.get();
+        CommonUtil.isEmptyMapWithKey(acctSession.getAdditionalInformation(), SysConstants.ORG_LEVEL_CODE,
                 "orgLevelCode is null");
-        String orgId = securityUser.getOrgId();
-        String orgLevelCode = securityUser.getAdditionalInformation().get(SysConstants.ORG_LEVEL_CODE).toString();
+        String orgId = acctSession.getOrgId();
+        String orgLevelCode = acctSession.getAdditionalInformation().get(SysConstants.ORG_LEVEL_CODE).toString();
         // 别名，默认 o
         String alias = CommonUtil.isEmptyDefault(this.alias, "o");
         // 防止sql注入

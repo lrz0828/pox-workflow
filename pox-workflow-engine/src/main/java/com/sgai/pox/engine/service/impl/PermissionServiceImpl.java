@@ -1,12 +1,12 @@
 package com.sgai.pox.engine.service.impl;
 
 import com.sgai.pox.engine.common.cmd.GetProcessDefinitionInfoCmd;
-import com.sgai.pox.engine.common.core.util.SecurityEngineUtils;
 import com.sgai.pox.engine.common.enums.ButtonsEnum;
-import com.sgai.pox.engine.common.exception.FlowableNoPermissionException;
-import com.sgai.pox.engine.constant.FlowableConstant;
+import com.sgai.pox.engine.core.constant.FlowableConstant;
+import com.sgai.pox.engine.core.exception.FlowableNoPermissionException;
+import com.sgai.pox.engine.core.session.AssertContext;
+import com.sgai.pox.engine.core.util.FlowableUtils;
 import com.sgai.pox.engine.service.PermissionService;
-import com.sgai.pox.engine.util.FlowableUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.bpmn.model.ExtensionElement;
@@ -14,7 +14,12 @@ import org.flowable.bpmn.model.FlowElement;
 import org.flowable.bpmn.model.UserTask;
 import org.flowable.common.engine.api.FlowableException;
 import org.flowable.common.engine.api.FlowableObjectNotFoundException;
-import org.flowable.engine.*;
+import org.flowable.engine.HistoryService;
+import org.flowable.engine.IdentityService;
+import org.flowable.engine.ManagementService;
+import org.flowable.engine.RepositoryService;
+import org.flowable.engine.RuntimeService;
+import org.flowable.engine.TaskService;
 import org.flowable.engine.history.HistoricProcessInstance;
 import org.flowable.engine.history.HistoricProcessInstanceQuery;
 import org.flowable.engine.repository.ProcessDefinition;
@@ -425,7 +430,7 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public boolean isAdmin(String userId) {
         if (userId == null || userId.length() == 0) {
-            userId = SecurityEngineUtils.getUserId();
+            userId = AssertContext.getUserId();
         }
         return "admin".equals(userId);
     }

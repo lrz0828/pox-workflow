@@ -3,11 +3,10 @@ package com.sgai.pox.admin.sys.entity.vo;
 import com.sgai.pox.admin.sys.entity.SysOrg;
 import com.sgai.pox.admin.sys.entity.SysRole;
 import com.sgai.pox.admin.sys.entity.SysUser;
+import com.sgai.pox.engine.core.session.Authority;
 import lombok.Getter;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -27,10 +26,12 @@ public class SysUserInfo implements Serializable {
     @Getter
     private List<Route> routes;
     @Getter
-    private Collection<? extends GrantedAuthority> authorities;
+    private List<Authority> authorities;
 
-    public SysUserInfo(SysUser sysUser, SysOrg sysOrg, SysRole sysRole, List<SysRole> sysRoles, List<Route> routes,
-                       Collection<? extends GrantedAuthority> authorities) {
+    public SysUserInfo() {
+    }
+
+    public SysUserInfo(SysUser sysUser, SysOrg sysOrg, SysRole sysRole, List<SysRole> sysRoles, List<Route> routes, List<Authority> authorities) {
         this.sysUser = sysUser;
         this.sysOrg = sysOrg;
         this.sysRole = sysRole;

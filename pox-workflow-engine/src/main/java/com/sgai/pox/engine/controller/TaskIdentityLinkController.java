@@ -1,7 +1,10 @@
 package com.sgai.pox.engine.controller;
 
-import java.util.List;
-
+import com.sgai.pox.engine.core.base.BaseFlowableController;
+import com.sgai.pox.engine.core.base.Result;
+import com.sgai.pox.engine.core.log.annotation.Log;
+import com.sgai.pox.engine.service.FlowableTaskService;
+import com.sgai.pox.engine.vo.IdentityRequest;
 import org.flowable.identitylink.api.history.HistoricIdentityLink;
 import org.flowable.task.api.history.HistoricTaskInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.log.annotation.Log;
-import com.sgai.pox.engine.common.BaseFlowableController;
-import com.sgai.pox.engine.service.FlowableTaskService;
-import com.sgai.pox.engine.vo.IdentityRequest;
+import java.util.List;
 
 /**
  * @author pox
@@ -29,7 +28,7 @@ public class TaskIdentityLinkController extends BaseFlowableController {
     @Autowired
     protected FlowableTaskService flowableTaskService;
 
-    //@PreAuthorize("@elp.single('flowable:taskIdentityLink:list')")
+    //@PoxPreAuthorize("@elp.single('flowable:taskIdentityLink:list')")
     @GetMapping(value = "/list")
     public Result list(@RequestParam String taskId) {
         HistoricTaskInstance task = flowableTaskService.getHistoricTaskInstanceNotNull(taskId);
@@ -38,7 +37,7 @@ public class TaskIdentityLinkController extends BaseFlowableController {
     }
 
     @Log(value = "新增任务授权")
-    //@PreAuthorize("@elp.single('flowable:taskIdentityLink:save')")
+    //@PoxPreAuthorize("@elp.single('flowable:taskIdentityLink:save')")
     @PostMapping(value = "/save")
     public Result save(@RequestBody IdentityRequest taskIdentityRequest) {
         flowableTaskService.saveTaskIdentityLink(taskIdentityRequest);
@@ -46,7 +45,7 @@ public class TaskIdentityLinkController extends BaseFlowableController {
     }
 
     @Log(value = "删除任务授权")
-    //@PreAuthorize("@elp.single('flowable:taskIdentityLink:delete')")
+    //@PoxPreAuthorize("@elp.single('flowable:taskIdentityLink:delete')")
     @DeleteMapping(value = "/delete")
     public Result deleteIdentityLink(@RequestParam String taskId, @RequestParam String identityId,
                                      @RequestParam String identityType) {

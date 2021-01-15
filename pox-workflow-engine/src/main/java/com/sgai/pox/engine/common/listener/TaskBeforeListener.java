@@ -1,6 +1,6 @@
 package com.sgai.pox.engine.common.listener;
 
-import com.sgai.pox.engine.constant.FlowableConstant;
+import com.sgai.pox.engine.core.constant.FlowableConstant;
 import org.flowable.common.engine.api.delegate.event.FlowableEvent;
 import org.flowable.common.engine.api.delegate.event.FlowableEventListener;
 import org.flowable.common.engine.impl.event.FlowableEntityEventImpl;

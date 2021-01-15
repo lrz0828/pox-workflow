@@ -1,7 +1,7 @@
 package com.sgai.pox.admin.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.sgai.pox.engine.common.core.base.BaseServiceImpl;
+import com.sgai.pox.engine.core.base.BaseServiceImpl;
 import com.sgai.pox.admin.sys.entity.SysPostUser;
 import com.sgai.pox.admin.sys.mapper.SysPostUserMapper;
 import com.sgai.pox.admin.sys.service.SysPostUserService;

@@ -1,7 +1,10 @@
 package com.sgai.pox.engine.controller;
 
-import java.util.List;
-
+import com.sgai.pox.engine.core.base.BaseFlowableController;
+import com.sgai.pox.engine.core.base.Result;
+import com.sgai.pox.engine.core.log.annotation.Log;
+import com.sgai.pox.engine.service.ProcessDefinitionService;
+import com.sgai.pox.engine.vo.IdentityRequest;
 import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.identitylink.api.IdentityLink;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.log.annotation.Log;
-import com.sgai.pox.engine.common.BaseFlowableController;
-import com.sgai.pox.engine.service.ProcessDefinitionService;
-import com.sgai.pox.engine.vo.IdentityRequest;
+import java.util.List;
 
 /**
  * @author pox
@@ -29,7 +28,7 @@ public class ProcessDefinitionIdentityLinkController extends BaseFlowableControl
     @Autowired
     private ProcessDefinitionService processDefinitionService;
 
-    //@PreAuthorize("@elp.single('flowable:processDefinitionIdentityLink:list')")
+    //@PoxPreAuthorize("@elp.single('flowable:processDefinitionIdentityLink:list')")
     @GetMapping(value = "/list")
     public Result list(@RequestParam String processDefinitionId) {
         ProcessDefinition processDefinition = processDefinitionService.getProcessDefinitionById(processDefinitionId);
@@ -39,7 +38,7 @@ public class ProcessDefinitionIdentityLinkController extends BaseFlowableControl
     }
 
     @Log(value = "新增流程定义授权")
-    //@PreAuthorize("@elp.single('flowable:processDefinitionIdentityLink:save')")
+    //@PoxPreAuthorize("@elp.single('flowable:processDefinitionIdentityLink:save')")
     @PostMapping(value = "/save")
     public Result save(@RequestBody IdentityRequest identityRequest) {
         processDefinitionService.saveProcessDefinitionIdentityLink(identityRequest);
@@ -47,7 +46,7 @@ public class ProcessDefinitionIdentityLinkController extends BaseFlowableControl
     }
 
     @Log(value = "删除流程定义授权")
-    //@PreAuthorize("@elp.single('flowable:processDefinitionIdentityLink:delete')")
+    //@PoxPreAuthorize("@elp.single('flowable:processDefinitionIdentityLink:delete')")
     @DeleteMapping(value = "/delete")
     public Result delete(@RequestParam String processDefinitionId, @RequestParam String identityId,
                          @RequestParam String identityType) {

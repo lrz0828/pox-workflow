@@ -1,15 +1,13 @@
 package com.sgai.pox.admin.job.controller;
 
-import java.util.Arrays;
-
-import javax.validation.Valid;
-
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sgai.pox.admin.job.service.SysJobLogService;
 import com.sgai.pox.admin.sys.entity.SysJobLog;
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.core.base.BaseController;
+import com.sgai.pox.engine.core.annotation.PoxPreAuthorize;
+import com.sgai.pox.engine.core.base.BaseController;
+import com.sgai.pox.engine.core.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import javax.validation.Valid;
+import java.util.Arrays;
 
 /**
  * 定时任务执行日志Controller
@@ -41,14 +39,14 @@ public class SysJobLogController extends BaseController {
      * @param size
      * @return
      */
-    @PreAuthorize("@elp.single('sys:jobLog:list')")
+    @PoxPreAuthorize("@elp.single('sys:jobLog:list')")
     @GetMapping(value = "/list")
     public Result list(SysJobLog sysJobLog, @RequestParam Integer current, @RequestParam Integer size) {
         IPage<SysJobLog> pageList = sysJobLogService.list(new Page<SysJobLog>(current, size), sysJobLog);
         return Result.ok(pageList);
     }
 
-    @PreAuthorize("@elp.single('sys:jobLog:list')")
+    @PoxPreAuthorize("@elp.single('sys:jobLog:list')")
     @GetMapping(value = "/queryById")
     public Result queryById(@RequestParam String id) {
         SysJobLog sysJobLog = sysJobLogService.getById(id);
@@ -60,7 +58,7 @@ public class SysJobLogController extends BaseController {
      * @return
      * @功能：新增
      */
-    @PreAuthorize("@elp.single('sys:jobLog:save')")
+    @PoxPreAuthorize("@elp.single('sys:jobLog:save')")
     @PostMapping(value = "/save")
     public Result save(@Valid @RequestBody SysJobLog sysJobLog) {
         sysJobLogService.save(sysJobLog);
@@ -72,7 +70,7 @@ public class SysJobLogController extends BaseController {
      * @return
      * @功能：修改
      */
-    @PreAuthorize("@elp.single('sys:jobLog:update')")
+    @PoxPreAuthorize("@elp.single('sys:jobLog:update')")
     @PutMapping(value = "/update")
     public Result update(@Valid @RequestBody SysJobLog sysJobLog) {
         sysJobLogService.updateById(sysJobLog);
@@ -84,7 +82,7 @@ public class SysJobLogController extends BaseController {
      * @return
      * @功能：批量删除
      */
-    @PreAuthorize("@elp.single('sys:jobLog:delete')")
+    @PoxPreAuthorize("@elp.single('sys:jobLog:delete')")
     @DeleteMapping(value = "/delete")
     public Result delete(@RequestParam String ids) {
         if (ids == null || ids.trim().length() == 0) {

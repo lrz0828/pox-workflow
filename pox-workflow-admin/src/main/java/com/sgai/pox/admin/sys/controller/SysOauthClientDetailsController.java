@@ -2,12 +2,12 @@ package com.sgai.pox.admin.sys.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sgai.pox.engine.common.core.Result;
-import com.sgai.pox.engine.common.core.base.BaseController;
+import com.sgai.pox.engine.core.base.Result;
+import com.sgai.pox.engine.core.base.BaseController;
 import com.sgai.pox.admin.sys.entity.SysOauthClientDetails;
 import com.sgai.pox.admin.sys.service.SysOauthClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import com.sgai.pox.engine.core.annotation.PoxPreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +38,7 @@ public class SysOauthClientDetailsController extends BaseController {
      * @param size
      * @return
      */
-    @PreAuthorize("@elp.single('sys:oauthClientDetails:list')")
+    @PoxPreAuthorize("@elp.single('sys:oauthClientDetails:list')")
     @GetMapping(value = "/list")
     public Result list(SysOauthClientDetails sysOauthClientDetails, @RequestParam Integer current,
                        @RequestParam Integer size) {
@@ -48,7 +48,7 @@ public class SysOauthClientDetailsController extends BaseController {
         return Result.ok(pageList);
     }
 
-    @PreAuthorize("@elp.single('sys:oauthClientDetails:list')")
+    @PoxPreAuthorize("@elp.single('sys:oauthClientDetails:list')")
     @GetMapping(value = "/queryById")
     public Result queryById(@RequestParam String id) {
         SysOauthClientDetails sysOauthClientDetails = sysOauthClientDetailsService.getById(id);
@@ -60,7 +60,7 @@ public class SysOauthClientDetailsController extends BaseController {
      * @return
      * @功能：新增
      */
-    @PreAuthorize("@elp.single('sys:oauthClientDetails:save')")
+    @PoxPreAuthorize("@elp.single('sys:oauthClientDetails:save')")
     @PostMapping(value = "/save")
     public Result save(@Valid @RequestBody SysOauthClientDetails sysOauthClientDetails) {
         sysOauthClientDetailsService.saveSysOauthClientDetails(sysOauthClientDetails);
@@ -72,7 +72,7 @@ public class SysOauthClientDetailsController extends BaseController {
      * @return
      * @功能：修改
      */
-    @PreAuthorize("@elp.single('sys:oauthClientDetails:update')")
+    @PoxPreAuthorize("@elp.single('sys:oauthClientDetails:update')")
     @PutMapping(value = "/update")
     public Result update(@Valid @RequestBody SysOauthClientDetails sysOauthClientDetails) {
         sysOauthClientDetailsService.updateSysOauthClientDetails(sysOauthClientDetails);
@@ -84,7 +84,7 @@ public class SysOauthClientDetailsController extends BaseController {
      * @return
      * @功能：批量删除
      */
-    @PreAuthorize("@elp.single('sys:oauthClientDetails:delete')")
+    @PoxPreAuthorize("@elp.single('sys:oauthClientDetails:delete')")
     @DeleteMapping(value = "/delete")
     public Result delete(@RequestParam String ids) {
         sysOauthClientDetailsService.delete(ids);

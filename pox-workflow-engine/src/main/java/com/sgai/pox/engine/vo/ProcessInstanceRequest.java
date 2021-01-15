@@ -1,8 +1,8 @@
 package com.sgai.pox.engine.vo;
 
-import java.util.Map;
-
 import lombok.Data;
+
+import java.util.Map;
 
 /**
  * @author pox

@@ -1,10 +1,10 @@
 package com.sgai.pox.admin.sys.controller;
 
 import com.google.code.kaptcha.Producer;
-import com.sgai.pox.admin.security.annotation.AnonymousAccess;
-import com.sgai.pox.engine.common.core.constant.CacheConstants;
-import com.sgai.pox.engine.common.core.util.SpringContextUtils;
-import com.sgai.pox.engine.common.redis.util.RedisUtil;
+import com.sgai.pox.engine.core.annotation.AnonymousAccess;
+import com.sgai.pox.engine.core.constant.CacheConstants;
+import com.sgai.pox.engine.core.util.SpringContextUtils;
+import com.sgai.pox.engine.core.redis.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
