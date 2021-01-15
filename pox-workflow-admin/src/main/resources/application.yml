@@ -1,0 +1,64 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /pox
+    compression:
+      enabled: true
+      mime-types: application/javascript,application/json,application/xml,text/html,text/xml,text/plain,text/css,image/*
+spring:
+  profiles:
+    active: dev #环境 dev|test|prod
+  mvc:
+    static-path-pattern: /**
+  #resource:
+    #自定义静态资源路径
+    #static-locations: classpath:/static/,classpath:/public/
+#mybatis plus 设置
+mybatis-plus:
+  mapper-locations: classpath*:com/**/mapper/xml/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.sgai.pox.admin.syx.*.entity
+  #configuration: #打印sql
+  #  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl 
+#springboot监控actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        #include: "*" 
+        include: info,metrics,httptrace
+# 描述信息
+info:
+  blog-url: http://www.test.com
+  author: pox
+  version: 1.0
+flowable:
+  async-executor-activate: false
+pox:
+  # redis分布式锁
+  redisson:
+    enabled: true
+  # 异步线程池
+  async-thread-executor:
+    enabled: true
+    core-pool-size: 10
+    max-pool-size: 20
+    queue-capacity: 2000
+    name-prefix: async-service-
+    keep-alive-seconds: 60
+  # 数据权限
+  data-permission:
+    enabled: true
+    table-name: T_SYS_DATA_PERMISSION
+  # 工作流
+  flowable:
+    font-name: 宋体
+  # 需要验证码的客户端
+  captcha:
+    enabled: true
+    clients: pox
+  resource:
+    config:
+      ignoreUrls: /,/oauth/token,/oauth/token_key,/oauth/error,/token/**,/swagger-ui.html,/csrf,/**/*swagger*/**,/v2/**,/webjars/**,/druid/**
+      suffix: .html,.jsp,.css,.png,.js,.ico
+    homeUrl: http://localhost:8888/pox

@@ -1,0 +1,8 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.sgai.pox.engine.core.redis.RedisConfig,\
+  com.sgai.pox.engine.core.redis.RedissonConfig,\
+  com.sgai.pox.engine.core.redis.aspect.RedissonLockAspect,\
+  com.sgai.pox.engine.core.redis.util.RedisUtil,\
+  com.sgai.pox.engine.core.util.SpringContextUtils
+
+  
