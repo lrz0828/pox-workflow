@@ -7,6 +7,7 @@ import com.sgai.pox.engine.core.constant.FlowableConstant;
 import com.sgai.pox.engine.core.session.AcctSession;
 import com.sgai.pox.engine.core.session.AssertContext;
 import com.sgai.pox.engine.core.util.CommonUtil;
+import com.sgai.pox.engine.core.util.DateUtil;
 import com.sgai.pox.engine.core.util.ObjectUtils;
 import com.sgai.pox.engine.mapper.FlowableCommonMapper;
 import com.sgai.pox.engine.service.ProcessInstanceService;
@@ -33,6 +34,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,12 +115,12 @@ public class ProcessInstanceServiceImpl implements ProcessInstanceService {
         ProcessInstanceBuilder processInstanceBuilder = runtimeService.createProcessInstanceBuilder();
         processInstanceBuilder.processDefinitionId(definition.getId());
         // 流程实例标题
-        // TODO: 2021/1/7
-        processInstanceBuilder.name("user.getUserRealName()" + definition.getName());
+        processInstanceBuilder.name(acctSession.getUserRealName() + definition.getName()+ DateUtil.dateToStr(new Date(),DateUtil.DATETIME_FORMAT_DEFAULT));
         // 业务key
         processInstanceBuilder.businessKey(processInstanceRequest.getBusinessKey());
         processInstanceBuilder.variables(startVariables);
-
+//        String[] v = { "lrz", "zw", "xym", "zy" };
+//        processInstanceBuilder.variable("assigneeList", Arrays.asList(v));
         ProcessInstance instance = processInstanceBuilder.start();
         String processInstanceId = instance.getProcessInstanceId();
         List<Task> tasks = taskService.createTaskQuery().processInstanceId(processInstanceId).list();

@@ -61,7 +61,7 @@ public class AcctController {
         return securityUser;
     }
 
-    @PostMapping("/logout")
+    @DeleteMapping("/logout")
     public Result logout(HttpServletRequest request , HttpServletResponse response){
         String id = request.getSession().getId();
         LOG.info("sessionId = {}", id);

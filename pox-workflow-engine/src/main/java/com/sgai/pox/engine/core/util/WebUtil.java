@@ -13,7 +13,7 @@ import java.util.StringTokenizer;
  * @description 
  * <p> web工具类 </p>
  * @project 	core
- * @date 		2017年5月27日 上午10:21:02
+ * @date 		2021年01月04日
  */
 public class WebUtil {
 

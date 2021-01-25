@@ -10,8 +10,8 @@ import org.apache.ibatis.reflection.MetaObject;
 import java.util.Date;
 
 /**
- * @author 庄金明
- * @date 2020年3月24日
+ * @author pox
+ * @date 2021年01月04日
  */
 // @Component
 public class GlobalMetaObjectHandler implements MetaObjectHandler {
