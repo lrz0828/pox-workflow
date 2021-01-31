@@ -2,6 +2,10 @@ package com.sgai.pox.test.test.apitest;
 
 import com.sgai.pox.test.config.BaseConfiguation;
 import org.flowable.common.engine.impl.identity.Authentication;
+import org.flowable.engine.ProcessEngineConfiguration;
+import org.flowable.engine.impl.cfg.ProcessEngineConfigurationImpl;
+import org.flowable.engine.impl.persistence.entity.ExecutionEntityManager;
+import org.flowable.engine.runtime.DataObject;
 import org.flowable.engine.runtime.Execution;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.engine.runtime.ProcessInstanceQuery;
@@ -9,6 +13,7 @@ import org.flowable.task.api.TaskQuery;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: lirunze
@@ -62,5 +67,35 @@ public class TestRunTimeService extends BaseConfiguation {
     @Test
     public void queryExecution() {
         List<Execution> list = runtimeService.createExecutionQuery().list();
+    }
+
+    /**
+     * DataObject
+     */
+    @Test
+    public void getDataObject() {
+        String executionId = "";
+        String dataObject = "";
+        DataObject object = runtimeService.getDataObject(executionId, dataObject);
+        Map<String, DataObject> dataObjects = runtimeService.getDataObjects(executionId);
+    }
+
+    /**
+     * 删除流程实例
+     */
+    @Test
+    public void deleteProcessInstance() {
+        String processInstanceId = "";
+        String deleteReason = "";
+        runtimeService.deleteProcessInstance(processInstanceId, deleteReason);
+    }
+
+    /**
+     * 运行的活动节点
+     */
+    @Test
+    public void getActiveActivityIds() {
+        String executionId = "";
+        List<String> activeActivityIds = runtimeService.getActiveActivityIds(executionId);
     }
 }
