@@ -36,6 +36,10 @@ public class FlowableEngineConfig implements EngineConfigurationConfigurer<Sprin
         engineConfiguration.setLabelFontName(flowableFontName);
         engineConfiguration.setAnnotationFontName(flowableFontName);
         engineConfiguration.setTypedEventListeners(customFlowableListeners());
+        engineConfiguration.setDatabaseType("mysql");
+        // 开启异步
+//        engineConfiguration.setAsyncHistoryEnabled(true);
+//        engineConfiguration.setAsyncExecutorAsyncJobAcquisitionEnabled(true);
     }
 
     @Bean

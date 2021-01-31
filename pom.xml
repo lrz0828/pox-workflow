@@ -68,6 +68,7 @@
         <module>pox-workflow-api</module>
         <module>pox-workflow-engine</module>
         <module>pox-workflow-starter</module>
+        <module>pox-workflow-test</module>
     </modules>
 
     <dependencyManagement>

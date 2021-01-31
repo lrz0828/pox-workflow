@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
+  <process id="SubProcessesandCallActivitiesOfMainProcess" name="调用活动（子流程）之主流程" isExecutable="true">
+    <documentation>调用活动（子流程）之主流程</documentation>
+    <startEvent id="thestart"></startEvent>
+    <manualTask id="receiveOrder" name="Receive Order"></manualTask>
+    <callActivity id="callCheckCreditProcess" name="Check credit(调用流程)" calledElement="SubProcessesandCallActivitiesOfSubProcess" flowable:calledElementType="key" flowable:inheritVariables="true" flowable:sameDeployment="true"></callActivity>
+    <userTask id="prepareAndShipTask" name="Prepare and Ship"></userTask>
+    <endEvent id="sid-58EC4F3B-17BE-452F-8E63-EC8F8DD38136"></endEvent>
+    <sequenceFlow id="flow1" name="flow1" sourceRef="thestart" targetRef="receiveOrder"></sequenceFlow>
+    <sequenceFlow id="flow2" name="flow2" sourceRef="receiveOrder" targetRef="callCheckCreditProcess"></sequenceFlow>
+    <sequenceFlow id="flow3" name="flow3" sourceRef="callCheckCreditProcess" targetRef="prepareAndShipTask"></sequenceFlow>
+    <sequenceFlow id="flow4" name="flow4" sourceRef="prepareAndShipTask" targetRef="sid-58EC4F3B-17BE-452F-8E63-EC8F8DD38136"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_SubProcessesandCallActivitiesOfMainProcess">
+    <bpmndi:BPMNPlane bpmnElement="SubProcessesandCallActivitiesOfMainProcess" id="BPMNPlane_SubProcessesandCallActivitiesOfMainProcess">
+      <bpmndi:BPMNShape bpmnElement="thestart" id="BPMNShape_thestart">
+        <omgdc:Bounds height="30.0" width="30.0" x="225.0" y="277.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="receiveOrder" id="BPMNShape_receiveOrder">
+        <omgdc:Bounds height="80.0" width="100.0" x="315.0" y="252.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callCheckCreditProcess" id="BPMNShape_callCheckCreditProcess">
+        <omgdc:Bounds height="81.0" width="152.0" x="495.0" y="252.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="prepareAndShipTask" id="BPMNShape_prepareAndShipTask">
+        <omgdc:Bounds height="82.0" width="147.0" x="720.0" y="252.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-58EC4F3B-17BE-452F-8E63-EC8F8DD38136" id="BPMNShape_sid-58EC4F3B-17BE-452F-8E63-EC8F8DD38136">
+        <omgdc:Bounds height="28.0" width="28.0" x="945.0" y="279.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="254.9499988304931" y="292.0"></omgdi:waypoint>
+        <omgdi:waypoint x="315.0" y="292.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="414.94999999997674" y="292.1212378640776"></omgdi:waypoint>
+        <omgdi:waypoint x="494.99999999998914" y="292.31553398058253"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="646.9499999999792" y="292.6706741573033"></omgdi:waypoint>
+        <omgdi:waypoint x="719.9999999999975" y="292.8348314606742"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="866.9499999999999" y="293.0"></omgdi:waypoint>
+        <omgdi:waypoint x="945.0" y="293.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

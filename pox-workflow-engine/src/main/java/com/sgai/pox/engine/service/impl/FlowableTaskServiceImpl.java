@@ -71,22 +71,29 @@ import java.util.stream.Collectors;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class FlowableTaskServiceImpl implements FlowableTaskService {
+    // 操作用户或者组
     @Autowired
     protected IdentityService identityService;
+    // 操作流程定义
     @Autowired
     protected RepositoryService repositoryService;
+    // 操作任务
     @Autowired
     protected TaskService taskService;
+    // 作流程实例
     @Autowired
     protected RuntimeService runtimeService;
+    // 历史
     @Autowired
     protected HistoryService historyService;
     @Autowired
     protected PermissionServiceImpl permissionService;
     @Autowired
     protected ResponseFactory responseFactory;
+    // 执行cmd及job相关
     @Autowired
     protected ManagementService managementService;
+    // 操作表单
     @Autowired
     protected FormService formService;
 

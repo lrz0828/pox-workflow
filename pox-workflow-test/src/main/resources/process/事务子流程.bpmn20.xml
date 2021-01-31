@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
+  <process id="transactionsubprocesstest" name="事务子流程" isExecutable="true">
+    <documentation>事务子流程</documentation>
+    <startEvent id="startEvent1"></startEvent>
+    <transaction id="transationsubprocesskey" name="事物子流程">
+      <startEvent id="sid-1657CABC-3A85-408D-9E14-0D529381D9ED"></startEvent>
+      <endEvent id="sid-6043B200-A4F8-40BA-9282-E087A8FE03CD"></endEvent>
+      <endEvent id="sid-9CFEB414-CF0D-46FA-8DDE-7A0C8DF0A8F4">
+        <cancelEventDefinition></cancelEventDefinition>
+      </endEvent>
+      <serviceTask id="bookhotel" name="Book hotel" flowable:class="com.study.demo.delegate.BookHotelJavaDelegate">
+        <multiInstanceLoopCharacteristics isSequential="false">
+          <loopCardinality>3</loopCardinality>
+        </multiInstanceLoopCharacteristics>
+      </serviceTask>
+      <serviceTask id="chargecreditcard" name="Charge credit card" flowable:class="com.study.demo.delegate.ChargeCreditCardJavaDelegate"></serviceTask>
+      <userTask id="cancelhotelreservation" name="Cancel hotel reservation" isForCompensation="true"></userTask>
+      <boundaryEvent id="sid-4E4ADBF0-F9ED-4271-A2DE-1D06413205B6" attachedToRef="bookhotel" cancelActivity="false">
+        <compensateEventDefinition></compensateEventDefinition>
+      </boundaryEvent>
+      <boundaryEvent id="cannotchargecard" name="Cannot charge card" attachedToRef="chargecreditcard">
+        <errorEventDefinition></errorEventDefinition>
+      </boundaryEvent>
+      <sequenceFlow id="sid-51598E84-FF6E-4626-BCA5-085108B93BEA" sourceRef="sid-1657CABC-3A85-408D-9E14-0D529381D9ED" targetRef="bookhotel"></sequenceFlow>
+      <sequenceFlow id="sid-117394DD-2D12-4903-A3D7-7B227CCABB69" sourceRef="bookhotel" targetRef="chargecreditcard"></sequenceFlow>
+      <sequenceFlow id="sid-13DF43C6-DE17-427E-ABB3-A5AFC9526F0E" sourceRef="chargecreditcard" targetRef="sid-6043B200-A4F8-40BA-9282-E087A8FE03CD"></sequenceFlow>
+      <sequenceFlow id="sid-CC50DF30-0F45-4551-A707-92C17ADA90C2" sourceRef="cannotchargecard" targetRef="sid-9CFEB414-CF0D-46FA-8DDE-7A0C8DF0A8F4"></sequenceFlow>
+    </transaction>
+    <endEvent id="successful" name="successful"></endEvent>
+    <sequenceFlow id="sid-F2D247C7-0271-416C-891E-5E89D6DA1C47" sourceRef="transationsubprocesskey" targetRef="successful"></sequenceFlow>
+    <endEvent id="hazard" name="hazard"></endEvent>
+    <sequenceFlow id="sid-ED8EBAA0-E591-4783-BE0B-2E6169784BD2" sourceRef="sid-A4BB40FC-8FF9-4903-9F58-D28DC41FBDAB" targetRef="hazard"></sequenceFlow>
+    <endEvent id="cancelled" name="cancelled"></endEvent>
+    <sequenceFlow id="sid-85C72DBC-B5A8-44FB-B9E6-912D5671B814" sourceRef="startEvent1" targetRef="transationsubprocesskey"></sequenceFlow>
+    <boundaryEvent id="sid-A4BB40FC-8FF9-4903-9F58-D28DC41FBDAB" name="booking system failure" attachedToRef="transationsubprocesskey">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <boundaryEvent id="sid-375B3F3F-9B0A-4701-9E4D-164D33D89327" attachedToRef="transationsubprocesskey" cancelActivity="false">
+      <cancelEventDefinition></cancelEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="sid-7ACE8FEB-2C31-467D-8E29-BECCF7DCBE0C" sourceRef="sid-375B3F3F-9B0A-4701-9E4D-164D33D89327" targetRef="cancelled"></sequenceFlow>
+    <association id="sid-F276CA55-6C1D-470C-B16A-52E70FE4F33A" sourceRef="sid-4E4ADBF0-F9ED-4271-A2DE-1D06413205B6" targetRef="cancelhotelreservation" associationDirection="None"></association>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_transactionsubprocesstest">
+    <bpmndi:BPMNPlane bpmnElement="transactionsubprocesstest" id="BPMNPlane_transactionsubprocesstest">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="90.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="transationsubprocesskey" id="BPMNShape_transationsubprocesskey">
+        <omgdc:Bounds height="297.0" width="647.3333333333334" x="255.0" y="136.5"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-1657CABC-3A85-408D-9E14-0D529381D9ED" id="BPMNShape_sid-1657CABC-3A85-408D-9E14-0D529381D9ED">
+        <omgdc:Bounds height="30.0" width="30.0" x="291.33333333333337" y="242.5"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-6043B200-A4F8-40BA-9282-E087A8FE03CD" id="BPMNShape_sid-6043B200-A4F8-40BA-9282-E087A8FE03CD">
+        <omgdc:Bounds height="28.0" width="28.0" x="795.0" y="243.5"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-9CFEB414-CF0D-46FA-8DDE-7A0C8DF0A8F4" id="BPMNShape_sid-9CFEB414-CF0D-46FA-8DDE-7A0C8DF0A8F4">
+        <omgdc:Bounds height="28.0" width="28.0" x="671.8481983755419" y="372.5"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="bookhotel" id="BPMNShape_bookhotel">
+        <omgdc:Bounds height="80.0" width="100.0" x="405.0" y="217.5"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="chargecreditcard" id="BPMNShape_chargecreditcard">
+        <omgdc:Bounds height="80.0" width="100.0" x="600.0" y="217.5"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="cancelhotelreservation" id="BPMNShape_cancelhotelreservation">
+        <omgdc:Bounds height="80.0" width="100.0" x="434.0984457464938" y="345.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-4E4ADBF0-F9ED-4271-A2DE-1D06413205B6" id="BPMNShape_sid-4E4ADBF0-F9ED-4271-A2DE-1D06413205B6">
+        <omgdc:Bounds height="30.0" width="30.0" x="469.0984457464938" y="282.83566749543803"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="cannotchargecard" id="BPMNShape_cannotchargecard">
+        <omgdc:Bounds height="30.0" width="30.0" x="667.9240991877709" y="282.7887326775236"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="successful" id="BPMNShape_successful">
+        <omgdc:Bounds height="28.0" width="28.0" x="995.3333333333334" y="271.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="hazard" id="BPMNShape_hazard">
+        <omgdc:Bounds height="28.0" width="28.0" x="280.5592834368072" y="480.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="cancelled" id="BPMNShape_cancelled">
+        <omgdc:Bounds height="28.0" width="28.0" x="809.9107680111423" y="480.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-F276CA55-6C1D-470C-B16A-52E70FE4F33A" id="BPMNShape_sid-F276CA55-6C1D-470C-B16A-52E70FE4F33A">
+        <omgdc:Bounds height="31.425478596886364" width="0.0" x="484.0984457464938" y="313.57452140311364"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-A4BB40FC-8FF9-4903-9F58-D28DC41FBDAB" id="BPMNShape_sid-A4BB40FC-8FF9-4903-9F58-D28DC41FBDAB">
+        <omgdc:Bounds height="30.0" width="30.0" x="279.5592834368072" y="418.5888548303526"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-375B3F3F-9B0A-4701-9E4D-164D33D89327" id="BPMNShape_sid-375B3F3F-9B0A-4701-9E4D-164D33D89327">
+        <omgdc:Bounds height="30.0" width="30.0" x="808.9107680111423" y="418.7194573646664"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-CC50DF30-0F45-4551-A707-92C17ADA90C2" id="BPMNEdge_sid-CC50DF30-0F45-4551-A707-92C17ADA90C2">
+        <omgdi:waypoint x="683.4166183792482" y="312.7305075593521"></omgdi:waypoint>
+        <omgdi:waypoint x="685.386958053814" y="372.5061976378977"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-117394DD-2D12-4903-A3D7-7B227CCABB69" id="BPMNEdge_sid-117394DD-2D12-4903-A3D7-7B227CCABB69">
+        <omgdi:waypoint x="504.9499999999802" y="257.5"></omgdi:waypoint>
+        <omgdi:waypoint x="600.0" y="257.5"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-7ACE8FEB-2C31-467D-8E29-BECCF7DCBE0C" id="BPMNEdge_sid-7ACE8FEB-2C31-467D-8E29-BECCF7DCBE0C">
+        <omgdi:waypoint x="823.9107680111423" y="448.6694523402918"></omgdi:waypoint>
+        <omgdi:waypoint x="823.9107680111423" y="480.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-ED8EBAA0-E591-4783-BE0B-2E6169784BD2" id="BPMNEdge_sid-ED8EBAA0-E591-4783-BE0B-2E6169784BD2">
+        <omgdi:waypoint x="294.5592834368072" y="448.53884982761883"></omgdi:waypoint>
+        <omgdi:waypoint x="294.5592834368072" y="480.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-85C72DBC-B5A8-44FB-B9E6-912D5671B814" id="BPMNEdge_sid-85C72DBC-B5A8-44FB-B9E6-912D5671B814">
+        <omgdi:waypoint x="119.94999991850366" y="285.0"></omgdi:waypoint>
+        <omgdi:waypoint x="255.0" y="285.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-13DF43C6-DE17-427E-ABB3-A5AFC9526F0E" id="BPMNEdge_sid-13DF43C6-DE17-427E-ABB3-A5AFC9526F0E">
+        <omgdi:waypoint x="699.9499999999999" y="257.5"></omgdi:waypoint>
+        <omgdi:waypoint x="795.0" y="257.5"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-F2D247C7-0271-416C-891E-5E89D6DA1C47" id="BPMNEdge_sid-F2D247C7-0271-416C-891E-5E89D6DA1C47">
+        <omgdi:waypoint x="902.2833333333333" y="285.0"></omgdi:waypoint>
+        <omgdi:waypoint x="995.3333333333334" y="285.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-51598E84-FF6E-4626-BCA5-085108B93BEA" id="BPMNEdge_sid-51598E84-FF6E-4626-BCA5-085108B93BEA">
+        <omgdi:waypoint x="321.28333250643516" y="257.5"></omgdi:waypoint>
+        <omgdi:waypoint x="404.99999999992133" y="257.5"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-F276CA55-6C1D-470C-B16A-52E70FE4F33A" id="BPMNEdge_sid-F276CA55-6C1D-470C-B16A-52E70FE4F33A">
+        <omgdi:waypoint x="484.0984457464938" y="312.7856592915605"></omgdi:waypoint>
+        <omgdi:waypoint x="484.0984457464938" y="345.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

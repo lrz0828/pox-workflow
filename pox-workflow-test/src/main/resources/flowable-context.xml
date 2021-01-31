@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName">
+            <value>com.mysql.jdbc.Driver</value>
+        </property>
+        <property name="url">
+            <value>jdbc:mysql://123.56.175.54:3306/engine?useUnicode=true&amp;characterEncoding=UTF-8
+            </value>
+        </property>
+        <property name="username">
+            <value>root</value>
+        </property>
+        <property name="password" value="1qaz2wsx#"/>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+
+    <bean id="processEngineConfiguration" class="com.sgai.pox.test.config.PoxSpringProcessEngineConfiguration">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="databaseSchemaUpdate" value="true"/>
+        <property name="asyncExecutorActivate" value="true" />
+        <!-- 自动部署-->
+<!--        <property name="deploymentResources" value="classpath*:process/*.bpmn20.xml"/>-->
+<!--        <property name="deploymentMode" value="default" />-->
+
+        <!-- 部署是否生成图片,默认(true)生成图片,对应数据库表:ACT_GE_BYTEARRAY-->
+        <property name="createDiagramOnDeploy" value="false" />
+        <!-- 主键默认递增2500,可配置 -->
+<!--        <property name="idBlockSize" value="1000"/>-->
+        <!-- 主键uuid -->
+        <property name="idGenerator" ref="strongUuidGenerator"/>
+        <!-- 部署设置中文宋体-->
+        <property name="activityFontName" value="宋体" />
+        <property name="labelFontName" value="宋体" />
+        <property name="annotationFontName" value="宋体" />
+        <property name="processEngineLifecycleListener">
+            <bean class="com.sgai.pox.test.listener.PoxProcessEngineLifecycleListener"/>
+        </property>
+    </bean>
+
+    <bean id="strongUuidGenerator" class="org.flowable.common.engine.impl.persistence.StrongUuidGenerator"/>
+     <bean id="processEngine" class="org.flowable.spring.ProcessEngineFactoryBean">
+        <property name="processEngineConfiguration" ref="processEngineConfiguration"/>
+    </bean>
+    <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService"/>
+    <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService"/>
+    <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService"/>
+    <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService"/>
+    <bean id="formService" factory-bean="processEngine" factory-method="getFormService"/>
+    <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService"/>
+   
+  	
+</beans>

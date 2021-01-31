@@ -43,10 +43,12 @@ import java.util.zip.ZipInputStream;
  */
 @Service
 public class ProcessDefinitionServiceImpl implements ProcessDefinitionService {
+    // 操作流程定义
     @Autowired
     protected RepositoryService repositoryService;
     @Autowired
     protected ManagementService managementService;
+    // 作流程实例
     @Autowired
     protected RuntimeService runtimeService;
     @Autowired

@@ -17,7 +17,7 @@ spring:
 mybatis-plus:
   mapper-locations: classpath*:com/**/mapper/xml/*.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.sgai.pox.admin.syx.*.entity
+  typeAliasesPackage: com.sgai.pox.admin.sys.*.entity
   #configuration: #打印sql
   #  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl 
 #springboot监控actuator
