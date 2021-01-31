@@ -1,11 +1,8 @@
-package com.sgai.pox.test.test.engine;
+package com.sgai.pox.test.test.apitest;
 
 import com.sgai.pox.test.config.BaseConfiguation;
 import org.apache.commons.io.FileUtils;
-import org.flowable.engine.ProcessEngine;
 import org.flowable.engine.ProcessEngineConfiguration;
-import org.flowable.engine.ProcessEngines;
-import org.flowable.engine.RepositoryService;
 import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.DeploymentBuilder;
 import org.flowable.engine.repository.DeploymentQuery;
@@ -17,14 +14,12 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Auther: lirunze
  * @Date: 2021/1/26 14:03
- * @Description: 流程引擎
+ * @Description: processEngine, repositoryService
  */
 public class TestProcessEngine extends BaseConfiguation {
 
@@ -33,7 +28,7 @@ public class TestProcessEngine extends BaseConfiguation {
     public void buildEngine1() {
         ProcessEngineConfiguration processEngineConfiguration = ProcessEngineConfiguration.createStandaloneProcessEngineConfiguration();
         processEngineConfiguration.setJdbcDriver("com.mysql.jdbc.Driver");
-        processEngineConfiguration.setJdbcUrl("jdbc:mysql://123.56.175.54:3306/engine?useUnicode=true&amp;characterEncoding=UTF-8");
+        processEngineConfiguration.setJdbcUrl("jdbc:mysql://localhost:3306/engine?useUnicode=true&amp;characterEncoding=UTF-8");
         processEngineConfiguration.setJdbcUsername("root");
         processEngineConfiguration.setJdbcPassword("1qaz2wsx#");
         processEngine = processEngineConfiguration.buildProcessEngine();
