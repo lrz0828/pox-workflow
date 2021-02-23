@@ -1,8 +1,10 @@
 package com.sgai.pox.admin.sys.controller;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sgai.pox.admin.sys.entity.SysPost;
 import com.sgai.pox.engine.core.base.Result;
 import com.sgai.pox.engine.core.base.BaseController;
 import com.sgai.pox.admin.sys.entity.SysRole;
@@ -52,7 +54,21 @@ public class SysRoleController extends BaseController {
         return Result.ok(pageList);
     }
 
-    @PoxPreAuthorize("@elp.single('sys:role:list')")
+    /**
+     * 角色集合
+     *
+     * @param sysRole
+     * @return
+     */
+    @PoxPreAuthorize("@elp.single('sys:role:list:byParams')")
+    @GetMapping(value = "/list/byParams")
+    public Result listAll(SysRole sysRole) {
+        Wrapper<SysRole> queryWrapper = new QueryWrapper(sysRole);
+        List<SysRole> list = sysRoleService.list(queryWrapper);
+        return Result.ok(list);
+    }
+
+    @PoxPreAuthorize("@elp.single('sys:role:queryById')")
     @GetMapping(value = "/queryById")
     public Result queryById(@RequestParam String id) {
         SysRole sysRole = sysRoleService.getById(id);

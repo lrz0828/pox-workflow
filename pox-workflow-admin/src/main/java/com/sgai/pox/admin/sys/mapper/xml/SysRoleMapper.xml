@@ -8,6 +8,7 @@
         select
         a.ROLE_ID as roleId,
         a.ROLE_NAME as roleName,
+        a.ORG_ID as orgId,
         a.SORT_NO as sortNo,
         a.REMARK as remark
 
@@ -18,6 +19,9 @@
         </if>
         <if test="entity.roleName != null and entity.roleName !=''">
             <![CDATA[	AND a.ROLE_NAME = #{entity.roleName}	]]>
+        </if>
+        <if test="entity.orgId != null and entity.postName !=''">
+            <![CDATA[	AND a.ORG_ID = #{entity.orgId}	]]>
         </if>
         order by a.sort_no
     </select>

@@ -59,6 +59,6 @@ pox:
     clients: pox
   resource:
     config:
-      ignoreUrls: /,/oauth/token,/oauth/token_key,/oauth/error,/token/**,/swagger-ui.html,/csrf,/**/*swagger*/**,/v2/**,/webjars/**,/druid/**
+      ignoreUrls: /,/oauth/token,/oauth/token_key,/oauth/error,/token/**,/swagger-ui.html,/csrf,/**/*swagger*/**,/v2/**,/webjars/**,/druid/**,modeler/**
       suffix: .html,.jsp,.css,.png,.js,.ico
     homeUrl: http://localhost:8888/pox

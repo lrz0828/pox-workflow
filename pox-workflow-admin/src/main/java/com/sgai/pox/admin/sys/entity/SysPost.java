@@ -36,6 +36,12 @@ public class SysPost extends BaseEntity {
     private String postName;
 
     /**
+     * 组织编码
+     */
+    @LengthForUtf8(max = 255)
+    private String orgId;
+
+    /**
      * 排序号
      */
     @Max(9999)

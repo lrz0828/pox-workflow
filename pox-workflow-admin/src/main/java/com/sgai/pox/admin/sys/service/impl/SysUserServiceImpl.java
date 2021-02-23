@@ -440,6 +440,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         acctSession.setAdditionalInformation(info.getAdditionalInformation());
         acctSession.setSessionId(acctLogin.getSessionId());
         acctSession.setUserRealName(info.getUserName());
+        acctSession.setRoleId(info.getRoleId());
         //保存到 session 中 60 分钟
         redisUtil.set(key, JacksonUtil.objToStr(acctSession), CacheConstants.TIME_EXPIRE);
 

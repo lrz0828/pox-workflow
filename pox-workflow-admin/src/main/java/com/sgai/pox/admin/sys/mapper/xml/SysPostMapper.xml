@@ -8,6 +8,7 @@
         select
         a.POST_ID as postId,
         a.POST_NAME as postName,
+        a.ORG_ID as orgId,
         a.SORT_NO as sortNo,
         a.REMARK as remark,
         a.CREATE_BY as createBy,
@@ -24,6 +25,9 @@
         </if>
         <if test="entity.postName != null and entity.postName !=''">
             <![CDATA[	AND a.POST_NAME = #{entity.postName}	]]>
+        </if>
+        <if test="entity.orgId != null and entity.postName !=''">
+            <![CDATA[	AND a.ORG_ID = #{entity.orgId}	]]>
         </if>
         order by a.SORT_NO
     </select>

@@ -13,6 +13,9 @@ import com.sgai.pox.engine.core.mybatis.permission.mapper.CommonDataPermissionMa
 import com.sgai.pox.engine.core.permission.SourceStrategy;
 import com.sgai.pox.engine.core.permission.provider.AbstractDataPermissionProvider;
 import com.sgai.pox.engine.core.permission.wrapper.PermissionWrapper;
+import com.sgai.pox.engine.core.session.AcctSession;
+import com.sgai.pox.engine.core.session.AssertContext;
+import com.sgai.pox.engine.core.session.SecurityUser;
 import com.sgai.pox.engine.core.util.ColumnUtils;
 import com.sgai.pox.engine.core.util.CommonUtil;
 import com.sgai.pox.engine.core.util.DateUtil;
@@ -33,8 +36,14 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.function.BiConsumer;
 
 /**
@@ -86,15 +95,15 @@ public class PermissionParser implements ISqlParser, InitializingBean {
         }
         String methodId = mappedStatement.getId();
         DataPermission[] dataPermissions = targetMethod.getAnnotationsByType(DataPermission.class);
-//        SecurityUser securityUser = (SecurityUser) SecurityUtils.getUserDetails();
-//        if (securityUser == null) {
-//            throw new SysException("登录超时，请重新登录");
-//        }
-//        String userId = securityUser.getUsername();
-//        String roleId = securityUser.getRoleId();
+        AcctSession acctSession = AssertContext.get();
+        if (Objects.isNull(acctSession)) {
+            throw new SysException("登录超时，请重新登录");
+        }
+        String userId = acctSession.getUserId();
+        String roleId = acctSession.getRoleId();
 
         // admin用户拥有所有数据权限
-        if (Constants.ADMIN.equals("userId") || dataPermissions == null || dataPermissions.length == 0) {
+        if (Constants.ADMIN.equals(userId) || dataPermissions == null || dataPermissions.length == 0) {
             return SqlInfo.newInstance().setSql(PARSER_EMPTY.parse(sql));
         }
         Configuration configuration = mappedStatement.getConfiguration();
@@ -119,8 +128,8 @@ public class PermissionParser implements ISqlParser, InitializingBean {
             String fieldName = dataPermission.fieldName();
             String additionalParameterName = PERMISSION_WRAPPER + i;
             PermissionWrapper permissionWrapper = new PermissionWrapper(configuration, additionalParameterName);
-            wrapByProviders(permissionWrapper, methodId, providers, providerParams, "userId", "roleId");
-            wrapByTableNames(permissionWrapper, methodId, tableNames, aliasNames, "userId", "roleId");
+            wrapByProviders(permissionWrapper, methodId, providers, providerParams, userId, roleId);
+            wrapByTableNames(permissionWrapper, methodId, tableNames, aliasNames, userId, roleId);
             String replaceStr = OPEN_TOKEN + fieldName + CLOSE_TOKEN;
             String permissionWrapperSql = permissionWrapper.getSqlSegment();
             if (CommonUtil.isEmptyAfterTrim(permissionWrapperSql)) {

@@ -1,5 +1,7 @@
 package com.sgai.pox.admin.sys.controller;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sgai.pox.engine.core.base.Result;
@@ -9,6 +11,7 @@ import com.sgai.pox.admin.sys.entity.SysPost;
 import com.sgai.pox.admin.sys.entity.SysPostUser;
 import com.sgai.pox.admin.sys.entity.SysUser;
 import com.sgai.pox.admin.sys.service.SysPostService;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.sgai.pox.engine.core.annotation.PoxPreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 岗位Controller
@@ -46,6 +50,20 @@ public class SysPostController extends BaseController {
     public Result list(SysPost sysPost, @RequestParam Integer current, @RequestParam Integer size) {
         IPage<SysPost> pageList = sysPostService.list(new Page<SysPost>(current, size), sysPost);
         return Result.ok(pageList);
+    }
+
+    /**
+     * 岗位集合
+     *
+     * @param sysPost
+     * @return
+     */
+    @PoxPreAuthorize("@elp.single('sys:post:list:byParams')")
+    @GetMapping(value = "/list/byParams")
+    public Result listAll(SysPost sysPost) {
+        Wrapper<SysPost> queryWrapper = new QueryWrapper(sysPost);
+        List<SysPost> list = sysPostService.list(queryWrapper);
+        return Result.ok(list);
     }
 
     @PoxPreAuthorize("@elp.single('sys:post:list')")

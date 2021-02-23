@@ -36,7 +36,6 @@ public class SubProcessTest extends BaseConfiguation {
 	@Test
 	public void start() {
 		String processDefinitionKey = "subprocesstest";
-    	
 
         Map<String, Object> vars = new HashMap<String, Object>();
 		runtimeService.startProcessInstanceByKey(processDefinitionKey,vars);
@@ -47,7 +46,7 @@ public class SubProcessTest extends BaseConfiguation {
 	 */
 	@Test
 	public void complete() {
-		String taskId = "177505";
+		String taskId = "09fc1d9d-66c5-11eb-98d7-144f8aa3e4f4";
 		taskService.complete(taskId);
 	}
 	/**

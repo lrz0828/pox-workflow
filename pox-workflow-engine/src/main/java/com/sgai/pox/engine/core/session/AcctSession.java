@@ -21,6 +21,8 @@ public class AcctSession {
 
     private String orgId;
 
+    private String roleId;
+
     private Map<String, Object> additionalInformation;
 
 

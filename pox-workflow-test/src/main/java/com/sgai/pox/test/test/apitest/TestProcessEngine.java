@@ -72,7 +72,7 @@ public class TestProcessEngine extends BaseConfiguation {
 
     @Test
     public void deleteDeployment() {
-        String deploymentId = "2501";
+        String deploymentId = "5001";
         // 删除
 //        repositoryService.deleteDeployment(deploymentId);
         // 删除 包含流程实例

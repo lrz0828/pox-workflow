@@ -36,6 +36,12 @@ public class SysRole extends BaseEntity {
     private String roleName;
 
     /**
+     * 组织编码
+     */
+    @LengthForUtf8(max = 255)
+    private String orgId;
+
+    /**
      * 排序号
      */
     @NotNull
